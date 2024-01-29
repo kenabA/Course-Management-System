@@ -4,6 +4,10 @@
  */
 package cms.Backend;
 
+import java.awt.Color;
+import java.awt.event.FocusEvent;
+import javax.swing.JTextField;
+
 /**
  *
  * @author kenabkc
@@ -21,6 +25,20 @@ public class Logics {
              case 3 -> number + "rd";
              default -> number + "th";
          };
+    }
+     
+     public static void handleFocusGainedLost(JTextField textField, String defaultValue, Color defaultColor, FocusEvent evt) {
+        if (evt.getID() == FocusEvent.FOCUS_GAINED) {
+            if (textField.getText().equals(defaultValue)) {
+                textField.setText("");
+                textField.setForeground(Color.BLACK);
+            }
+        } else if (evt.getID() == FocusEvent.FOCUS_LOST) {
+            if (textField.getText().isEmpty()) {
+                textField.setText(defaultValue);
+                textField.setForeground(defaultColor);
+            }
+        }
     }
 
     

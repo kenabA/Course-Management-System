@@ -5,6 +5,7 @@
 package cms.Frontend.Student;
 
 import cms.Backend.Account;
+import cms.Backend.Logics;
 import cms.Frontend.Login;
 import static cms.Frontend.Student.StudentCourse.centerTableContents;
 import static cms.Frontend.Student.StudentCourse.setTableAppearance;
@@ -67,8 +68,8 @@ public class StudentPanel extends javax.swing.JFrame {
         // Updating the Profile Panel
         profileUsername.setText(this.username);
         profileEmail.setText(this.email);
-        profilePassword.setText("Example");
-        profileConfirmPassword.setText("Example");
+        profilePassword.setText("sample");
+        profileConfirmPassword.setText("sample");
         profilePhone.setText(this.phNum);
 
     }
@@ -1067,6 +1068,14 @@ public class StudentPanel extends javax.swing.JFrame {
         profileUsername.setForeground(new java.awt.Color(158, 160, 170));
         profileUsername.setText("kenabeyy");
         profileUsername.setPreferredSize(new java.awt.Dimension(64, 24));
+        profileUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                profileUsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                profileUsernameFocusLost(evt);
+            }
+        });
         profileUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 profileUsernameActionPerformed(evt);
@@ -1100,13 +1109,25 @@ public class StudentPanel extends javax.swing.JFrame {
         );
 
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel10.setText("Password");
+        jLabel10.setText("New Password");
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/passIcon.png"))); // NOI18N
 
-        profilePassword.setText("hello@123");
         profilePassword.setPreferredSize(new java.awt.Dimension(64, 24));
+        profilePassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                profilePasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                profilePasswordFocusLost(evt);
+            }
+        });
+        profilePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profilePasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -1144,6 +1165,14 @@ public class StudentPanel extends javax.swing.JFrame {
         profilePhone.setForeground(new java.awt.Color(158, 160, 170));
         profilePhone.setText("9841321674");
         profilePhone.setPreferredSize(new java.awt.Dimension(64, 24));
+        profilePhone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                profilePhoneFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                profilePhoneFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -1181,6 +1210,14 @@ public class StudentPanel extends javax.swing.JFrame {
         profileEmail.setForeground(new java.awt.Color(158, 160, 170));
         profileEmail.setText("kebab.bahadur@gmail.com");
         profileEmail.setPreferredSize(new java.awt.Dimension(64, 24));
+        profileEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                profileEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                profileEmailFocusLost(evt);
+            }
+        });
         profileEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 profileEmailActionPerformed(evt);
@@ -1303,8 +1340,15 @@ public class StudentPanel extends javax.swing.JFrame {
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/passIcon.png"))); // NOI18N
 
-        profileConfirmPassword.setText("hello@123");
         profileConfirmPassword.setPreferredSize(new java.awt.Dimension(64, 24));
+        profileConfirmPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                profileConfirmPasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                profileConfirmPasswordFocusLost(evt);
+            }
+        });
         profileConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 profileConfirmPasswordActionPerformed(evt);
@@ -1607,7 +1651,8 @@ public class StudentPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_searchCoursesFocusGained
 
     private void searchCoursesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCoursesFocusLost
-        // TODO add your handling code here:
+     
+// TODO add your handling code here:
         if (searchCourses.getText().isEmpty()) {
             searchCourses.setText("Search course...");
             searchCourses.setForeground(new Color(158, 160, 170));
@@ -1643,6 +1688,62 @@ public class StudentPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_profileConfirmPasswordActionPerformed
 
+    private void profileUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusGained
+        // TODO add your handling code here:
+        Logics.handleFocusGainedLost(profileUsername, this.username, new Color(158,160,170), evt);   
+
+    }//GEN-LAST:event_profileUsernameFocusGained
+
+    private void profileUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusLost
+        // TODO add your handling code here:
+         Logics.handleFocusGainedLost(profileUsername, this.username, new Color(158,160,170), evt);
+        
+    }//GEN-LAST:event_profileUsernameFocusLost
+
+    private void profileEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusGained
+        // TODO add your handling code here:
+         Logics.handleFocusGainedLost(profileEmail, this.email, new Color(158,160,170), evt);
+    }//GEN-LAST:event_profileEmailFocusGained
+
+    private void profileEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusLost
+        // TODO add your handling code here:
+         Logics.handleFocusGainedLost(profileEmail, this.email, new Color(158,160,170), evt);
+    }//GEN-LAST:event_profileEmailFocusLost
+
+    private void profilePasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusGained
+        // TODO add your handling code here:
+         Logics.handleFocusGainedLost(profilePassword, "sample", new Color(158,160,170), evt);
+    }//GEN-LAST:event_profilePasswordFocusGained
+
+    private void profilePasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusLost
+        // TODO add your handling code here:
+         Logics.handleFocusGainedLost(profilePassword, "sample", new Color(158,160,170), evt);
+    }//GEN-LAST:event_profilePasswordFocusLost
+
+    private void profileConfirmPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusGained
+        // TODO add your handling code here:
+         Logics.handleFocusGainedLost(profileConfirmPassword, "sample", new Color(158,160,170), evt);
+    }//GEN-LAST:event_profileConfirmPasswordFocusGained
+
+    private void profileConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusLost
+        // TODO add your handling code here:
+         Logics.handleFocusGainedLost(profileConfirmPassword, "sample", new Color(158,160,170), evt);
+    }//GEN-LAST:event_profileConfirmPasswordFocusLost
+
+    private void profilePhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusGained
+        // TODO add your handling code here:
+         Logics.handleFocusGainedLost(profilePhone, this.phNum, new Color(158,160,170), evt);
+    }//GEN-LAST:event_profilePhoneFocusGained
+
+    private void profilePhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusLost
+        // TODO add your handling code here:
+         Logics.handleFocusGainedLost(profilePhone, this.phNum, new Color(158,160,170), evt);
+    }//GEN-LAST:event_profilePhoneFocusLost
+
+    private void profilePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_profilePasswordActionPerformed
+     
     /**
      * @param args the command line arguments
      */
