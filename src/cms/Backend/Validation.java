@@ -64,15 +64,16 @@ public class Validation {
 
     public static boolean validateIfEmpty(String[] credentials) {
         boolean usertypeValidate = true;
-        if (credentials[7].equals("Select User Type")) {
-
+        int length = credentials.length;
+        if (length >= 7 && credentials[7].equals("Select User Type")) {
             usertypeValidate = false;
             Validation.errorMsg = namingConvention("usertype");
             Validation.errorTitle = "Registration Error";
             JOptionPane.showMessageDialog(null, errorMsg, errorTitle, JOptionPane.INFORMATION_MESSAGE);
+            return !credentials[0].isEmpty() && !credentials[1].isEmpty() && !credentials[2].isEmpty() && !credentials[3].isEmpty() && !credentials[4].isEmpty() && !credentials[5].isEmpty() && !credentials[6].isEmpty() && usertypeValidate;
         }
-
-        return !credentials[0].isEmpty() && !credentials[1].isEmpty() && !credentials[2].isEmpty() && !credentials[3].isEmpty() && !credentials[4].isEmpty() && !credentials[5].isEmpty() && !credentials[6].isEmpty() && usertypeValidate;
+        System.out.println("USING SECOND RETURN");
+        return !credentials[0].isEmpty() && !credentials[1].isEmpty() && !credentials[2].isEmpty() && !credentials[3].isEmpty() && !credentials[4].isEmpty();
 
     }
 

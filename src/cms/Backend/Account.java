@@ -26,6 +26,7 @@ public class Account {
     Icon erIcon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/errorIcon.png"));
     Icon icon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/checkIcon.png"));
 
+    // ------------- INSERTING DATA -------------
     public static void registerAccount(String[] credentials) {
 
         try {
@@ -48,7 +49,8 @@ public class Account {
         }
 
     }
-
+    
+    // ------------- CHECKING DUPLICATE -------------
     public static boolean checkDuplicate(String username, String email, String usertype) {
 
         try {
@@ -81,7 +83,8 @@ public class Account {
         }
         return true;
     }
-
+    
+    // ------------- READING FILES : LOGIN -------------
     public static ResultSet getLoginDetails(Object usertype, String username, String password) {
         try {
             String query = "select * from " + usertype + " where binary username = '" + username + "' and binary password = '" + password + "' ";
@@ -92,7 +95,8 @@ public class Account {
         }
         return null;
     }
-
+    
+    // ------------- LOGGIN ACCOUNT : OPENING NEW PANEL -------------
     public void loginAccount(Object usertype, String username, String password) {
 
         ResultSet loginValidation = getLoginDetails(usertype, username, password);
@@ -124,6 +128,7 @@ public class Account {
 
     }
 
+    // ------------- GETTING ALL USER DATA : USING USERNAME -------------
     public static ResultSet getUserData(String username) {
         try {
             String query = "select * from Student where binary username = '" + username + "' ";
@@ -136,6 +141,7 @@ public class Account {
         return null;
     }
 
+    // ------------- STUDENT COUNT : USING COURSE -------------
     public static int getStudentCount(String course) {
         try {
             String query = "select count(*) as student_count from Student where course = '" + course + "';";
@@ -153,6 +159,7 @@ public class Account {
         return 0;
     }
 
+    // ------------- COURSE ID : USING COURSE -------------
     public static int getCourseId(String course) {
         try {
             String query = "SELECT course_id FROM `Course` WHERE course_name = '" + course + "';";
@@ -168,6 +175,7 @@ public class Account {
 
     }
 
+    // ------------- MODULE COUNT : USING COURSE ID -------------
     public static int getModulesCount(int courseId) {
         try {
             String query = "SELECT COUNT(Module.module_name) AS modules_count FROM Module INNER JOIN Course ON Course.course_id = Module.course_id WHERE Course.course_id = " + courseId + ";";
@@ -182,6 +190,7 @@ public class Account {
         return 0;
     }
 
+    // ------------- ANNOUNCEMENTS : USING COURSE ID -------------
     public static String[][] getAnnouncementData(int courseId) {
 
         String announcementDetails[][] = new String[2][4];
@@ -229,6 +238,7 @@ public class Account {
 
     }
 
+    // ------------- SEMESTER : USING DATE : ACCOUNT CREATION DATE  -------------
     public static String getSemester(String date) {
 
         LocalDate startDate = LocalDate.parse(date);
@@ -244,5 +254,8 @@ public class Account {
 
         return Logics.convertToOrdinal(semester);
     }
+    
+    // ------------- UPDATING DATA : USING NECESSARY DATA : PROFILE SECTION -------------
+    
 
 }

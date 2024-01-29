@@ -244,9 +244,7 @@ public class Login extends javax.swing.JFrame {
 
             if (!username.isEmpty() && !password.isEmpty()) {
                 u1 = new Account();
-                System.out.println("HELLO 1");
                 u1.loginAccount(usertype, username, password);
-                System.out.println("HELLO 2");
             } else {
                 
                 String[] credentials = {username, password};

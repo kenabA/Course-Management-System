@@ -6,6 +6,7 @@ package cms.Frontend.Student;
 
 import cms.Backend.Account;
 import cms.Backend.Logics;
+import cms.Backend.Validation;
 import cms.Frontend.Login;
 import static cms.Frontend.Student.StudentCourse.centerTableContents;
 import static cms.Frontend.Student.StudentCourse.setTableAppearance;
@@ -15,6 +16,7 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -23,6 +25,7 @@ public class StudentPanel extends javax.swing.JFrame {
 
     private String username;
     private int id;
+    private String password;
     private String fName;
     private String lName;
     private String email;
@@ -56,7 +59,6 @@ public class StudentPanel extends javax.swing.JFrame {
         currentSemester.setText(this.semester);
 
         setAnnouncement(this.announcement);
-
         this.model = (DefaultTableModel) coursesTable.getModel();
 
         // Updating the course panel
@@ -68,8 +70,8 @@ public class StudentPanel extends javax.swing.JFrame {
         // Updating the Profile Panel
         profileUsername.setText(this.username);
         profileEmail.setText(this.email);
-        profilePassword.setText("sample");
-        profileConfirmPassword.setText("sample");
+        profilePassword.setText(this.password);
+        profileConfirmPassword.setText(this.password);
         profilePhone.setText(this.phNum);
 
     }
@@ -107,6 +109,7 @@ public class StudentPanel extends javax.swing.JFrame {
                 this.lName = result.getString("l_name");
                 this.email = result.getString("email");
                 this.phNum = result.getString("ph_num");
+                this.password = result.getString("password");
                 this.course = result.getString("course");
                 this.date = result.getString("date_created");
                 this.students = Account.getStudentCount(course);
@@ -1651,7 +1654,7 @@ public class StudentPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_searchCoursesFocusGained
 
     private void searchCoursesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCoursesFocusLost
-     
+
 // TODO add your handling code here:
         if (searchCourses.getText().isEmpty()) {
             searchCourses.setText("Search course...");
@@ -1678,6 +1681,19 @@ public class StudentPanel extends javax.swing.JFrame {
     private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
         // TODO add your handling code here:
 
+        String tempUsername = profileUsername.getText();
+        String tempEmail = profileEmail.getText();
+        String tempPassword = profilePassword.getText();
+        String tempPhNum = profilePhone.getText();
+
+        // String credentails1[] = {this.username, this.email, this.password, this.phNum};
+        if (tempUsername.equals(this.username) && tempEmail.equals(this.email) && tempPassword.equals(this.password) && tempPhNum.equals(this.phNum)) {
+            JOptionPane.showMessageDialog(null, " New values can't be similar to the old values. ", "Registration Error", JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
+            System.out.println("HELLO DIFFERENT VALUES");
+        }
+
     }//GEN-LAST:event_saveBtnMouseClicked
 
     private void profileEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileEmailActionPerformed
@@ -1690,60 +1706,60 @@ public class StudentPanel extends javax.swing.JFrame {
 
     private void profileUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusGained
         // TODO add your handling code here:
-        Logics.handleFocusGainedLost(profileUsername, this.username, new Color(158,160,170), evt);   
+        Logics.handleFocusGainedLost(profileUsername, this.username, new Color(158, 160, 170), evt);
 
     }//GEN-LAST:event_profileUsernameFocusGained
 
     private void profileUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusLost
         // TODO add your handling code here:
-         Logics.handleFocusGainedLost(profileUsername, this.username, new Color(158,160,170), evt);
-        
+        Logics.handleFocusGainedLost(profileUsername, this.username, new Color(158, 160, 170), evt);
+
     }//GEN-LAST:event_profileUsernameFocusLost
 
     private void profileEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusGained
         // TODO add your handling code here:
-         Logics.handleFocusGainedLost(profileEmail, this.email, new Color(158,160,170), evt);
+        Logics.handleFocusGainedLost(profileEmail, this.email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusGained
 
     private void profileEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusLost
         // TODO add your handling code here:
-         Logics.handleFocusGainedLost(profileEmail, this.email, new Color(158,160,170), evt);
+        Logics.handleFocusGainedLost(profileEmail, this.email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusLost
 
     private void profilePasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusGained
         // TODO add your handling code here:
-         Logics.handleFocusGainedLost(profilePassword, "sample", new Color(158,160,170), evt);
+        Logics.handleFocusGainedLost(profilePassword, this.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusGained
 
     private void profilePasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusLost
         // TODO add your handling code here:
-         Logics.handleFocusGainedLost(profilePassword, "sample", new Color(158,160,170), evt);
+        Logics.handleFocusGainedLost(profilePassword, this.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusLost
 
     private void profileConfirmPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusGained
         // TODO add your handling code here:
-         Logics.handleFocusGainedLost(profileConfirmPassword, "sample", new Color(158,160,170), evt);
+        Logics.handleFocusGainedLost(profileConfirmPassword, this.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusGained
 
     private void profileConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusLost
         // TODO add your handling code here:
-         Logics.handleFocusGainedLost(profileConfirmPassword, "sample", new Color(158,160,170), evt);
+        Logics.handleFocusGainedLost(profileConfirmPassword, this.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusLost
 
     private void profilePhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusGained
         // TODO add your handling code here:
-         Logics.handleFocusGainedLost(profilePhone, this.phNum, new Color(158,160,170), evt);
+        Logics.handleFocusGainedLost(profilePhone, this.phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusGained
 
     private void profilePhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusLost
         // TODO add your handling code here:
-         Logics.handleFocusGainedLost(profilePhone, this.phNum, new Color(158,160,170), evt);
+        Logics.handleFocusGainedLost(profilePhone, this.phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusLost
 
     private void profilePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_profilePasswordActionPerformed
-     
+
     /**
      * @param args the command line arguments
      */
