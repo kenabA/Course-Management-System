@@ -9,8 +9,6 @@ import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
-    
-    
 
     /*
      * Initializing the GUI Components through constructor.
@@ -242,13 +240,12 @@ public class Login extends javax.swing.JFrame {
 
             Object usertype = loginUsertype.getSelectedItem();
             Icon erIcon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/errorIcon.png"));
-            
 
             if (!username.isEmpty() && !password.isEmpty()) {
                 u1 = new Account();
                 u1.loginAccount(usertype, username, password);
             } else {
-                
+
                 String[] credentials = {username, password};
                 String[] credentialStr = {"Username", "Password"};
                 for (int i = 0; i < credentials.length; i++) {
