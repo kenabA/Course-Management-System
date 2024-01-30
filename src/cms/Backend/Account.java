@@ -23,6 +23,9 @@ public class Account {
     private static final Con c = new Con();
     StudentPanel sp;
 
+    private static String usertype;
+    private static int id;
+
     Icon erIcon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/errorIcon.png"));
     Icon icon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/checkIcon.png"));
 
@@ -49,7 +52,7 @@ public class Account {
         }
 
     }
-    
+
     // ------------- CHECKING DUPLICATE -------------
     public static boolean checkDuplicate(String username, String email, String usertype) {
 
@@ -83,7 +86,7 @@ public class Account {
         }
         return true;
     }
-    
+
     // ------------- READING FILES : LOGIN -------------
     public static ResultSet getLoginDetails(Object usertype, String username, String password) {
         try {
@@ -95,7 +98,7 @@ public class Account {
         }
         return null;
     }
-    
+
     // ------------- LOGGIN ACCOUNT : OPENING NEW PANEL -------------
     public void loginAccount(Object usertype, String username, String password) {
 
@@ -106,7 +109,8 @@ public class Account {
                 UIManager.put("OptionPane.okButtonText", "OK");
                 JOptionPane.showMessageDialog(null, "You have successfully logged into your account.", "Login Successful", JOptionPane.INFORMATION_MESSAGE, icon);
                 UIManager.put("JOptionPane.okButtonText", "OK");
-
+                Account.usertype = usertype.toString();
+                Account.id = loginValidation.getInt("id");
                 if (usertype.equals("Student")) {
                     sp = new StudentPanel();
                     sp.setVisible(true);
@@ -254,8 +258,32 @@ public class Account {
 
         return Logics.convertToOrdinal(semester);
     }
-    
-    // ------------- UPDATING DATA : USING NECESSARY DATA : PROFILE SECTION -------------
-    
 
+    // ------------- UPDATING DATA : USING NECESSARY DATA : PROFILE SECTION -------------
+    public static boolean updateProfile(String[] updatingDetails, int id) {
+
+        String query;
+        query = "UPDATE " + Account.usertype
+                + " SET username = ?, email = ?, password = ?, ph_num = ?  WHERE id = ? ;";
+
+        try {
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setString(1, updatingDetails[0]);
+            preparedStatement.setString(2, updatingDetails[1]);
+            preparedStatement.setString(3, updatingDetails[2]);
+            preparedStatement.setString(4, updatingDetails[3]);
+            preparedStatement.setInt(5,id);
+
+            preparedStatement.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Successfully updated values.", "Profile Update", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
 }

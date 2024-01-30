@@ -9,6 +9,8 @@ import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
+    
+    
 
     /*
      * Initializing the GUI Components through constructor.
@@ -239,8 +241,8 @@ public class Login extends javax.swing.JFrame {
             String password = loginPassword.getText();
 
             Object usertype = loginUsertype.getSelectedItem();
-            
             Icon erIcon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/errorIcon.png"));
+            
 
             if (!username.isEmpty() && !password.isEmpty()) {
                 u1 = new Account();

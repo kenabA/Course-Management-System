@@ -13,7 +13,7 @@ public class Validation {
     private static String errorMsg;
     private static String errorTitle;
 
-    private static String namingConvention(String field) {
+    public static String namingConvention(String field) {
 
         return switch (field) {
 
@@ -56,6 +56,13 @@ public class Validation {
                 """
                            Passwords do not match or do not meet the criteria.
                             """;
+
+            case "blankValue" ->
+                """
+                         Profile Updating Conventions :
+                          1. Values cannot be blank.
+                          2. Updated data can't be similar to the old ones.
+                """;
 
             default ->
                 "Error in the format";

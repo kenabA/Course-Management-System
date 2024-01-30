@@ -7,6 +7,7 @@ package cms.Frontend.Student;
 import cms.Backend.Account;
 import cms.Backend.Logics;
 import cms.Backend.Validation;
+import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.Login;
 import static cms.Frontend.Student.StudentCourse.centerTableContents;
 import static cms.Frontend.Student.StudentCourse.setTableAppearance;
@@ -14,6 +15,7 @@ import java.sql.ResultSet;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -1686,13 +1688,19 @@ public class StudentPanel extends javax.swing.JFrame {
         String tempPassword = profilePassword.getText();
         String tempPhNum = profilePhone.getText();
 
-        // String credentails1[] = {this.username, this.email, this.password, this.phNum};
+        String credentials1[] = {this.username, this.email, this.password, this.phNum};
+        String details[] = {tempUsername, tempEmail, tempPassword, tempPhNum};
+
         if (tempUsername.equals(this.username) && tempEmail.equals(this.email) && tempPassword.equals(this.password) && tempPhNum.equals(this.phNum)) {
-            JOptionPane.showMessageDialog(null, " New values can't be similar to the old values. ", "Registration Error", JOptionPane.INFORMATION_MESSAGE);
+
+            JOptionPane.showMessageDialog(null, namingConvention("blankValue"), "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
-            System.out.println("HELLO DIFFERENT VALUES");
-        }
+            // VALIDATE FIRST
+             Account.updateProfile(details, this.id);
+                 
+             }
+        
 
     }//GEN-LAST:event_saveBtnMouseClicked
 
