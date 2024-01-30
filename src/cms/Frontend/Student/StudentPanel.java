@@ -5,6 +5,7 @@ package cms.Frontend.Student;
 
 import cms.Backend.Account;
 import cms.Backend.Logics;
+import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.Login;
 import static cms.Frontend.Student.StudentCourse.centerTableContents;
@@ -32,6 +33,8 @@ public class StudentPanel extends javax.swing.JFrame {
     private String course;
     private static String date;
     private String modules;
+
+    private final String role = "Student";
 
     private int courseId;
     private int students;
@@ -1618,6 +1621,7 @@ public class StudentPanel extends javax.swing.JFrame {
         tab1.setBackground(new java.awt.Color(255, 255, 255));
         tab3.setBackground(new java.awt.Color(255, 255, 255));
         tab4.setBackground(new java.awt.Color(255, 255, 255));
+
     }//GEN-LAST:event_tab5MouseClicked
 
     private void searchCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCoursesActionPerformed
@@ -1652,6 +1656,7 @@ public class StudentPanel extends javax.swing.JFrame {
         coursesTable.setRowSorter(obj1);
         RowFilter filterRow = RowFilter.regexFilter(searchCourses.getText());
         obj1.setRowFilter(filterRow);
+
     }//GEN-LAST:event_searchCoursesKeyReleased
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
@@ -1670,8 +1675,8 @@ public class StudentPanel extends javax.swing.JFrame {
             String tempEmail = profileEmail.getText();
             String tempPassword = profilePassword.getText();
             String tempPhNum = profilePhone.getText();
+            String tempConfirmPassword = profileConfirmPassword.getText();
 
-            String credentials[] = {this.username, this.email, this.password, this.phNum};
             String details[] = {tempUsername, tempEmail, tempPassword, tempPhNum};
 
             if (tempUsername.equals(this.username) && tempEmail.equals(this.email) && tempPassword.equals(this.password) && tempPhNum.equals(this.phNum)) {
@@ -1680,16 +1685,18 @@ public class StudentPanel extends javax.swing.JFrame {
 
             } else {
 
-                // VALIDATE FIRST LEFT
-                
-                // UPDATING THE DATA INTO THE DATABASE
-                Account.updateProfile(details, this.id);
+                // Validating the details that the user wants to change
+                if (Validation.validateDetails(details, tempConfirmPassword, role)) {
 
-                // this.data gets initialized to the changed data
-                this.username = tempUsername;
-                this.email = tempEmail;
-                this.password = tempPassword;
-                this.phNum = tempPhNum;
+                    // UPDATING THE DATA INTO THE DATABASE
+                    Account.updateProfile(details, this.id);
+
+                    // this.data gets initialized to the changed data
+                    this.username = tempUsername;
+                    this.email = tempEmail;
+                    this.password = tempPassword;
+                    this.phNum = tempPhNum;
+                }
 
             }
 

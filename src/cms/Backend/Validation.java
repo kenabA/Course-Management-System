@@ -134,6 +134,54 @@ Profile Updating Conventions :
         return Account.checkDuplicate(username, email, usertype);
 
     }
+    
+    // Used concept of overriding 
+    
+     public static boolean validateDetails(String details[], String rePass, String role) {
+
+        String[] detailFields = {"Username", "Phone", "Email", "Pass"};
+
+        for (String detail : detailFields) {
+
+            switch (detail) {
+
+              
+
+                case "Username":
+
+                    if (!validateUsername(details[0])) {
+                        return false;
+                    }
+
+                case "Email":
+
+                    if (!validateEmail(details[1])) {
+                        return false;
+                    }
+
+                case "Phone":
+
+                    if (!validatePhone(details[3])) {
+                        return false;
+                    }
+
+                case "Pass":
+
+                    if (!validatePass(details[2])) {
+                        return false;
+                    }
+
+                case "Repass":
+
+                    if (!validateRepass(details[2], rePass)) {
+                        return false;
+                    }
+            }
+        }
+
+        return Account.checkDuplicate(details[0], details[1], role);
+
+    }
 
     private static boolean validateName(String fName, String lName) {
 

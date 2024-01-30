@@ -49,7 +49,7 @@ public class Logics {
     public static boolean showConfirmationDialog() {
         int option = JOptionPane.showConfirmDialog(
                 null,
-                "Do you want to proceed with the operation?",
+                "Do you want to make changes to your profile?",
                 "Confirmation",
                 JOptionPane.YES_NO_OPTION);
 
