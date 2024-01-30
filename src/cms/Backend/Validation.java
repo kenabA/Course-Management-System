@@ -19,49 +19,49 @@ public class Validation {
 
             case "usertype" ->
                 """
-                               Please select a user type.
+Please select a user type.
                                """;
 
             case "username" ->
                 """
-                               Naming Conventions :
-                               1. Username must have more than 4 & less than 16 characters.
-                               2. Username must start with a letter.
-                               3. Special characters are not allowed.
-                               4. You may use underscore ( _ ).""";
+Naming Conventions :
+1. Username must have more than 4 & less than 16 characters.
+2. Username must start with a letter.
+3. Special characters are not allowed.
+4. You may use underscore ( _ ).""";
 
             case "email" ->
                 """
-                            Email Conventions :
-                            1. Must use 'heraldcollege.edu.np' as the domain.
-                            2. Email must have at least 5 characters before ' @ '.
-                            3. You may use numbers & dot ( . ).
-                            """;
+Email Conventions :
+1. Must use 'heraldcollege.edu.np' as the domain.
+2. Email must have at least 5 characters before ' @ '.
+3. You may use numbers & dot ( . ).
+""";
 
             case "phone" ->
                 """
-                            Phone Number Conventions :
-                            1. All digits must be numeric, no letter allowed.
-                            2. Total digits must be 10.
-                            """;
+Phone Number Conventions :
+1. All digits must be numeric, no letter allowed.
+2. Total digits must be 10.
+""";
 
             case "pass" ->
                 """
-                           Password Conventions :
-                            1. Must contain at least one special character (!,@,#,$,%).
-                            2. Total digits must be greater or equal to 8.
-                            """;
+Password Conventions :
+1. Must contain at least one special character (!,@,#,$,%).
+2. Total digits must be greater or equal to 8.
+""";
 
             case "rePass" ->
                 """
-                           Passwords do not match or do not meet the criteria.
-                            """;
+Passwords do not match or do not meet the criteria.
+""";
 
             case "blankValue" ->
                 """
-                         Profile Updating Conventions :
-                          1. Values cannot be blank.
-                          2. Updated data can't be similar to the old ones.
+Profile Updating Conventions :
+1. Values cannot be blank.
+2. Updated data can't be similar to the old ones.
                 """;
 
             default ->

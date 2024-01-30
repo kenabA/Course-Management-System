@@ -126,7 +126,6 @@ public class StudentPanel extends javax.swing.JFrame {
     /*
      * @param username
      */
-    
     @Override
     public void setName(String username) {
         this.username = username;
@@ -1622,16 +1621,15 @@ public class StudentPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_tab5MouseClicked
 
     private void searchCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCoursesActionPerformed
-        
+
     }//GEN-LAST:event_searchCoursesActionPerformed
 
     private void searchCoursesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCoursesMouseClicked
-        
+
 
     }//GEN-LAST:event_searchCoursesMouseClicked
 
     private void searchCoursesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCoursesFocusGained
-        
 
         if (searchCourses.getText().equals("Search course...")) {
             searchCourses.setText("");
@@ -1649,7 +1647,7 @@ public class StudentPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_searchCoursesFocusLost
 
     private void searchCoursesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchCoursesKeyReleased
-        
+
         TableRowSorter<DefaultTableModel> obj1 = new TableRowSorter<>(this.model);
         coursesTable.setRowSorter(obj1);
         RowFilter filterRow = RowFilter.regexFilter(searchCourses.getText());
@@ -1657,34 +1655,45 @@ public class StudentPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_searchCoursesKeyReleased
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        
+
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void profileUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileUsernameActionPerformed
-        
+
     }//GEN-LAST:event_profileUsernameActionPerformed
 
     private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
-        
 
-        String tempUsername = profileUsername.getText();
-        String tempEmail = profileEmail.getText();
-        String tempPassword = profilePassword.getText();
-        String tempPhNum = profilePhone.getText();
+        if (Logics.showConfirmationDialog()) {
 
-        String credentials1[] = {this.username, this.email, this.password, this.phNum};
-        String details[] = {tempUsername, tempEmail, tempPassword, tempPhNum};
+            String tempUsername = profileUsername.getText();
+            String tempEmail = profileEmail.getText();
+            String tempPassword = profilePassword.getText();
+            String tempPhNum = profilePhone.getText();
 
-        if (tempUsername.equals(this.username) && tempEmail.equals(this.email) && tempPassword.equals(this.password) && tempPhNum.equals(this.phNum)) {
+            String credentials[] = {this.username, this.email, this.password, this.phNum};
+            String details[] = {tempUsername, tempEmail, tempPassword, tempPhNum};
 
-            JOptionPane.showMessageDialog(null, namingConvention("blankValue"), "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
+            if (tempUsername.equals(this.username) && tempEmail.equals(this.email) && tempPassword.equals(this.password) && tempPhNum.equals(this.phNum)) {
 
-        } else {
-            // VALIDATE FIRST
-            Account.updateProfile(details, this.id);
+                JOptionPane.showMessageDialog(null, namingConvention("blankValue"), "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+
+                // VALIDATE FIRST LEFT
+                
+                // UPDATING THE DATA INTO THE DATABASE
+                Account.updateProfile(details, this.id);
+
+                // this.data gets initialized to the changed data
+                this.username = tempUsername;
+                this.email = tempEmail;
+                this.password = tempPassword;
+                this.phNum = tempPhNum;
+
+            }
 
         }
-
 
     }//GEN-LAST:event_saveBtnMouseClicked
 
@@ -1724,22 +1733,22 @@ public class StudentPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_profilePasswordFocusGained
 
     private void profilePasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusLost
-        
+
         Logics.handleFocusGainedLost(profilePassword, this.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusLost
 
     private void profileConfirmPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusGained
-        
+
         Logics.handleFocusGainedLost(profileConfirmPassword, this.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusGained
 
     private void profileConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusLost
-        
+
         Logics.handleFocusGainedLost(profileConfirmPassword, this.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusLost
 
     private void profilePhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusGained
-        
+
         Logics.handleFocusGainedLost(profilePhone, this.phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusGained
 
