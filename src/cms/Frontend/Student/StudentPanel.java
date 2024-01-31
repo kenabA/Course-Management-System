@@ -7,7 +7,6 @@ import cms.Backend.Account;
 import cms.Backend.Logics;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
-import cms.Frontend.Button.TableActionCellRender;
 import cms.Frontend.Login;
 import static cms.Frontend.Student.StudentCourse.alignTableContents;
 import static cms.Frontend.Student.StudentCourse.setTableAppearance;
@@ -21,8 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -70,7 +67,6 @@ public class StudentPanel extends javax.swing.JFrame {
 
         // Updating the course panel
         this.model = (DefaultTableModel) coursesTable.getModel();
-
         StudentCourse.updateDetails(courseId, model, "t1");
         alignTableContents(coursesTable);
         setTableAppearance(coursesTable);
@@ -84,10 +80,9 @@ public class StudentPanel extends javax.swing.JFrame {
 
         // Updating the Grades Tables
         this.model2 = (DefaultTableModel) gradesTable.getModel();
+        StudentCourse.updateDetails(this.id, model2, "t2");
         alignTableContents(gradesTable);
         setTableAppearance(gradesTable);
-        gradesTable.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRender());
-        StudentCourse.updateDetails(courseId, model2, "t2");
 
     }
 
@@ -219,7 +214,7 @@ public class StudentPanel extends javax.swing.JFrame {
         tableScrollPanel1 = new javax.swing.JScrollPane();
         gradesTable = new javax.swing.JTable();
         jPanel25 = new javax.swing.JPanel();
-        searchCourses1 = new javax.swing.JTextField();
+        searchGrades = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         panelFourth = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -1033,14 +1028,14 @@ public class StudentPanel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Module", "Semester", "Report"
+                "Module ID", "Module", "Semester", "Percentage", "Grade"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1061,38 +1056,39 @@ public class StudentPanel extends javax.swing.JFrame {
             gradesTable.getColumnModel().getColumn(0).setPreferredWidth(20);
             gradesTable.getColumnModel().getColumn(1).setPreferredWidth(300);
             gradesTable.getColumnModel().getColumn(2).setPreferredWidth(30);
-            gradesTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+            gradesTable.getColumnModel().getColumn(3).setPreferredWidth(30);
+            gradesTable.getColumnModel().getColumn(4).setPreferredWidth(30);
         }
 
         jPanel25.setBackground(new java.awt.Color(255, 255, 255));
         jPanel25.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
 
-        searchCourses1.setForeground(new java.awt.Color(158, 160, 170));
-        searchCourses1.setText("Search course...");
-        searchCourses1.setBorder(null);
-        searchCourses1.setName(""); // NOI18N
-        searchCourses1.setPreferredSize(new java.awt.Dimension(64, 24));
-        searchCourses1.addFocusListener(new java.awt.event.FocusAdapter() {
+        searchGrades.setForeground(new java.awt.Color(158, 160, 170));
+        searchGrades.setText("Search course...");
+        searchGrades.setBorder(null);
+        searchGrades.setName(""); // NOI18N
+        searchGrades.setPreferredSize(new java.awt.Dimension(64, 24));
+        searchGrades.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                searchCourses1FocusGained(evt);
+                searchGradesFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                searchCourses1FocusLost(evt);
+                searchGradesFocusLost(evt);
             }
         });
-        searchCourses1.addMouseListener(new java.awt.event.MouseAdapter() {
+        searchGrades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchCourses1MouseClicked(evt);
+                searchGradesMouseClicked(evt);
             }
         });
-        searchCourses1.addActionListener(new java.awt.event.ActionListener() {
+        searchGrades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchCourses1ActionPerformed(evt);
+                searchGradesActionPerformed(evt);
             }
         });
-        searchCourses1.addKeyListener(new java.awt.event.KeyAdapter() {
+        searchGrades.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                searchCourses1KeyReleased(evt);
+                searchGradesKeyReleased(evt);
             }
         });
 
@@ -1106,7 +1102,7 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchCourses1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchGrades, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel25Layout.setVerticalGroup(
@@ -1115,7 +1111,7 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel14)
-                    .addComponent(searchCourses1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchGrades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
@@ -1934,25 +1930,39 @@ public class StudentPanel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_directEmailMouseClicked
 
-    private void searchCourses1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCourses1FocusGained
+    private void searchGradesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchGradesFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchCourses1FocusGained
+        if (searchGrades.getText().equals("Search course...")) {
+            searchGrades.setText("");
+            searchGrades.setForeground(Color.BLACK);
+        }
 
-    private void searchCourses1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCourses1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchCourses1FocusLost
+    }//GEN-LAST:event_searchGradesFocusGained
 
-    private void searchCourses1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCourses1MouseClicked
+    private void searchGradesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchGradesFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchCourses1MouseClicked
+        if (searchGrades.getText().isEmpty()) {
+            searchGrades.setText("Search course...");
+            searchGrades.setForeground(new Color(158, 160, 170));
+        }
+    }//GEN-LAST:event_searchGradesFocusLost
 
-    private void searchCourses1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCourses1ActionPerformed
+    private void searchGradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchGradesMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchCourses1ActionPerformed
+    }//GEN-LAST:event_searchGradesMouseClicked
 
-    private void searchCourses1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchCourses1KeyReleased
+    private void searchGradesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchGradesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchCourses1KeyReleased
+    }//GEN-LAST:event_searchGradesActionPerformed
+
+    private void searchGradesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchGradesKeyReleased
+        // TODO add your handling code here:
+
+        TableRowSorter<DefaultTableModel> obj1 = new TableRowSorter<>(this.model2);
+        gradesTable.setRowSorter(obj1);
+        RowFilter filterRow = RowFilter.regexFilter(searchGrades.getText());
+        obj1.setRowFilter(filterRow);
+    }//GEN-LAST:event_searchGradesKeyReleased
 
     /**
      * @param args the command line arguments
@@ -2055,7 +2065,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JTextField profileUsername;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchCourses;
-    private javax.swing.JTextField searchCourses1;
+    private javax.swing.JTextField searchGrades;
     private javax.swing.JPanel secondAnnouncementPanel;
     private javax.swing.JLabel stdPanelName;
     private javax.swing.JLabel studentCount;

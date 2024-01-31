@@ -5,6 +5,7 @@ package cms.Backend;
 
 import cms.Frontend.AdminPanel;
 import cms.Frontend.Button.PanelAction;
+import cms.Frontend.Button.SuccessActionCellRender;
 import cms.Frontend.Student.StudentPanel;
 import cms.Frontend.TeacherPanel;
 import java.sql.ResultSet;
@@ -328,12 +329,20 @@ public class Account {
     public static void forTable2(int courseId, DefaultTableModel model) {
         try {
             String query = """
-                                SELECT Module.module_id, Module.module_name, Module.semester
-                                                                FROM Module
-                                                                INNER JOIN Course ON Course.course_id = Module.course_id
-                                                                WHERE Course.course_id = ?
+                                SELECT
+                                                                    Module.module_id,
+                                                                    Module.module_name,
+                                                                    Module.semester,
+                                                                    Grade.grade
+                                                                
+                                                                FROM
+                                                                	Grade
+                                                                INNER JOIN Module ON Module.module_id = Grade.module_id
+                                                                INNER JOIN Student ON Student.id = Grade.student_id
+                                                                WHERE
+                                                                    Student.id = ?;
                                 """;
-            
+
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setInt(1, courseId);
 
@@ -344,8 +353,10 @@ public class Account {
                 String moduleId = String.valueOf(resultSet.getInt("module_id"));
                 String name = resultSet.getString("module_name");
                 String sem = String.valueOf(resultSet.getInt("semester"));
+                String percentage = String.valueOf(resultSet.getInt("grade")) + "%";
+                String grade = Logics.getGrades(resultSet.getInt("grade"));
+                String row[] = {moduleId, name, sem, percentage, grade};
 
-                String row[] = {moduleId, name, sem};
                 model.addRow(row);
 
             }
