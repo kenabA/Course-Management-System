@@ -13,6 +13,8 @@ import static cms.Frontend.Student.StudentCourse.setTableAppearance;
 import java.sql.ResultSet;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +44,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private String announcement[][];
 
     DefaultTableModel model;
+    DefaultTableModel model2;
 
     /**
      * Creates new form StudentPanel
@@ -64,7 +67,8 @@ public class StudentPanel extends javax.swing.JFrame {
 
         // Updating the course panel
         this.model = (DefaultTableModel) coursesTable.getModel();
-        StudentCourse.updateDetails(courseId, model);
+
+        StudentCourse.updateDetails(courseId, model, "t1");
         centerTableContents(coursesTable);
         setTableAppearance(coursesTable);
 
@@ -74,6 +78,12 @@ public class StudentPanel extends javax.swing.JFrame {
         profilePassword.setText(this.password);
         profileConfirmPassword.setText(this.password);
         profilePhone.setText(this.phNum);
+
+        // Updating the Grades Table
+        this.model2 = (DefaultTableModel) gradesTable.getModel();
+        centerTableContents(gradesTable);
+        setTableAppearance(gradesTable);
+        StudentCourse.updateDetails(courseId, model2, "t2");
 
     }
 
@@ -158,7 +168,7 @@ public class StudentPanel extends javax.swing.JFrame {
         usertypeShow = new javax.swing.JLabel();
         tabName = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        directEmail = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelFirst = new javax.swing.JPanel();
@@ -201,8 +211,12 @@ public class StudentPanel extends javax.swing.JFrame {
         searchCourses = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         panelThird = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        tableScrollPanel1 = new javax.swing.JScrollPane();
+        gradesTable = new javax.swing.JTable();
+        jPanel25 = new javax.swing.JPanel();
+        searchCourses1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
         panelFourth = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -465,7 +479,13 @@ public class StudentPanel extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/whiteUser.png"))); // NOI18N
 
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/mainMail.png"))); // NOI18N
+        directEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/mainMail.png"))); // NOI18N
+        directEmail.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        directEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                directEmailMouseClicked(evt);
+            }
+        });
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -477,7 +497,7 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(tabName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 513, Short.MAX_VALUE)
-                .addComponent(jLabel15)
+                .addComponent(directEmail)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -496,7 +516,7 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jSeparator4)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(directEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                             .addComponent(stdPanelName)
                             .addGap(2, 2, 2)
@@ -870,7 +890,7 @@ public class StudentPanel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Module", "Course", "Semester", "Instructor"
+                "ID", "Module", "Courses", "Semester", "Instructor"
             }
         ) {
             Class[] types = new Class [] {
@@ -903,7 +923,7 @@ public class StudentPanel extends javax.swing.JFrame {
             coursesTable.getColumnModel().getColumn(3).setResizable(false);
             coursesTable.getColumnModel().getColumn(3).setPreferredWidth(30);
             coursesTable.getColumnModel().getColumn(4).setResizable(false);
-            coursesTable.getColumnModel().getColumn(4).setPreferredWidth(200);
+            coursesTable.getColumnModel().getColumn(4).setPreferredWidth(50);
         }
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
@@ -986,7 +1006,7 @@ public class StudentPanel extends javax.swing.JFrame {
         panelSecond.setLayout(panelSecondLayout);
         panelSecondLayout.setHorizontalGroup(
             panelSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelSecondLayout.setVerticalGroup(
             panelSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -997,37 +1017,143 @@ public class StudentPanel extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab2", panelSecond);
 
-        jPanel5.setBackground(new java.awt.Color(153, 0, 204));
+        jPanel18.setBackground(new java.awt.Color(250, 250, 250));
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("This is panel 3");
+        tableScrollPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
+        tableScrollPanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(433, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(382, 382, 382))
+        gradesTable.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        gradesTable.setForeground(new java.awt.Color(51, 51, 51));
+        gradesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Module", "Semester", "Report"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        gradesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        gradesTable.setGridColor(new java.awt.Color(238, 238, 238));
+        gradesTable.setIgnoreRepaint(true);
+        gradesTable.getTableHeader().setReorderingAllowed(false);
+        tableScrollPanel1.setViewportView(gradesTable);
+        if (gradesTable.getColumnModel().getColumnCount() > 0) {
+            gradesTable.getColumnModel().getColumn(0).setResizable(false);
+            gradesTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+            gradesTable.getColumnModel().getColumn(1).setResizable(false);
+            gradesTable.getColumnModel().getColumn(1).setPreferredWidth(300);
+            gradesTable.getColumnModel().getColumn(2).setResizable(false);
+            gradesTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+            gradesTable.getColumnModel().getColumn(3).setResizable(false);
+            gradesTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+        }
+
+        jPanel25.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel25.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
+
+        searchCourses1.setForeground(new java.awt.Color(158, 160, 170));
+        searchCourses1.setText("Search course...");
+        searchCourses1.setBorder(null);
+        searchCourses1.setName(""); // NOI18N
+        searchCourses1.setPreferredSize(new java.awt.Dimension(64, 24));
+        searchCourses1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchCourses1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchCourses1FocusLost(evt);
+            }
+        });
+        searchCourses1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchCourses1MouseClicked(evt);
+            }
+        });
+        searchCourses1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchCourses1ActionPerformed(evt);
+            }
+        });
+        searchCourses1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchCourses1KeyReleased(evt);
+            }
+        });
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/search.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchCourses1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(202, 202, 202)
-                .addComponent(jLabel3)
-                .addContainerGap(406, Short.MAX_VALUE))
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14)
+                    .addComponent(searchCourses1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
+        );
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tableScrollPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(tableScrollPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
 
         javax.swing.GroupLayout panelThirdLayout = new javax.swing.GroupLayout(panelThird);
         panelThird.setLayout(panelThirdLayout);
         panelThirdLayout.setHorizontalGroup(
             panelThirdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelThirdLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         panelThirdLayout.setVerticalGroup(
             panelThirdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelThirdLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("tab3", panelThird);
@@ -1511,15 +1637,15 @@ public class StudentPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-        if ( Logics.showConfirmationDialog()) {
+        if (Logics.showConfirmationDialog()) {
             dispose();
             new Login().setVisible(true);
         }
     }//GEN-LAST:event_logoutBtnMouseClicked
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
@@ -1797,6 +1923,35 @@ public class StudentPanel extends javax.swing.JFrame {
 
     }//GEN-LAST:event_profilePasswordActionPerformed
 
+    private void directEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_directEmailMouseClicked
+
+        try {
+            Desktop.getDesktop().browse(new URL("https://mail.google.com/mail/u/0/#inbox").toURI());
+        } catch (Exception e) {
+            System.out.println("Error opening the url.");
+        }
+    }//GEN-LAST:event_directEmailMouseClicked
+
+    private void searchCourses1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCourses1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchCourses1FocusGained
+
+    private void searchCourses1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCourses1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchCourses1FocusLost
+
+    private void searchCourses1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCourses1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchCourses1MouseClicked
+
+    private void searchCourses1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCourses1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchCourses1ActionPerformed
+
+    private void searchCourses1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchCourses1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchCourses1KeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -1822,12 +1977,14 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel currentSemester;
     private javax.swing.JLabel date1;
     private javax.swing.JLabel date2;
+    private javax.swing.JLabel directEmail;
+    private javax.swing.JTable gradesTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1843,7 +2000,6 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1859,6 +2015,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
@@ -1866,9 +2023,9 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -1896,6 +2053,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JTextField profileUsername;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchCourses;
+    private javax.swing.JTextField searchCourses1;
     private javax.swing.JPanel secondAnnouncementPanel;
     private javax.swing.JLabel stdPanelName;
     private javax.swing.JLabel studentCount;
@@ -1911,6 +2069,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel tabBtn5;
     private javax.swing.JLabel tabName;
     private javax.swing.JScrollPane tableScrollPanel;
+    private javax.swing.JScrollPane tableScrollPanel1;
     private javax.swing.JLabel teacher1;
     private javax.swing.JLabel teacher2;
     private javax.swing.JLabel usertypeShow;

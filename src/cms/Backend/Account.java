@@ -1,7 +1,7 @@
 /**
- *
  * @author kenabkc
  */
+
 package cms.Backend;
 
 import cms.Frontend.AdminPanel;
@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 public class Account {
 
@@ -288,4 +289,69 @@ public class Account {
         }
 
     }
+      // ------------- FOR TABLE 1 : COURSES -------------
+     public static void forTable1(int courseId, DefaultTableModel model) {
+        try {
+            String query = """
+                                SELECT Module.module_id, Module.module_name, Course.course_name, Module.semester, Teacher.f_name, Teacher.l_name
+                                                                FROM Module
+                                                                INNER JOIN Course ON Course.course_id = Module.course_id
+                                                                INNER JOIN Teacher ON Teacher.id = Module.teacher_id
+                                                                WHERE Course.course_id = ?
+                                """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, courseId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String moduleId = String.valueOf(resultSet.getInt("module_id"));
+                String name = resultSet.getString("module_name");
+                String cName = resultSet.getString("course_name");
+                String sem = String.valueOf(resultSet.getInt("semester"));
+                String tName = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
+
+                String row[] = {moduleId, name, cName, sem, tName};
+                model.addRow(row);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     
+    // ------------- FOR TABLE 2 : GRADES -------------
+    public static void forTable2(int courseId, DefaultTableModel model) {
+        try {
+            String query = """
+                                SELECT Module.module_id, Module.module_name, Module.semester
+                                                                FROM Module
+                                                                INNER JOIN Course ON Course.course_id = Module.course_id
+                                                                WHERE Course.course_id = ?
+                                """;
+            System.out.println("HI2");
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, courseId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String moduleId = String.valueOf(resultSet.getInt("module_id"));
+                String name = resultSet.getString("module_name");
+                String sem = String.valueOf(resultSet.getInt("semester"));
+
+                String row[] = {moduleId, name, sem};
+                model.addRow(row);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
