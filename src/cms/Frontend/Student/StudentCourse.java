@@ -33,15 +33,14 @@ public class StudentCourse {
         } else if (tableName.equals("t2")) {
             Account.forTable2(courseId, model);
         }
-
     }
 
-    public static void centerTableContents(JTable table) {
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+    public static void alignTableContents(JTable table) {
+        DefaultTableCellRenderer alignRenderer = new DefaultTableCellRenderer();
+        alignRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 
         for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            table.getColumnModel().getColumn(i).setCellRenderer(alignRenderer);
         }
     }
 
@@ -63,5 +62,6 @@ public class StudentCourse {
         Font boldFont = new Font(originalFont.getFontName(), Font.BOLD, originalFont.getSize());
         header.setFont(boldFont);
         header.setForeground(new Color(102, 102, 102));
+
     }
 }

@@ -1,10 +1,10 @@
 /**
  * @author kenabkc
  */
-
 package cms.Backend;
 
 import cms.Frontend.AdminPanel;
+import cms.Frontend.Button.PanelAction;
 import cms.Frontend.Student.StudentPanel;
 import cms.Frontend.TeacherPanel;
 import java.sql.ResultSet;
@@ -289,8 +289,9 @@ public class Account {
         }
 
     }
-      // ------------- FOR TABLE 1 : COURSES -------------
-     public static void forTable1(int courseId, DefaultTableModel model) {
+    // ------------- FOR TABLE 1 : COURSES -------------
+
+    public static void forTable1(int courseId, DefaultTableModel model) {
         try {
             String query = """
                                 SELECT Module.module_id, Module.module_name, Course.course_name, Module.semester, Teacher.f_name, Teacher.l_name
@@ -322,7 +323,7 @@ public class Account {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-     
+
     // ------------- FOR TABLE 2 : GRADES -------------
     public static void forTable2(int courseId, DefaultTableModel model) {
         try {
@@ -332,7 +333,7 @@ public class Account {
                                                                 INNER JOIN Course ON Course.course_id = Module.course_id
                                                                 WHERE Course.course_id = ?
                                 """;
-            System.out.println("HI2");
+            
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setInt(1, courseId);
 
