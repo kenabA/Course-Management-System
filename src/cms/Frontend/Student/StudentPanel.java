@@ -158,6 +158,8 @@ public class StudentPanel extends javax.swing.JFrame {
         usertypeShow = new javax.swing.JLabel();
         tabName = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelFirst = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -344,7 +346,7 @@ public class StudentPanel extends javax.swing.JFrame {
 
         tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        tabBtn4.setText("Mail");
+        tabBtn4.setText("Assignments");
 
         javax.swing.GroupLayout tab4Layout = new javax.swing.GroupLayout(tab4);
         tab4.setLayout(tab4Layout);
@@ -455,13 +457,17 @@ public class StudentPanel extends javax.swing.JFrame {
         stdPanelName.setText("Kenab Kushal K.C.");
 
         usertypeShow.setForeground(new java.awt.Color(194, 196, 202));
-        usertypeShow.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        usertypeShow.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         usertypeShow.setText("Student");
 
         tabName.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         tabName.setText("Dashboard");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/whiteUser.png"))); // NOI18N
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/mainMail.png"))); // NOI18N
+
+        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -470,29 +476,32 @@ public class StudentPanel extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(tabName)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(380, 380, 380)
-                        .addComponent(stdPanelName, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(usertypeShow, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 513, Short.MAX_VALUE)
+                .addComponent(jLabel15)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(stdPanelName)
+                    .addComponent(usertypeShow))
                 .addGap(32, 32, 32))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabName, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(stdPanelName)
-                        .addGap(2, 2, 2)
-                        .addComponent(usertypeShow))
-                    .addComponent(jLabel4))
-                .addContainerGap(17, Short.MAX_VALUE))
-            .addComponent(tabName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator4)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(stdPanelName)
+                            .addGap(2, 2, 2)
+                            .addComponent(usertypeShow))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 900, 70));
@@ -1057,6 +1066,12 @@ public class StudentPanel extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab4", panelFourth);
 
+        jPanel7.setBackground(new java.awt.Color(250, 250, 250));
+
+        jPanel15.setBackground(new java.awt.Color(250, 250, 250));
+
+        jPanel16.setBackground(new java.awt.Color(250, 250, 250));
+
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Username");
 
@@ -1106,6 +1121,8 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
+        jPanel17.setBackground(new java.awt.Color(250, 250, 250));
+
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setText("New Password");
 
@@ -1154,6 +1171,8 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel20.setBackground(new java.awt.Color(250, 250, 250));
+
         jLabel18.setForeground(new java.awt.Color(51, 51, 51));
         jLabel18.setText("Phone Number");
 
@@ -1198,6 +1217,8 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addComponent(profilePhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
+
+        jPanel22.setBackground(new java.awt.Color(250, 250, 250));
 
         jLabel25.setForeground(new java.awt.Color(51, 51, 51));
         jLabel25.setText("Email");
@@ -1279,6 +1300,8 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
+        jPanel21.setBackground(new java.awt.Color(250, 250, 250));
+
         jLabel27.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel27.setText("Edit Profile");
 
@@ -1306,6 +1329,8 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel19.setBackground(new java.awt.Color(250, 250, 250));
+
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/man.png"))); // NOI18N
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/el1.png"))); // NOI18N
@@ -1331,6 +1356,8 @@ public class StudentPanel extends javax.swing.JFrame {
                     .addComponent(jLabel17))
                 .addContainerGap())
         );
+
+        jPanel23.setBackground(new java.awt.Color(250, 250, 250));
 
         jLabel28.setForeground(new java.awt.Color(51, 51, 51));
         jLabel28.setText("Confirm Password");
@@ -1484,12 +1511,15 @@ public class StudentPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-
+        if ( Logics.showConfirmationDialog()) {
+            dispose();
+            new Login().setVisible(true);
+        }
     }//GEN-LAST:event_logoutBtnMouseClicked
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        dispose();
-        new Login().setVisible(true);
+        
+        
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
@@ -1797,6 +1827,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1847,6 +1878,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JLabel modulesCount;

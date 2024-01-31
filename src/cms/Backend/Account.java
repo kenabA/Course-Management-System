@@ -100,7 +100,7 @@ public class Account {
     }
 
     // ------------- LOGGIN ACCOUNT : OPENING NEW PANEL -------------
-    public void loginAccount(Object usertype, String username, String password) {
+    public boolean loginAccount(Object usertype, String username, String password) {
 
         ResultSet loginValidation = getLoginDetails(usertype, username, password);
 
@@ -116,6 +116,7 @@ public class Account {
                     sp.setVisible(true);
                     sp.setName(username);
                     sp.updateDetails();
+                    return true;
 
                 } else if (usertype.equals("Teacher")) {
                     new TeacherPanel().setVisible(true);
@@ -129,6 +130,7 @@ public class Account {
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
 
     }
 
@@ -273,7 +275,7 @@ public class Account {
             preparedStatement.setString(2, updatingDetails[1]);
             preparedStatement.setString(3, updatingDetails[2]);
             preparedStatement.setString(4, updatingDetails[3]);
-            preparedStatement.setInt(5,id);
+            preparedStatement.setInt(5, id);
 
             preparedStatement.executeUpdate();
 
