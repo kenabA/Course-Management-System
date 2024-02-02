@@ -91,6 +91,20 @@ public class StudentPanel extends javax.swing.JFrame {
         setTableAppearance(gradesTable);
         gradesTable.getColumnModel().getColumn(4).setCellRenderer(new GradeCellRenderer());
 
+        //Check for notifications
+        anyNotifications(announcement);
+
+    }
+    
+   String messages[] = new String[2];
+
+    public void anyNotifications(String[][] msg) {
+        
+        for(int i = 0; i < 2 ; i ++ ) {
+            System.out.println(msg[i][0]);
+            messages[i] = msg[i][0];
+        }
+        
     }
 
     public void setAnnouncement(String[][] data) {

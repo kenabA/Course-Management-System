@@ -4,10 +4,6 @@
 package cms.Backend;
 
 import cms.Frontend.AdminPanel;
-import cms.Frontend.Button.PanelAction;
-import cms.Frontend.Button.SuccessActionCellRender;
-import cms.Frontend.CellRenderer.GradeCellRenderer;
-import cms.Frontend.Student.StudentCourse;
 import cms.Frontend.Student.StudentPanel;
 import cms.Frontend.TeacherPanel;
 import java.sql.ResultSet;
@@ -103,7 +99,7 @@ public class Account {
         return null;
     }
 
-    // ------------- LOGGIN ACCOUNT : OPENING NEW PANEL -------------
+    // ------------- LOGGING ACCOUNT : OPENING NEW PANEL -------------
     public boolean loginAccount(Object usertype, String username, String password) {
 
         ResultSet loginValidation = getLoginDetails(usertype, username, password);
