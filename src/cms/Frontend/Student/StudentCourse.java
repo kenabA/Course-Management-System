@@ -19,9 +19,13 @@ import javax.swing.table.JTableHeader;
  * @author kenabkc
  */
 public class StudentCourse {
+    
+    public static JTable table;
 
-    public static void updateDetails(int courseId, DefaultTableModel model, String tableName) {
-
+    public static void updateDetails(int courseId, JTable table, String tableName) {
+        StudentCourse.table = table;
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        
         getModuleData(courseId, model, tableName);
 
     }

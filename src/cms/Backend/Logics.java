@@ -70,7 +70,7 @@ public class Logics {
         } else if (percentage >= 50) {
             grade = "D";
         } else {
-            grade = "F";
+            grade = "E";
         }
 
         return grade;

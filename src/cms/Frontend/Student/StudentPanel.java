@@ -7,6 +7,7 @@ import cms.Backend.Account;
 import cms.Backend.Logics;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
+import cms.Frontend.CellRenderer.GradeCellRenderer;
 import cms.Frontend.Login;
 import static cms.Frontend.Student.StudentCourse.alignTableContents;
 import static cms.Frontend.Student.StudentCourse.setTableAppearance;
@@ -25,18 +26,18 @@ import javax.swing.table.TableRowSorter;
 
 public class StudentPanel extends javax.swing.JFrame {
 
-    private String username;
-    private int id;
-    private String password;
+    private static String username;
+    private static int id;
+    private static String password;
     private String fName;
     private String lName;
-    private String email;
-    private String phNum;
+    private static String email;
+    private static String phNum;
     private String course;
     private static String date;
     private String modules;
 
-    private final String role = "Student";
+    public final static String role = "Student";
 
     private int courseId;
     private int students;
@@ -53,6 +54,12 @@ public class StudentPanel extends javax.swing.JFrame {
         initComponents();
     }
 
+    // GETTER METHODS
+    public static String[] getterDetails() {
+        String details[] = {StudentPanel.username, StudentPanel.email, StudentPanel.password, StudentPanel.phNum, String.valueOf(StudentPanel.id), StudentPanel.role};
+        return details;
+    }
+
     public void updateDetails() {
 
         // Updating the dashboard panel
@@ -67,22 +74,22 @@ public class StudentPanel extends javax.swing.JFrame {
 
         // Updating the course panel
         this.model = (DefaultTableModel) coursesTable.getModel();
-        StudentCourse.updateDetails(courseId, model, "t1");
+        StudentCourse.updateDetails(courseId, coursesTable, "t1");
         alignTableContents(coursesTable);
         setTableAppearance(coursesTable);
 
         // Updating the Profile Panel
-        profileUsername.setText(this.username);
-        profileEmail.setText(this.email);
-        profilePassword.setText(this.password);
-        profileConfirmPassword.setText(this.password);
-        profilePhone.setText(this.phNum);
+        profileUsername.setText(StudentPanel.username);
+        profileEmail.setText(StudentPanel.email);
+        profilePassword.setText(StudentPanel.password);
+        profileConfirmPassword.setText(StudentPanel.password);
+        profilePhone.setText(StudentPanel.phNum);
 
         // Updating the Grades Tables
-        this.model2 = (DefaultTableModel) gradesTable.getModel();
-        StudentCourse.updateDetails(this.id, model2, "t2");
+        StudentCourse.updateDetails(StudentPanel.id, gradesTable, "t2");
         alignTableContents(gradesTable);
         setTableAppearance(gradesTable);
+        gradesTable.getColumnModel().getColumn(4).setCellRenderer(new GradeCellRenderer());
 
     }
 
@@ -112,16 +119,16 @@ public class StudentPanel extends javax.swing.JFrame {
 
     public void extractDetails() {
         try {
-            ResultSet result = Account.getUserData(this.username);
+            ResultSet result = Account.getUserData(StudentPanel.username);
             if (result.next()) {
                 this.id = result.getInt("id");
                 this.fName = result.getString("f_name");
                 this.lName = result.getString("l_name");
-                this.email = result.getString("email");
-                this.phNum = result.getString("ph_num");
-                this.password = result.getString("password");
+                StudentPanel.email = result.getString("email");
+                StudentPanel.phNum = result.getString("ph_num");
+                StudentPanel.password = result.getString("password");
                 this.course = result.getString("course");
-                this.date = result.getString("date_created");
+                StudentPanel.date = result.getString("date_created");
                 this.students = Account.getStudentCount(course);
                 this.courseId = Account.getCourseId(course);
                 this.modules = String.valueOf(Account.getModulesCount(courseId));
@@ -140,7 +147,7 @@ public class StudentPanel extends javax.swing.JFrame {
      */
     @Override
     public void setName(String username) {
-        this.username = username;
+        StudentPanel.username = username;
         extractDetails();
     }
 
@@ -169,6 +176,7 @@ public class StudentPanel extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         directEmail = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        directEmail1 = new javax.swing.JLabel();
         mainBody = new javax.swing.JTabbedPane();
         panelFirst = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -489,6 +497,14 @@ public class StudentPanel extends javax.swing.JFrame {
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        directEmail1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/notification.png"))); // NOI18N
+        directEmail1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        directEmail1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                directEmail1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
@@ -496,7 +512,9 @@ public class StudentPanel extends javax.swing.JFrame {
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(tabName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 513, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 460, Short.MAX_VALUE)
+                .addComponent(directEmail1)
+                .addGap(18, 18, 18)
                 .addComponent(directEmail)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -520,7 +538,8 @@ public class StudentPanel extends javax.swing.JFrame {
                         .addComponent(stdPanelName)
                         .addGap(2, 2, 2)
                         .addComponent(usertypeShow))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(directEmail1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         mainPanel.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 900, 70));
@@ -1203,7 +1222,7 @@ public class StudentPanel extends javax.swing.JFrame {
 
         profileUsername.setForeground(new java.awt.Color(158, 160, 170));
         profileUsername.setText("kenabeyy");
-        profileUsername.setPreferredSize(new java.awt.Dimension(64, 24));
+        profileUsername.setPreferredSize(new java.awt.Dimension(64, 32));
         profileUsername.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 profileUsernameFocusGained(evt);
@@ -1252,7 +1271,7 @@ public class StudentPanel extends javax.swing.JFrame {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/passIcon.png"))); // NOI18N
 
-        profilePassword.setPreferredSize(new java.awt.Dimension(64, 24));
+        profilePassword.setPreferredSize(new java.awt.Dimension(64, 32));
         profilePassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 profilePasswordFocusGained(evt);
@@ -1304,7 +1323,7 @@ public class StudentPanel extends javax.swing.JFrame {
 
         profilePhone.setForeground(new java.awt.Color(158, 160, 170));
         profilePhone.setText("9841321674");
-        profilePhone.setPreferredSize(new java.awt.Dimension(64, 24));
+        profilePhone.setPreferredSize(new java.awt.Dimension(64, 32));
         profilePhone.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 profilePhoneFocusGained(evt);
@@ -1351,7 +1370,7 @@ public class StudentPanel extends javax.swing.JFrame {
 
         profileEmail.setForeground(new java.awt.Color(158, 160, 170));
         profileEmail.setText("kebab.bahadur@gmail.com");
-        profileEmail.setPreferredSize(new java.awt.Dimension(64, 24));
+        profileEmail.setPreferredSize(new java.awt.Dimension(64, 32));
         profileEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 profileEmailFocusGained(evt);
@@ -1392,8 +1411,8 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
-        saveBtn.setBackground(new java.awt.Color(108, 99, 255));
-        saveBtn.setForeground(new java.awt.Color(255, 255, 255));
+        saveBtn.setBackground(new java.awt.Color(241, 240, 255));
+        saveBtn.setForeground(new java.awt.Color(102, 102, 255));
         saveBtn.setText("Save Changes");
         saveBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         saveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1413,7 +1432,7 @@ public class StudentPanel extends javax.swing.JFrame {
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
                 .addComponent(saveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1488,7 +1507,7 @@ public class StudentPanel extends javax.swing.JFrame {
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/passIcon.png"))); // NOI18N
 
-        profileConfirmPassword.setPreferredSize(new java.awt.Dimension(64, 24));
+        profileConfirmPassword.setPreferredSize(new java.awt.Dimension(64, 32));
         profileConfirmPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 profileConfirmPasswordFocusGained(evt);
@@ -1568,9 +1587,9 @@ public class StudentPanel extends javax.swing.JFrame {
                     .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
@@ -1599,7 +1618,7 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelFifthLayout = new javax.swing.GroupLayout(panelFifth);
@@ -1776,6 +1795,7 @@ public class StudentPanel extends javax.swing.JFrame {
         tab3.setBackground(new java.awt.Color(255, 255, 255));
         tab4.setBackground(new java.awt.Color(255, 255, 255));
 
+
     }//GEN-LAST:event_tab5MouseClicked
 
     private void searchCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCoursesActionPerformed
@@ -1833,7 +1853,7 @@ public class StudentPanel extends javax.swing.JFrame {
 
             String details[] = {tempUsername, tempEmail, tempPassword, tempPhNum};
 
-            if (tempUsername.equals(this.username) && tempEmail.equals(this.email) && tempPassword.equals(this.password) && tempPhNum.equals(this.phNum)) {
+            if (tempUsername.equals(StudentPanel.username) && tempEmail.equals(StudentPanel.email) && tempPassword.equals(StudentPanel.password) && tempPhNum.equals(StudentPanel.phNum)) {
 
                 JOptionPane.showMessageDialog(null, namingConvention("blankValue"), "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1843,13 +1863,13 @@ public class StudentPanel extends javax.swing.JFrame {
                 if (Validation.validateDetails(details, tempConfirmPassword, role)) {
 
                     // UPDATING THE DATA INTO THE DATABASE
-                    Account.updateProfile(details, this.id);
+                    Account.updateProfile(details, StudentPanel.id);
 
                     // this.data gets initialized to the changed data
-                    this.username = tempUsername;
-                    this.email = tempEmail;
-                    this.password = tempPassword;
-                    this.phNum = tempPhNum;
+                    StudentPanel.username = tempUsername;
+                    StudentPanel.email = tempEmail;
+                    StudentPanel.password = tempPassword;
+                    StudentPanel.phNum = tempPhNum;
                 }
 
             }
@@ -1868,53 +1888,52 @@ public class StudentPanel extends javax.swing.JFrame {
 
     private void profileUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusGained
 
-        Logics.handleFocusGainedLost(profileUsername, this.username, new Color(158, 160, 170), evt);
+        Logics.handleFocusGainedLost(profileUsername, StudentPanel.username, new Color(158, 160, 170), evt);
 
     }//GEN-LAST:event_profileUsernameFocusGained
 
     private void profileUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusLost
 
-        Logics.handleFocusGainedLost(profileUsername, this.username, new Color(158, 160, 170), evt);
-
+        Logics.handleFocusGainedLost(profileUsername, StudentPanel.username, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileUsernameFocusLost
 
     private void profileEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusGained
 
-        Logics.handleFocusGainedLost(profileEmail, this.email, new Color(158, 160, 170), evt);
+        Logics.handleFocusGainedLost(profileEmail, StudentPanel.email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusGained
 
     private void profileEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusLost
 
-        Logics.handleFocusGainedLost(profileEmail, this.email, new Color(158, 160, 170), evt);
+        Logics.handleFocusGainedLost(profileEmail, StudentPanel.email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusLost
 
     private void profilePasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusGained
 
-        Logics.handleFocusGainedLost(profilePassword, this.password, new Color(158, 160, 170), evt);
+        Logics.handleFocusGainedLost(profilePassword, StudentPanel.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusGained
 
     private void profilePasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusLost
 
-        Logics.handleFocusGainedLost(profilePassword, this.password, new Color(158, 160, 170), evt);
+        Logics.handleFocusGainedLost(profilePassword, StudentPanel.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusLost
 
     private void profileConfirmPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusGained
 
-        Logics.handleFocusGainedLost(profileConfirmPassword, this.password, new Color(158, 160, 170), evt);
+        Logics.handleFocusGainedLost(profileConfirmPassword, StudentPanel.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusGained
 
     private void profileConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusLost
 
-        Logics.handleFocusGainedLost(profileConfirmPassword, this.password, new Color(158, 160, 170), evt);
+        Logics.handleFocusGainedLost(profileConfirmPassword, StudentPanel.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusLost
 
     private void profilePhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusGained
 
-        Logics.handleFocusGainedLost(profilePhone, this.phNum, new Color(158, 160, 170), evt);
+        Logics.handleFocusGainedLost(profilePhone, StudentPanel.phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusGained
 
     private void profilePhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusLost
-        Logics.handleFocusGainedLost(profilePhone, this.phNum, new Color(158, 160, 170), evt);
+        Logics.handleFocusGainedLost(profilePhone, StudentPanel.phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusLost
 
     private void profilePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePasswordActionPerformed
@@ -1964,6 +1983,10 @@ public class StudentPanel extends javax.swing.JFrame {
         obj1.setRowFilter(filterRow);
     }//GEN-LAST:event_searchGradesKeyReleased
 
+    private void directEmail1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_directEmail1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_directEmail1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1990,6 +2013,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel date1;
     private javax.swing.JLabel date2;
     private javax.swing.JLabel directEmail;
+    private javax.swing.JLabel directEmail1;
     private javax.swing.JTable gradesTable;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
