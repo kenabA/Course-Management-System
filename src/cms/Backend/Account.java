@@ -9,8 +9,10 @@ import cms.Frontend.TeacherPanel;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -25,6 +27,9 @@ public class Account {
 
     private static String usertype;
     private static int id;
+
+    static String loginTime;
+    static String logoutTime;
 
     Icon erIcon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/errorIcon.png"));
     Icon icon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/checkIcon.png"));
@@ -365,20 +370,71 @@ public class Account {
         }
     }
 
-    // UPDATE ACTIVITY 
+    // ------------- UPDATE ACTIVITY -------------
     public static void updateActivity(String act, String role, int id) {
 
         try {
-            String query = "INSERT INTO `Activity` (`activity`, `role`, `role_id`, `time`) VALUES (?, ?, ?, current_timestamp());";
+
+            String query = "INSERT INTO `Activity` (`activity`, `role`, `role_id`, `time`) VALUES (?, ?, ?, ?);";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setString(1, act);
             preparedStatement.setString(2, role);
             preparedStatement.setInt(3, id);
+
+            /*
+                Instead of passing the current_timestamp(), we pass our custom loginTime 
+                to make sure there are no differences in time while checking for new messages.
+             */
+            loginTime = Logics.getCurrentTime();
+
+            preparedStatement.setString(4, loginTime);
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    // ------------- CHECK IF ANY NEW NOTIFICATIONS -------------
+    public static void checkNotifications(String role, int id) {
+        Account.logoutTime =  getLastLogoutTime(role, id);
+        if (Account.logoutTime != null) {
+            System.out.println(Account.logoutTime);
+        }
+
+    }
+
+    // ------------- GETTING THE LAST LOGGED OUT  -------------
+    private static String getLastLogoutTime(String role, int id) {
+
+        try {
+            String query = """
+                                 SELECT MAX(time) as last_logout_time
+                                                            FROM Activity
+                                                            WHERE role = ? AND role_id = ? AND time < ? AND activity = 'Login';
+                                                                
+                                """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setString(1, role);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setString(3, Account.loginTime);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String lastLoggedOutTime = null;
+
+            while (resultSet.next()) {
+
+                lastLoggedOutTime = resultSet.getString("last_logout_time");
+
+            }
+            return lastLoggedOutTime;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
     }
 
 }

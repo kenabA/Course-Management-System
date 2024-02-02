@@ -39,6 +39,8 @@ public class StudentPanel extends javax.swing.JFrame {
 
     public final static String role = "Student";
 
+    private static String loginTime;
+
     private int courseId;
     private int students;
     private String semester;
@@ -93,9 +95,7 @@ public class StudentPanel extends javax.swing.JFrame {
 
         // UPating the activity when we log in
         Account.updateActivity("Login", StudentPanel.role, StudentPanel.id);
-
-        //Check for notifications
-        anyNotifications(announcement);
+        Account.checkNotifications(StudentPanel.role, StudentPanel.id);
 
     }
 

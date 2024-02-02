@@ -4,8 +4,11 @@
  */
 package cms.Backend;
 
+import static cms.Backend.Account.loginTime;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -14,6 +17,12 @@ import javax.swing.JTextField;
  * @author kenabkc
  */
 public class Logics {
+
+    public static String getCurrentTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String loginTime = dateFormat.format(new Date());
+        return loginTime;
+    }
 
     public static String convertToOrdinal(int number) {
         if (number >= 11 && number <= 13) {
