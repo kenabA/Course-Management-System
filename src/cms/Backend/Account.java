@@ -113,9 +113,10 @@ public class Account {
                 Account.id = loginValidation.getInt("id");
                 if (usertype.equals("Student")) {
                     sp = new StudentPanel();
-                    sp.setVisible(true);
                     sp.setName(username);
                     sp.updateDetails();
+                    sp.setVisible(true);
+
                     return true;
 
                 } else if (usertype.equals("Teacher")) {
@@ -358,6 +359,22 @@ public class Account {
                 model.addRow(row);
 
             }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    // UPDATE ACTIVITY 
+    public static void updateActivity(String act, String role, int id) {
+
+        try {
+            String query = "INSERT INTO `Activity` (`activity`, `role`, `role_id`, `time`) VALUES (?, ?, ?, current_timestamp());";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setString(1, act);
+            preparedStatement.setString(2, role);
+            preparedStatement.setInt(3, id);
+            preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);

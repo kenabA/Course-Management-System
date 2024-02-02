@@ -91,20 +91,23 @@ public class StudentPanel extends javax.swing.JFrame {
         setTableAppearance(gradesTable);
         gradesTable.getColumnModel().getColumn(4).setCellRenderer(new GradeCellRenderer());
 
+        // UPating the activity when we log in
+        Account.updateActivity("Login", StudentPanel.role, StudentPanel.id);
+
         //Check for notifications
         anyNotifications(announcement);
 
     }
-    
-   String messages[] = new String[2];
+
+    String messages[] = new String[2];
 
     public void anyNotifications(String[][] msg) {
-        
-        for(int i = 0; i < 2 ; i ++ ) {
-            System.out.println(msg[i][0]);
+
+        for (int i = 0; i < 2; i++) {
+
             messages[i] = msg[i][0];
         }
-        
+
     }
 
     public void setAnnouncement(String[][] data) {
