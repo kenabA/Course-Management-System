@@ -96,6 +96,7 @@ public class StudentPanel extends javax.swing.JFrame {
         // UPating the activity when we log in
         Account.updateActivity("Login", StudentPanel.role, StudentPanel.id);
         Account.checkNotifications(StudentPanel.role, StudentPanel.id);
+        
 
     }
 
@@ -1672,6 +1673,8 @@ public class StudentPanel extends javax.swing.JFrame {
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
         if (Logics.showConfirmationDialog()) {
+            // Setting the logout time
+            Account.updateActivity("Logout", StudentPanel.role, StudentPanel.id);
             dispose();
             new Login().setVisible(true);
         }

@@ -397,9 +397,22 @@ public class Account {
 
     // ------------- CHECK IF ANY NEW NOTIFICATIONS -------------
     public static void checkNotifications(String role, int id) {
-        Account.logoutTime =  getLastLogoutTime(role, id);
-        if (Account.logoutTime != null) {
-            System.out.println(Account.logoutTime);
+        Account.logoutTime = getLastLogoutTime(role, id);
+
+        try {
+            String query = " SELECT message FROM Message WHERE date_posted > ? AND course_id = 1 ;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setString(1, Account.logoutTime);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            System.out.println(Account.loginTime);
+            if (resultSet.next()) {
+                System.out.println("New Notifications");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -411,7 +424,7 @@ public class Account {
             String query = """
                                  SELECT MAX(time) as last_logout_time
                                                             FROM Activity
-                                                            WHERE role = ? AND role_id = ? AND time < ? AND activity = 'Login';
+                                                            WHERE role = ? AND role_id = ? AND time < ? AND activity = 'Logout';
                                                                 
                                 """;
 
