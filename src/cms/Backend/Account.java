@@ -121,7 +121,6 @@ public class Account {
                     sp.setName(username);
                     sp.updateDetails();
                     sp.setVisible(true);
-
                     return true;
 
                 } else if (usertype.equals("Teacher")) {
@@ -396,7 +395,7 @@ public class Account {
     }
 
     // ------------- CHECK IF ANY NEW NOTIFICATIONS -------------
-    public static void checkNotifications(String role, int id) {
+    public static boolean checkNotifications(String role, int id) {
         Account.logoutTime = getLastLogoutTime(role, id);
 
         try {
@@ -406,15 +405,12 @@ public class Account {
             preparedStatement.setString(1, Account.logoutTime);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println(Account.loginTime);
-            if (resultSet.next()) {
-                System.out.println("New Notifications");
-            }
+            return resultSet.next();
 
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return false;
     }
 
     // ------------- GETTING THE LAST LOGGED OUT  -------------
@@ -424,7 +420,7 @@ public class Account {
             String query = """
                                  SELECT MAX(time) as last_logout_time
                                                             FROM Activity
-                                                            WHERE role = ? AND role_id = ? AND time < ? AND activity = 'Logout';
+                                                            WHERE role = ? AND role_id = ? AND time < ? AND activity = 'Login';
                                                                 
                                 """;
 

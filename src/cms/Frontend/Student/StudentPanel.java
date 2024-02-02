@@ -54,6 +54,7 @@ public class StudentPanel extends javax.swing.JFrame {
      */
     public StudentPanel() {
         initComponents();
+        newText.setVisible(false);
     }
 
     // GETTER METHODS
@@ -95,8 +96,12 @@ public class StudentPanel extends javax.swing.JFrame {
 
         // UPating the activity when we log in
         Account.updateActivity("Login", StudentPanel.role, StudentPanel.id);
-        Account.checkNotifications(StudentPanel.role, StudentPanel.id);
-        
+        boolean newNotifications = Account.checkNotifications(StudentPanel.role, StudentPanel.id);
+
+        if (newNotifications) {
+
+            newText.setVisible(true);
+        }
 
     }
 
@@ -194,7 +199,8 @@ public class StudentPanel extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         directEmail = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        directEmail1 = new javax.swing.JLabel();
+        notificationBtn = new javax.swing.JLabel();
+        newText = new javax.swing.JLabel();
         mainBody = new javax.swing.JTabbedPane();
         panelFirst = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -515,13 +521,17 @@ public class StudentPanel extends javax.swing.JFrame {
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        directEmail1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/notification.png"))); // NOI18N
-        directEmail1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        directEmail1.addMouseListener(new java.awt.event.MouseAdapter() {
+        notificationBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/notification.png"))); // NOI18N
+        notificationBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        notificationBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                directEmail1MouseClicked(evt);
+                notificationBtnMouseClicked(evt);
             }
         });
+
+        newText.setFont(new java.awt.Font("Helvetica Neue", 1, 8)); // NOI18N
+        newText.setForeground(new java.awt.Color(255, 51, 51));
+        newText.setText("NEW!");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -530,8 +540,10 @@ public class StudentPanel extends javax.swing.JFrame {
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(tabName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 460, Short.MAX_VALUE)
-                .addComponent(directEmail1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
+                .addComponent(newText)
+                .addGap(0, 0, 0)
+                .addComponent(notificationBtn)
                 .addGap(18, 18, 18)
                 .addComponent(directEmail)
                 .addGap(18, 18, 18)
@@ -549,15 +561,17 @@ public class StudentPanel extends javax.swing.JFrame {
             .addComponent(tabName, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator4)
-                    .addComponent(directEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                        .addComponent(stdPanelName)
-                        .addGap(2, 2, 2)
-                        .addComponent(usertypeShow))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(directEmail1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(newText)
+                    .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jSeparator4)
+                        .addComponent(directEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                            .addComponent(stdPanelName)
+                            .addGap(2, 2, 2)
+                            .addComponent(usertypeShow))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(notificationBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         mainPanel.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 900, 70));
@@ -2003,9 +2017,19 @@ public class StudentPanel extends javax.swing.JFrame {
         obj1.setRowFilter(filterRow);
     }//GEN-LAST:event_searchGradesKeyReleased
 
-    private void directEmail1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_directEmail1MouseClicked
+    private void notificationBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notificationBtnMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_directEmail1MouseClicked
+        System.out.println("OK");
+
+        if (newText.isShowing()) {
+            Notification n1 = new Notification();
+            n1.setVisible(true);
+            newText.setVisible(false);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No new announcements yet.", "No Announcements", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_notificationBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -2033,7 +2057,6 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel date1;
     private javax.swing.JLabel date2;
     private javax.swing.JLabel directEmail;
-    private javax.swing.JLabel directEmail1;
     private javax.swing.JTable gradesTable;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
@@ -2097,6 +2120,8 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel modulesCount;
     private javax.swing.JTextArea msg1;
     private javax.swing.JTextArea msg2;
+    private javax.swing.JLabel newText;
+    private javax.swing.JLabel notificationBtn;
     private javax.swing.JPanel panelFifth;
     private javax.swing.JPanel panelFirst;
     private javax.swing.JPanel panelFourth;
