@@ -1,46 +1,59 @@
-package cms.Frontend;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 /**
  *
  * @author kenabkc
  */
+package cms.Frontend;
+
 public class Person {
 
-    private String fName;
-    private String lName;
-    private int id;
-    private String course;
-    private String role;
+    private static String fName;
+    private static String lName;
+    private static int id;
+    private static String course;
+    private static String role;
+    private static int courseId;
+    private static int semester;
 
     // FOR ADMIN 
     public Person(String fName, String lName, int id) {
-        this.fName = fName;
-        this.lName = lName;
-        this.id = id;
-    }
-
-    public String getName() {
-        return this.fName + " " + this.lName;
-    }
-
-    public String getRole() {
-        return this.role;
-    }
-
-    public int getId() {
-        return this.id;
+        Person.fName = fName;
+        Person.lName = lName;
+        Person.id = id;
     }
 
     // FOR STUDENT & TEACHERS
-    public Person(String fName, String lName, int id, String course, String role) {
-        this.fName = fName;
-        this.lName = lName;
-        this.id = id;
-        this.course = course;
-        this.role = role;
+    public Person(String fName, String lName, int id, String course, String role, int courseId) {
+        Person.fName = fName;
+        Person.lName = lName;
+        Person.id = id;
+        Person.course = course;
+        Person.role = role;
+        Person.courseId = courseId;
     }
+
+    public static String getName() {
+        return fName + "" + lName;
+    }
+
+    public static String getRole() {
+        return role;
+    }
+
+    public static int getId() {
+        return id;
+    }
+
+    public static int getCourseId() {
+        System.out.println("THE INNER COURSE ID :" + courseId);
+        return courseId;
+    }
+
+    public static void setSemester(int sem) {
+        Person.semester = sem;
+    }
+
+    public static int getSemester() {
+        return Person.semester;
+    }
+
 }

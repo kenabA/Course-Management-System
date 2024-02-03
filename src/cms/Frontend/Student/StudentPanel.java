@@ -44,6 +44,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private int students;
     private String semester;
     private String announcement[][];
+    String questionDetails[][];
 
     DefaultTableModel model;
     DefaultTableModel model2;
@@ -56,6 +57,7 @@ public class StudentPanel extends javax.swing.JFrame {
     public StudentPanel() {
 
         initComponents();
+
         newText.setVisible(false);
     }
 
@@ -68,14 +70,13 @@ public class StudentPanel extends javax.swing.JFrame {
     public void updateDetails() {
 
         // Updating the dashboard panel
-        stdPanelName.setText(this.fName + " " + this.lName);
+        stdPanelName.setText(Person.getName());
         courseName.setText(this.course);
         studentCount.setText(String.valueOf(this.students));
         modulesCount.setText(this.modules);
         currentSemester.setText(this.semester);
 
         setAnnouncement(this.announcement);
-        this.model = (DefaultTableModel) coursesTable.getModel();
 
         // Updating the course panel
         this.model = (DefaultTableModel) coursesTable.getModel();
@@ -105,16 +106,8 @@ public class StudentPanel extends javax.swing.JFrame {
             newText.setVisible(true);
         }
 
-    }
-
-    String messages[] = new String[2];
-
-    public void anyNotifications(String[][] msg) {
-
-        for (int i = 0; i < 2; i++) {
-
-            messages[i] = msg[i][0];
-        }
+        // Updating the Assignments Section
+        setQuestionDetails(this.questionDetails);
 
     }
 
@@ -142,6 +135,64 @@ public class StudentPanel extends javax.swing.JFrame {
 
     }
 
+    public void setQuestionDetails(String[][] data) {
+
+        if (data[0][0] == null) {
+            qsNo1.setText("No Assingments yet.");
+            qsLabel1.setText("Assingments yet to assign by the respected teacher.");
+            qsMod1.setText("Module Name");
+            qsDate1.setText("Date of Question Posted");
+            submitBtn1.setVisible(false);
+
+            qsPanel2.setVisible(false);
+            qsPanel3.setVisible(false);
+
+        } else if (data[1][0] == null) {
+
+            qsNo1.setText("Question Number " + data[0][0]);
+            qsLabel1.setText(data[0][1]);
+            qsMod1.setText(data[0][2]);
+            qsDate1.setText(data[0][3]);
+
+            qsPanel2.setVisible(false);
+            qsPanel3.setVisible(false);
+
+        } else if (data[1][0] != null && data[2][0] == null) {
+
+            qsNo1.setText("Question Number " + data[0][0]);
+            qsLabel1.setText(data[0][1]);
+            qsMod1.setText(data[0][2]);
+            qsDate1.setText(data[0][3]);
+
+            qsNo2.setText("Question Number " + data[1][0]);
+            qsLabel2.setText(data[1][1]);
+            qsMod2.setText(data[1][2]);
+            qsDate2.setText(data[1][3]);
+
+            qsPanel3.setVisible(false);
+
+        } else {
+
+            qsNo1.setText("Question Number " + data[0][0]);
+            qsNo2.setText("Question Number " + data[1][0]);
+            qsNo3.setText("Question Number " + data[2][0]);
+
+            qsLabel1.setText(data[0][1]);
+            qsLabel2.setText(data[1][1]);
+            qsLabel3.setText(data[2][1]);
+
+            qsMod1.setText(data[0][2]);
+            qsMod2.setText(data[1][2]);
+            qsMod3.setText(data[2][2]);
+
+            qsDate1.setText(data[0][3]);
+            qsDate2.setText(data[1][3]);
+            qsDate3.setText(data[2][3]);
+
+        }
+
+    }
+
     public void extractDetails() {
         try {
             ResultSet result = Account.getUserData(StudentPanel.username);
@@ -159,8 +210,10 @@ public class StudentPanel extends javax.swing.JFrame {
                 this.modules = String.valueOf(Account.getModulesCount(courseId));
                 this.announcement = Account.getAnnouncementData(courseId);
                 this.semester = Account.getSemester(StudentPanel.date);
-                
-                this.p = new Person(this.fName, this.lName, this.id, this.course, this.role);
+
+                this.p = new Person(this.fName, this.lName, id, this.course, role, this.courseId);
+
+                this.questionDetails = Account.getAssignmentsData();
 
             }
 
@@ -254,7 +307,29 @@ public class StudentPanel extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         panelFourth = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        questionsPanel = new javax.swing.JPanel();
+        jPanel26 = new javax.swing.JPanel();
+        qsPanel2 = new javax.swing.JPanel();
+        qsMod2 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        qsDate2 = new javax.swing.JLabel();
+        qsNo2 = new javax.swing.JLabel();
+        qsLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        qsPanel1 = new javax.swing.JPanel();
+        qsMod1 = new javax.swing.JLabel();
+        jSeparator9 = new javax.swing.JSeparator();
+        qsDate1 = new javax.swing.JLabel();
+        qsNo1 = new javax.swing.JLabel();
+        qsLabel1 = new javax.swing.JLabel();
+        submitBtn1 = new javax.swing.JButton();
+        qsPanel3 = new javax.swing.JPanel();
+        qsMod3 = new javax.swing.JLabel();
+        jSeparator10 = new javax.swing.JSeparator();
+        qsDate3 = new javax.swing.JLabel();
+        qsNo3 = new javax.swing.JLabel();
+        qsLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         panelFifth = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -1210,25 +1285,271 @@ public class StudentPanel extends javax.swing.JFrame {
 
         mainBody.addTab("tab3", panelThird);
 
-        jPanel6.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel6.setBackground(new java.awt.Color(250, 250, 250));
 
-        jLabel6.setText("This is panel 4");
+        questionsPanel.setBackground(new java.awt.Color(241, 240, 255));
+
+        jPanel26.setBackground(new java.awt.Color(241, 240, 255));
+
+        qsPanel2.setBackground(new java.awt.Color(241, 240, 255));
+
+        qsMod2.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        qsMod2.setForeground(new java.awt.Color(102, 102, 102));
+        qsMod2.setText("Internet Software Architecture");
+
+        qsDate2.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        qsDate2.setForeground(new java.awt.Color(159, 160, 170));
+        qsDate2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        qsDate2.setText("2024-01-26 22:18:02");
+
+        qsNo2.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        qsNo2.setText("Question Number 1");
+
+        qsLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        qsLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        qsLabel2.setText("What is the process of Encapsulation in Java? ");
+
+        jButton1.setBackground(new java.awt.Color(241, 240, 255));
+        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(108, 99, 255));
+        jButton1.setText("Submit Assignment");
+        jButton1.setBorder(null);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout qsPanel2Layout = new javax.swing.GroupLayout(qsPanel2);
+        qsPanel2.setLayout(qsPanel2Layout);
+        qsPanel2Layout.setHorizontalGroup(
+            qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(qsPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(qsPanel2Layout.createSequentialGroup()
+                        .addComponent(qsDate2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(qsPanel2Layout.createSequentialGroup()
+                        .addComponent(qsLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(qsPanel2Layout.createSequentialGroup()
+                        .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, qsPanel2Layout.createSequentialGroup()
+                                .addComponent(qsMod2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(qsPanel2Layout.createSequentialGroup()
+                                .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(qsNo2)
+                                    .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(32, 32, 32))))
+        );
+        qsPanel2Layout.setVerticalGroup(
+            qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(qsPanel2Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(qsNo2)
+                .addGap(6, 6, 6)
+                .addComponent(qsDate2)
+                .addGap(18, 18, 18)
+                .addComponent(qsLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qsMod2))
+                .addGap(24, 24, 24)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        qsPanel1.setBackground(new java.awt.Color(241, 240, 255));
+
+        qsMod1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        qsMod1.setForeground(new java.awt.Color(102, 102, 102));
+        qsMod1.setText("Internet Software Architecture");
+
+        qsDate1.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        qsDate1.setForeground(new java.awt.Color(159, 160, 170));
+        qsDate1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        qsDate1.setText("2024-01-26 22:18:02");
+
+        qsNo1.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        qsNo1.setText("Question Number 1");
+
+        qsLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        qsLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        qsLabel1.setText("What is the process of Encapsulation in Java? ");
+
+        submitBtn1.setBackground(new java.awt.Color(241, 240, 255));
+        submitBtn1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        submitBtn1.setForeground(new java.awt.Color(108, 99, 255));
+        submitBtn1.setText("Submit Assignment");
+        submitBtn1.setBorder(null);
+        submitBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout qsPanel1Layout = new javax.swing.GroupLayout(qsPanel1);
+        qsPanel1.setLayout(qsPanel1Layout);
+        qsPanel1Layout.setHorizontalGroup(
+            qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(qsPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(qsPanel1Layout.createSequentialGroup()
+                        .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, qsPanel1Layout.createSequentialGroup()
+                                .addComponent(qsMod1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(submitBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(qsPanel1Layout.createSequentialGroup()
+                                .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(qsNo1)
+                                    .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(32, 32, 32))
+                    .addGroup(qsPanel1Layout.createSequentialGroup()
+                        .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(qsDate1)
+                            .addComponent(qsLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        qsPanel1Layout.setVerticalGroup(
+            qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(qsPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(qsNo1)
+                .addGap(6, 6, 6)
+                .addComponent(qsDate1)
+                .addGap(18, 18, 18)
+                .addComponent(qsLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(submitBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qsMod1))
+                .addGap(24, 24, 24)
+                .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+
+        qsPanel3.setBackground(new java.awt.Color(241, 240, 255));
+
+        qsMod3.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        qsMod3.setForeground(new java.awt.Color(102, 102, 102));
+        qsMod3.setText("Internet Software Architecture");
+
+        qsDate3.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        qsDate3.setForeground(new java.awt.Color(159, 160, 170));
+        qsDate3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        qsDate3.setText("2024-01-26 22:18:02");
+
+        qsNo3.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        qsNo3.setText("Question Number 1");
+
+        qsLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        qsLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        qsLabel3.setText("What is the process of Encapsulation in Java? ");
+
+        jButton2.setBackground(new java.awt.Color(241, 240, 255));
+        jButton2.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(108, 99, 255));
+        jButton2.setText("Submit Assignment");
+        jButton2.setBorder(null);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout qsPanel3Layout = new javax.swing.GroupLayout(qsPanel3);
+        qsPanel3.setLayout(qsPanel3Layout);
+        qsPanel3Layout.setHorizontalGroup(
+            qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(qsPanel3Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(qsPanel3Layout.createSequentialGroup()
+                        .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, qsPanel3Layout.createSequentialGroup()
+                                .addComponent(qsMod3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(qsPanel3Layout.createSequentialGroup()
+                                .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(qsNo3)
+                                    .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(32, 32, 32))
+                    .addGroup(qsPanel3Layout.createSequentialGroup()
+                        .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(qsDate3)
+                            .addComponent(qsLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        qsPanel3Layout.setVerticalGroup(
+            qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(qsPanel3Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(qsNo3)
+                .addGap(6, 6, 6)
+                .addComponent(qsDate3)
+                .addGap(18, 18, 18)
+                .addComponent(qsLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qsMod3))
+                .addGap(24, 24, 24)
+                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(qsPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qsPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(qsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+        );
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap(187, Short.MAX_VALUE)
+                .addComponent(qsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(qsPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+            .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel26Layout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(qsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(394, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout questionsPanelLayout = new javax.swing.GroupLayout(questionsPanel);
+        questionsPanel.setLayout(questionsPanelLayout);
+        questionsPanelLayout.setHorizontalGroup(
+            questionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 839, Short.MAX_VALUE)
+        );
+        questionsPanelLayout.setVerticalGroup(
+            questionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(344, 344, 344)
-                .addComponent(jLabel6)
-                .addContainerGap(471, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(questionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(178, 178, 178)
-                .addComponent(jLabel6)
-                .addContainerGap(430, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 30, Short.MAX_VALUE)
+                .addComponent(questionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout panelFourthLayout = new javax.swing.GroupLayout(panelFourth);
@@ -1676,9 +1997,7 @@ public class StudentPanel extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1072, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1072, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2063,6 +2382,8 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel directEmail;
     private javax.swing.JTable gradesTable;
     private javax.swing.JPanel header;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2086,7 +2407,6 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -2106,6 +2426,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -2114,9 +2435,12 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JTabbedPane mainBody;
     private javax.swing.JPanel mainPanel;
@@ -2136,12 +2460,29 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JPasswordField profilePassword;
     private javax.swing.JTextField profilePhone;
     private javax.swing.JTextField profileUsername;
+    private javax.swing.JLabel qsDate1;
+    private javax.swing.JLabel qsDate2;
+    private javax.swing.JLabel qsDate3;
+    private javax.swing.JLabel qsLabel1;
+    private javax.swing.JLabel qsLabel2;
+    private javax.swing.JLabel qsLabel3;
+    private javax.swing.JLabel qsMod1;
+    private javax.swing.JLabel qsMod2;
+    private javax.swing.JLabel qsMod3;
+    private javax.swing.JLabel qsNo1;
+    private javax.swing.JLabel qsNo2;
+    private javax.swing.JLabel qsNo3;
+    private javax.swing.JPanel qsPanel1;
+    private javax.swing.JPanel qsPanel2;
+    private javax.swing.JPanel qsPanel3;
+    private javax.swing.JPanel questionsPanel;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchCourses;
     private javax.swing.JTextField searchGrades;
     private javax.swing.JPanel secondAnnouncementPanel;
     private javax.swing.JLabel stdPanelName;
     private javax.swing.JLabel studentCount;
+    private javax.swing.JButton submitBtn1;
     private javax.swing.JPanel tab1;
     private javax.swing.JPanel tab2;
     private javax.swing.JPanel tab3;
@@ -2159,4 +2500,5 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel teacher2;
     private javax.swing.JLabel usertypeShow;
     // End of variables declaration//GEN-END:variables
+
 }

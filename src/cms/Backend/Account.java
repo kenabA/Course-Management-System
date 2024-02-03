@@ -4,6 +4,7 @@
 package cms.Backend;
 
 import cms.Frontend.AdminPanel;
+import cms.Frontend.Person;
 import cms.Frontend.Student.StudentPanel;
 import cms.Frontend.TeacherPanel;
 import java.sql.ResultSet;
@@ -260,7 +261,7 @@ public class Account {
         for (int i = 2; i < months; i += 2) {
             semester++;
         }
-
+        Person.setSemester(semester);
         return Logics.convertToOrdinal(semester);
     }
 
@@ -397,10 +398,13 @@ public class Account {
         Account.logoutTime = getLastLogoutTime(role, id);
 
         try {
-            String query = " SELECT message FROM Message WHERE date_posted > ? AND course_id = 1 ;";
+            String query = " SELECT message FROM Message WHERE date_posted > ? AND course_id = ? ;";
 
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setString(1, Account.logoutTime);
+            preparedStatement.setInt(2, Person.getCourseId());
+
+            System.out.println(Person.getCourseId());
 
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next();
@@ -442,6 +446,49 @@ public class Account {
         }
         return null;
 
+    }
+
+    public static String[][] getAssignmentsData() {
+
+        try {
+            String query = """
+                            SELECT Module.module_name, Question.date_posted, Question.question, Question.semester, Question.q_id FROM `Question`                   
+                            INNER JOIN Module ON Module.module_id = Question.module_id
+                             INNER JOIN Course ON Course.course_id = Module.course_id
+                             WHERE Question.semester = ? AND Course.course_id = ? ORDER BY Question.date_posted DESC LIMIT 3;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, Person.getSemester());
+            preparedStatement.setInt(2,Person.getCourseId());
+            System.out.println("THE SEMESTER IS: " + Person.getSemester());
+            System.out.println("THE OUTER COURSE ID IS: " + Person.getCourseId());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String questionDetails[][] = new String[3][4];
+            int i = 0;
+
+            while (resultSet.next()) {
+                int questionId = resultSet.getInt("q_id");
+                String questionName = resultSet.getString("question");
+                String moduleName = resultSet.getString("module_name");
+                String time = resultSet.getString("date_posted");
+
+                questionDetails[i][0] = String.valueOf(questionId);
+                questionDetails[i][1] = questionName;
+                questionDetails[i][2] = moduleName;
+                questionDetails[i][3] = time;
+
+                i++;
+
+            }
+            return questionDetails;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }
