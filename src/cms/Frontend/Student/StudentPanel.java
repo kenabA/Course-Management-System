@@ -3,6 +3,7 @@
  */
 package cms.Frontend.Student;
 
+import cms.Frontend.Person;
 import cms.Backend.Account;
 import cms.Backend.Logics;
 import cms.Backend.Validation;
@@ -39,8 +40,6 @@ public class StudentPanel extends javax.swing.JFrame {
 
     public final static String role = "Student";
 
-    private static String loginTime;
-
     private int courseId;
     private int students;
     private String semester;
@@ -52,12 +51,15 @@ public class StudentPanel extends javax.swing.JFrame {
     /**
      * Creates new form StudentPanel
      */
+    private Person p;
+
     public StudentPanel() {
+
         initComponents();
         newText.setVisible(false);
     }
 
-    // GETTER METHODS
+    // GETTER METHODS ECAPSULATION
     public static String[] getterDetails() {
         String details[] = {StudentPanel.username, StudentPanel.email, StudentPanel.password, StudentPanel.phNum, String.valueOf(StudentPanel.id), StudentPanel.role};
         return details;
@@ -157,6 +159,8 @@ public class StudentPanel extends javax.swing.JFrame {
                 this.modules = String.valueOf(Account.getModulesCount(courseId));
                 this.announcement = Account.getAnnouncementData(courseId);
                 this.semester = Account.getSemester(StudentPanel.date);
+                
+                this.p = new Person(this.fName, id);
 
             }
 
