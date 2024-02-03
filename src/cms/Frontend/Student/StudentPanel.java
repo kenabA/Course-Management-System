@@ -160,7 +160,7 @@ public class StudentPanel extends javax.swing.JFrame {
                 this.announcement = Account.getAnnouncementData(courseId);
                 this.semester = Account.getSemester(StudentPanel.date);
                 
-                this.p = new Person(this.fName, id);
+                this.p = new Person(this.fName, this.lName, this.id, this.course, this.role);
 
             }
 
