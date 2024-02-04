@@ -589,4 +589,28 @@ public class Account {
         }
     }
 
+    public static String getQuesName(int qid) {
+        try {
+            String query = """
+                           SELECT Question.question
+                           FROM `Question`
+                           WHERE Question.q_id = ? ;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, qid);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String quesName = null;
+            while (resultSet.next()) {
+                quesName = resultSet.getString("question");
+            }
+            return quesName;
+
+        } catch (Exception e) {
+        }
+        return null;
+
+    }
+
 }

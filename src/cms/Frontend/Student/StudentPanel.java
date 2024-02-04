@@ -2389,23 +2389,7 @@ public class StudentPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No new announcements yet.", "No Announcements", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_notificationBtnMouseClicked
-    public void setButtonState(boolean enabled) {
-        submitBtn1.setText("Submitted");
-        submitBtn1.setEnabled(false);
 
-    }
-
-    public void setButtonState2(boolean enabled) {
-        submitBtn2.setText("Submitted");
-        submitBtn2.setEnabled(false);
-
-    }
-
-    public void setButtonState3(boolean enabled) {
-        submitBtn3.setText("Submitted");
-        submitBtn3.setEnabled(false);
-
-    }
     private void submitBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn1MouseClicked
 
         // If the assignment is already submitted: Returns and does not do anything
@@ -2414,7 +2398,6 @@ public class StudentPanel extends javax.swing.JFrame {
         } // Else ,a new Answer class is called to submit the answer : we pass the current object
         a = new Answer(q1, StudentPanel.id, 1, this);
         a.setVisible(true);
-
     }//GEN-LAST:event_submitBtn1MouseClicked
 
     private void submitBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn2MouseClicked
@@ -2435,7 +2418,23 @@ public class StudentPanel extends javax.swing.JFrame {
         a = new Answer(q3, StudentPanel.id, 3, this);
         a.setVisible(true);
     }//GEN-LAST:event_submitBtn3MouseClicked
+    public void setButtonState(boolean enabled) {
+        submitBtn1.setText("Submitted");
+        submitBtn1.setEnabled(false);
 
+    }
+
+    public void setButtonState2(boolean enabled) {
+        submitBtn2.setText("Submitted");
+        submitBtn2.setEnabled(false);
+
+    }
+
+    public void setButtonState3(boolean enabled) {
+        submitBtn3.setText("Submitted");
+        submitBtn3.setEnabled(false);
+
+    }
     /**
      * @param args the command line arguments
      */
