@@ -5,7 +5,6 @@ package cms.Frontend.Student;
 
 import cms.Frontend.Person;
 import cms.Backend.Account;
-import cms.Backend.Con;
 import cms.Backend.Logics;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
@@ -18,7 +17,6 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.net.URL;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -120,9 +118,8 @@ public class StudentPanel extends javax.swing.JFrame {
 
     }
 
-   
     private void checkIfSubmitted() {
-
+        // Checks wether the assignments are submitted or not
         Account.checkStatus1(this);
         Account.checkStatus2(this);
         Account.checkStatus3(this);
@@ -166,7 +163,7 @@ public class StudentPanel extends javax.swing.JFrame {
             qsPanel3.setVisible(false);
 
         } else if (data[1][0] == null) {
-
+            q1 = Integer.parseInt(data[0][0]);
             qsNo1.setText("Question Number " + data[0][0]);
             qsLabel1.setText(data[0][1]);
             qsMod1.setText(data[0][2]);
@@ -176,6 +173,8 @@ public class StudentPanel extends javax.swing.JFrame {
             qsPanel3.setVisible(false);
 
         } else if (data[1][0] != null && data[2][0] == null) {
+            q1 = Integer.parseInt(data[0][0]);
+            q2 = Integer.parseInt(data[1][0]);
 
             qsNo1.setText("Question Number " + data[0][0]);
             qsLabel1.setText(data[0][1]);
@@ -190,10 +189,12 @@ public class StudentPanel extends javax.swing.JFrame {
             qsPanel3.setVisible(false);
 
         } else {
+            // Storing the question numbers in a variable for future use
             q1 = Integer.parseInt(data[0][0]);
             q2 = Integer.parseInt(data[1][0]);
             q3 = Integer.parseInt(data[2][0]);
 
+            // Setting all the texts
             qsNo1.setText("Question Number " + data[0][0]);
             qsNo2.setText("Question Number " + data[1][0]);
             qsNo3.setText("Question Number " + data[2][0]);
@@ -2406,29 +2407,32 @@ public class StudentPanel extends javax.swing.JFrame {
 
     }
     private void submitBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn1MouseClicked
+
+        // If the assignment is already submitted: Returns and does not do anything
         if (submitBtn1.getText().equals("Submitted")) {
             return;
-        }
-        a = new Answer(q1, id, 1, this);
+        } // Else ,a new Answer class is called to submit the answer : we pass the current object
+        a = new Answer(q1, StudentPanel.id, 1, this);
         a.setVisible(true);
 
     }//GEN-LAST:event_submitBtn1MouseClicked
 
     private void submitBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn2MouseClicked
-        // TODO add your handling code here:
+
         if (submitBtn2.getText().equals("Submitted")) {
             return;
         }
-        a = new Answer(q2, id, 2, this);
+        a = new Answer(q2, StudentPanel.id, 2, this);
         a.setVisible(true);
     }//GEN-LAST:event_submitBtn2MouseClicked
 
     private void submitBtn3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn3MouseClicked
+
         // TODO add your handling code here:
         if (submitBtn3.getText().equals("Submitted")) {
             return;
         }
-        a = new Answer(q3, id, 3, this);
+        a = new Answer(q3, StudentPanel.id, 3, this);
         a.setVisible(true);
     }//GEN-LAST:event_submitBtn3MouseClicked
 

@@ -20,6 +20,7 @@ public class Answer extends javax.swing.JFrame {
     private final int btn;
 
     public Answer(int qid, int id, int btn, StudentPanel sp) {
+        // All the variables get initialized
         this.qid = qid;
         this.id = id;
         this.btn = btn;
@@ -133,12 +134,33 @@ public class Answer extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean submitAssignment() {
+    private void submitAssignment() {
+        System.out.println("QUESTION ID: " + this.qid);
+        System.out.println("HELLO 1");
+        // It first gets what the user has written 
         String answer = answerField.getText();
-        int rowsCount = Account.submitAssignment(qid, id, answer);
+
+        // Cannot send an empty assignment, can you ? 
+        if (answer.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Empty Assignment can't be submitted.", "Submit Assignment", JOptionPane.INFORMATION_MESSAGE, erIcon);
+            return;
+        }
+
+        System.out.println("HELLO 2");
+
+        // If not empty, we submit it from Account class from backend.
+        int rowsCount = Account.submitAssignment(this.qid, this.id, answer);
+
+        System.out.println("QUESTION ID: " + this.qid);
+        System.out.println(" ID: " + this.id);
+
+        System.out.println("HELLO 3");
+
+        // If rows count is not 0, 
         if (rowsCount != 0) {
             JOptionPane.showMessageDialog(null, "Successfully submitted the assignment.", "Submit Assignment", JOptionPane.INFORMATION_MESSAGE, icon);
             dispose();
+            // Now checks which button to disclose and remove the action listerner from.
             if (btn == 1) {
                 sp.setButtonState(false);
             }
@@ -149,14 +171,14 @@ public class Answer extends javax.swing.JFrame {
                 sp.setButtonState3(false);
             }
 
-            return true;
         } else {
             JOptionPane.showMessageDialog(null, "Assignment not submitted.", "Submit Assignment", JOptionPane.INFORMATION_MESSAGE, erIcon);
-            return false;
+
         }
     }
 
     private void submitAnsBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitAnsBtn1MouseClicked
+        // If again the submit assignment is clicked, 
         submitAssignment();
     }//GEN-LAST:event_submitAnsBtn1MouseClicked
 

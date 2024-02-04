@@ -462,8 +462,6 @@ public class Account {
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setInt(1, Person.getSemester());
             preparedStatement.setInt(2, Person.getCourseId());
-            System.out.println("THE SEMESTER IS: " + Person.getSemester());
-            System.out.println("THE OUTER COURSE ID IS: " + Person.getCourseId());
 
             ResultSet resultSet = preparedStatement.executeQuery();
             String questionDetails[][] = new String[3][4];
@@ -495,6 +493,7 @@ public class Account {
     // FOR SUBMITTING ANSWERS
     public static int submitAssignment(int qid, int id, String answer) {
         try {
+            // Inserts the assingments and inserts the status to 1.
             String query = "INSERT INTO `Answer` (`Answers`, `q_id`, `s_id`,`status`,`date_submitted`) VALUES (?, ?, ?, ?,current_timestamp());";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setString(1, answer);
@@ -515,7 +514,7 @@ public class Account {
         try {
 
             String query = """
-                           SELECT Answer.q_id, Answer.status
+                           SELECT Answer.status
                            FROM `Answer`
                            WHERE Answer.s_id = ? AND Answer.q_id = ? ;
                            """;
@@ -530,6 +529,7 @@ public class Account {
                 status = resultSet.getInt("status");
             }
             if (status == 1) {
+                // If the assignment is submitted, the button will be set to unclickable
                 p.setButtonState(false);
             }
 
