@@ -49,6 +49,8 @@ public class StudentPanel extends javax.swing.JFrame {
     DefaultTableModel model;
     DefaultTableModel model2;
 
+    private int q1, q2, q3;
+
     /**
      * Creates new form StudentPanel
      */
@@ -172,6 +174,10 @@ public class StudentPanel extends javax.swing.JFrame {
             qsPanel3.setVisible(false);
 
         } else {
+            q1 = Integer.parseInt(data[0][0]);
+            q2 = Integer.parseInt(data[1][0]);
+            q3 = Integer.parseInt(data[2][0]);
+            
 
             qsNo1.setText("Question Number " + data[0][0]);
             qsNo2.setText("Question Number " + data[1][0]);
@@ -1324,12 +1330,6 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(qsPanel2Layout.createSequentialGroup()
-                        .addComponent(qsDate2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(qsPanel2Layout.createSequentialGroup()
-                        .addComponent(qsLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(qsPanel2Layout.createSequentialGroup()
                         .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, qsPanel2Layout.createSequentialGroup()
                                 .addComponent(qsMod2)
@@ -1340,7 +1340,12 @@ public class StudentPanel extends javax.swing.JFrame {
                                     .addComponent(qsNo2)
                                     .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(32, 32, 32))))
+                        .addGap(32, 32, 32))
+                    .addGroup(qsPanel2Layout.createSequentialGroup()
+                        .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(qsDate2)
+                            .addComponent(qsLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         qsPanel2Layout.setVerticalGroup(
             qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1383,6 +1388,11 @@ public class StudentPanel extends javax.swing.JFrame {
         submitBtn1.setText("Submit Assignment");
         submitBtn1.setBorder(null);
         submitBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submitBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitBtn1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout qsPanel1Layout = new javax.swing.GroupLayout(qsPanel1);
         qsPanel1.setLayout(qsPanel1Layout);
@@ -2353,6 +2363,14 @@ public class StudentPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No new announcements yet.", "No Announcements", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_notificationBtnMouseClicked
+
+    private void submitBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn1MouseClicked
+        // TODO add your handling code here:
+
+//        Account.submitAssignment(q1);
+        System.out.println(q1);
+
+    }//GEN-LAST:event_submitBtn1MouseClicked
 
     /**
      * @param args the command line arguments

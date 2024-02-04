@@ -22,6 +22,8 @@ import javax.swing.table.DefaultTableModel;
 public class Account {
 
     private static final Con c = new Con();
+
+   
     StudentPanel sp;
 
     private static String usertype;
@@ -460,7 +462,7 @@ public class Account {
 
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setInt(1, Person.getSemester());
-            preparedStatement.setInt(2,Person.getCourseId());
+            preparedStatement.setInt(2, Person.getCourseId());
             System.out.println("THE SEMESTER IS: " + Person.getSemester());
             System.out.println("THE OUTER COURSE ID IS: " + Person.getCourseId());
 
@@ -489,6 +491,22 @@ public class Account {
         }
 
         return null;
+    }
+    
+    
+
+    public static void submitAssignment(int qid) {
+        try {
+            String query = "INSERT INTO `Answer` (`Answers`, `q_id`,`date_submitted`) VALUES (?, ?, ?);";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setString(1,"Answers");
+            preparedStatement.setInt(2, qid);
+            preparedStatement.setString(3, "current_timestamp()");
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("ERROR");
+        }
+
     }
 
 }
