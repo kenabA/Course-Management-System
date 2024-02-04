@@ -2,16 +2,30 @@
  *
  * @author kenabkc
  */
-
 package cms.Frontend.Student;
 
+import cms.Backend.Account;
 import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
 
 public class Answer extends javax.swing.JFrame {
 
-    public Answer() {
+    Icon erIcon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/errorIcon.png"));
+    Icon icon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/checkIcon.png"));
+
+    private final int qid;
+    private final int id;
+    private final StudentPanel sp;
+
+    public Answer(int qid, int id, StudentPanel sp) {
+        this.qid = qid;
+        this.id = id;
+        this.sp = sp;
         initComponents();
+
     }
+
 //submitAnsBtn1
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -21,12 +35,14 @@ public class Answer extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        answerField = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         submitAnsBtn1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(250, 250, 250));
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
@@ -36,9 +52,9 @@ public class Answer extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("What is the process of this called?");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        answerField.setColumns(20);
+        answerField.setRows(5);
+        jScrollPane1.setViewportView(answerField);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/question.png"))); // NOI18N
 
@@ -80,11 +96,15 @@ public class Answer extends javax.swing.JFrame {
         );
 
         submitAnsBtn1.setBackground(new java.awt.Color(108, 99, 255));
-        submitAnsBtn1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         submitAnsBtn1.setForeground(new java.awt.Color(255, 255, 255));
         submitAnsBtn1.setText("Submit");
         submitAnsBtn1.setBorder(null);
         submitAnsBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submitAnsBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitAnsBtn1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,8 +113,8 @@ public class Answer extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(submitAnsBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(submitAnsBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
@@ -108,29 +128,45 @@ public class Answer extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean submitAssignment() {
+        String answer = answerField.getText();
+        int rowsCount = Account.submitAssignment(qid, id, answer);
+        if (rowsCount != 0) {
+            JOptionPane.showMessageDialog(null, "Successfully submitted the assignment.", "Submit Assignment", JOptionPane.INFORMATION_MESSAGE, icon);
+            dispose();
+            sp.setButtonState(false);
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Assignment not submitted.", "Submit Assignment", JOptionPane.INFORMATION_MESSAGE, erIcon);
+            return false;
+        }
+    }
+
+    private void submitAnsBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitAnsBtn1MouseClicked
+        submitAssignment();
+    }//GEN-LAST:event_submitAnsBtn1MouseClicked
+
     public static void main(String args[]) {
-        
+
         try {
             FlatLightLaf.setup();
         } catch (Exception e) {
             System.out.println("Error in Flatlaf: " + e);
         }
 
-        java.awt.EventQueue.invokeLater(() -> {
-            new Answer().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea answerField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton submitAnsBtn1;
     // End of variables declaration//GEN-END:variables
 }

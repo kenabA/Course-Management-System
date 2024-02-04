@@ -23,7 +23,6 @@ public class Account {
 
     private static final Con c = new Con();
 
-   
     StudentPanel sp;
 
     private static String usertype;
@@ -492,20 +491,23 @@ public class Account {
 
         return null;
     }
-    
-    
 
-    public static void submitAssignment(int qid) {
+    // FOR SUBMITTING ANSWERS
+    public static int submitAssignment(int qid, int id, String answer) {
         try {
-            String query = "INSERT INTO `Answer` (`Answers`, `q_id`,`date_submitted`) VALUES (?, ?, ?);";
+            String query = "INSERT INTO `Answer` (`Answers`, `q_id`, `s_id`,`status`,`date_submitted`) VALUES (?, ?, ?, ?,current_timestamp());";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setString(1,"Answers");
+            preparedStatement.setString(1, answer);
             preparedStatement.setInt(2, qid);
-            preparedStatement.setString(3, "current_timestamp()");
-            preparedStatement.executeUpdate();
+            preparedStatement.setInt(3, id);
+            preparedStatement.setInt(4, 1);
+            int rows = preparedStatement.executeUpdate();
+            return rows;
+
         } catch (Exception e) {
-            System.out.println("ERROR");
+            System.out.println(e);
         }
+        return 0;
 
     }
 

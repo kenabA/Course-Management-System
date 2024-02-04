@@ -5,6 +5,7 @@ package cms.Frontend.Student;
 
 import cms.Frontend.Person;
 import cms.Backend.Account;
+import cms.Backend.Con;
 import cms.Backend.Logics;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
@@ -17,6 +18,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +28,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 public class StudentPanel extends javax.swing.JFrame {
+
+    Answer a;
 
     private static String username;
     private static int id;
@@ -110,7 +114,86 @@ public class StudentPanel extends javax.swing.JFrame {
 
         // Updating the Assignments Section
         setQuestionDetails(this.questionDetails);
+        checkIfSubmitted();
 
+    }
+
+    private void checkIfSubmitted() {
+        Con c = new Con();
+//        int q1 =  Integer.parseInt(data[0][0]);
+//        int q2 = Integer.parseInt(data[1][0]);
+//        int q3 = Integer.parseInt(data[2][0]);
+
+        // FOR ID 1
+        try {
+            String query = """
+                           SELECT Answer.q_id, Answer.status
+                           FROM `Answer`
+                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, q1);
+            System.out.println("Question no 1 : " + q1);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int status = 0;
+            while (resultSet.next()) {
+                status = resultSet.getInt("status");
+            }
+            if (status == 1) {
+                setButtonState(false);
+            }
+
+        } catch (Exception e) {
+        }
+
+        // FOR ID 2
+        try {
+            String query = """
+                           SELECT Answer.q_id, Answer.status
+                           FROM `Answer`
+                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, q2);
+            System.out.println("Question no 2 : " + q2);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int status = 0;
+            while (resultSet.next()) {
+                status = resultSet.getInt("status");
+            }
+            if (status == 1) {
+                setButtonState2(false);
+            }
+
+        } catch (Exception e) {
+        }
+
+        // FOR ID 3
+        try {
+            String query = """
+                           SELECT Answer.q_id, Answer.status
+                           FROM `Answer`
+                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, q3);
+            System.out.println("Question no 3 : " + q3);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int status = 0;
+            while (resultSet.next()) {
+                status = resultSet.getInt("status");
+            }
+            if (status == 1) {
+                setButtonState3(false);
+            }
+        } catch (Exception e) {
+        }
     }
 
     public void setAnnouncement(String[][] data) {
@@ -177,7 +260,6 @@ public class StudentPanel extends javax.swing.JFrame {
             q1 = Integer.parseInt(data[0][0]);
             q2 = Integer.parseInt(data[1][0]);
             q3 = Integer.parseInt(data[2][0]);
-            
 
             qsNo1.setText("Question Number " + data[0][0]);
             qsNo2.setText("Question Number " + data[1][0]);
@@ -321,7 +403,7 @@ public class StudentPanel extends javax.swing.JFrame {
         qsDate2 = new javax.swing.JLabel();
         qsNo2 = new javax.swing.JLabel();
         qsLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        submitBtn2 = new javax.swing.JButton();
         qsPanel1 = new javax.swing.JPanel();
         qsMod1 = new javax.swing.JLabel();
         jSeparator9 = new javax.swing.JSeparator();
@@ -335,7 +417,7 @@ public class StudentPanel extends javax.swing.JFrame {
         qsDate3 = new javax.swing.JLabel();
         qsNo3 = new javax.swing.JLabel();
         qsLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        submitBtn3 = new javax.swing.JButton();
         panelFifth = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -1315,12 +1397,12 @@ public class StudentPanel extends javax.swing.JFrame {
         qsLabel2.setForeground(new java.awt.Color(102, 102, 102));
         qsLabel2.setText("What is the process of Encapsulation in Java? ");
 
-        jButton1.setBackground(new java.awt.Color(241, 240, 255));
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(108, 99, 255));
-        jButton1.setText("Submit Assignment");
-        jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submitBtn2.setBackground(new java.awt.Color(241, 240, 255));
+        submitBtn2.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        submitBtn2.setForeground(new java.awt.Color(108, 99, 255));
+        submitBtn2.setText("Submit Assignment");
+        submitBtn2.setBorder(null);
+        submitBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout qsPanel2Layout = new javax.swing.GroupLayout(qsPanel2);
         qsPanel2.setLayout(qsPanel2Layout);
@@ -1334,7 +1416,7 @@ public class StudentPanel extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, qsPanel2Layout.createSequentialGroup()
                                 .addComponent(qsMod2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(submitBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(qsPanel2Layout.createSequentialGroup()
                                 .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(qsNo2)
@@ -1358,7 +1440,7 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addComponent(qsLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(submitBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(qsMod2))
                 .addGap(24, 24, 24)
                 .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1455,12 +1537,12 @@ public class StudentPanel extends javax.swing.JFrame {
         qsLabel3.setForeground(new java.awt.Color(102, 102, 102));
         qsLabel3.setText("What is the process of Encapsulation in Java? ");
 
-        jButton2.setBackground(new java.awt.Color(241, 240, 255));
-        jButton2.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(108, 99, 255));
-        jButton2.setText("Submit Assignment");
-        jButton2.setBorder(null);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submitBtn3.setBackground(new java.awt.Color(241, 240, 255));
+        submitBtn3.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        submitBtn3.setForeground(new java.awt.Color(108, 99, 255));
+        submitBtn3.setText("Submit Assignment");
+        submitBtn3.setBorder(null);
+        submitBtn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout qsPanel3Layout = new javax.swing.GroupLayout(qsPanel3);
         qsPanel3.setLayout(qsPanel3Layout);
@@ -1474,7 +1556,7 @@ public class StudentPanel extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, qsPanel3Layout.createSequentialGroup()
                                 .addComponent(qsMod3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(submitBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(qsPanel3Layout.createSequentialGroup()
                                 .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(qsNo3)
@@ -1498,7 +1580,7 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addComponent(qsLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(submitBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(qsMod3))
                 .addGap(24, 24, 24)
                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2363,12 +2445,29 @@ public class StudentPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No new announcements yet.", "No Announcements", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_notificationBtnMouseClicked
+    public void setButtonState(boolean enabled) {
+        submitBtn1.setText("Submitted");
+        submitBtn1.setEnabled(false);
 
+    }
+
+    public void setButtonState2(boolean enabled) {
+        submitBtn2.setText("Submitted");
+        submitBtn2.setEnabled(false);
+
+    }
+
+    public void setButtonState3(boolean enabled) {
+        submitBtn3.setText("Submitted");
+        submitBtn3.setEnabled(false);
+
+    }
     private void submitBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn1MouseClicked
-        // TODO add your handling code here:
-
-//        Account.submitAssignment(q1);
-        System.out.println(q1);
+        if (submitBtn1.getText().equals("Submitted")) {
+            return;
+        }
+        a = new Answer(q1, id, this);
+        a.setVisible(true);
 
     }//GEN-LAST:event_submitBtn1MouseClicked
 
@@ -2400,8 +2499,6 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel directEmail;
     private javax.swing.JTable gradesTable;
     private javax.swing.JPanel header;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2500,7 +2597,9 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JPanel secondAnnouncementPanel;
     private javax.swing.JLabel stdPanelName;
     private javax.swing.JLabel studentCount;
-    private javax.swing.JButton submitBtn1;
+    public static javax.swing.JButton submitBtn1;
+    private javax.swing.JButton submitBtn2;
+    private javax.swing.JButton submitBtn3;
     private javax.swing.JPanel tab1;
     private javax.swing.JPanel tab2;
     private javax.swing.JPanel tab3;
