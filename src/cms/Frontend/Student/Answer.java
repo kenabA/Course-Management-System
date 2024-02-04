@@ -17,10 +17,12 @@ public class Answer extends javax.swing.JFrame {
     private final int qid;
     private final int id;
     private final StudentPanel sp;
+    private final int btn;
 
-    public Answer(int qid, int id, StudentPanel sp) {
+    public Answer(int qid, int id, int btn, StudentPanel sp) {
         this.qid = qid;
         this.id = id;
+        this.btn = btn;
         this.sp = sp;
         initComponents();
 
@@ -137,7 +139,16 @@ public class Answer extends javax.swing.JFrame {
         if (rowsCount != 0) {
             JOptionPane.showMessageDialog(null, "Successfully submitted the assignment.", "Submit Assignment", JOptionPane.INFORMATION_MESSAGE, icon);
             dispose();
-            sp.setButtonState(false);
+            if (btn == 1) {
+                sp.setButtonState(false);
+            }
+            if (btn == 2) {
+                sp.setButtonState2(false);
+            }
+            if (btn == 3) {
+                sp.setButtonState3(false);
+            }
+
             return true;
         } else {
             JOptionPane.showMessageDialog(null, "Assignment not submitted.", "Submit Assignment", JOptionPane.INFORMATION_MESSAGE, erIcon);

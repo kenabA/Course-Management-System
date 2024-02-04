@@ -1403,6 +1403,11 @@ public class StudentPanel extends javax.swing.JFrame {
         submitBtn2.setText("Submit Assignment");
         submitBtn2.setBorder(null);
         submitBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submitBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitBtn2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout qsPanel2Layout = new javax.swing.GroupLayout(qsPanel2);
         qsPanel2.setLayout(qsPanel2Layout);
@@ -1543,6 +1548,11 @@ public class StudentPanel extends javax.swing.JFrame {
         submitBtn3.setText("Submit Assignment");
         submitBtn3.setBorder(null);
         submitBtn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submitBtn3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitBtn3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout qsPanel3Layout = new javax.swing.GroupLayout(qsPanel3);
         qsPanel3.setLayout(qsPanel3Layout);
@@ -2466,10 +2476,28 @@ public class StudentPanel extends javax.swing.JFrame {
         if (submitBtn1.getText().equals("Submitted")) {
             return;
         }
-        a = new Answer(q1, id, this);
+        a = new Answer(q1, id, 1, this);
         a.setVisible(true);
 
     }//GEN-LAST:event_submitBtn1MouseClicked
+
+    private void submitBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn2MouseClicked
+        // TODO add your handling code here:
+        if (submitBtn2.getText().equals("Submitted")) {
+            return;
+        }
+        a = new Answer(q2, id, 2, this);
+        a.setVisible(true);
+    }//GEN-LAST:event_submitBtn2MouseClicked
+
+    private void submitBtn3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn3MouseClicked
+        // TODO add your handling code here:
+        if (submitBtn3.getText().equals("Submitted")) {
+            return;
+        }
+        a = new Answer(q3, id, 3, this);
+        a.setVisible(true);
+    }//GEN-LAST:event_submitBtn3MouseClicked
 
     /**
      * @param args the command line arguments
