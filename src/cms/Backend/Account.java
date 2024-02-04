@@ -511,4 +511,82 @@ public class Account {
 
     }
 
+    public static void checkStatus1(StudentPanel p) {
+        try {
+
+            String query = """
+                           SELECT Answer.q_id, Answer.status
+                           FROM `Answer`
+                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, p.q1);
+            System.out.println("Question no 1 : " + p.q1);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int status = 0;
+            while (resultSet.next()) {
+                status = resultSet.getInt("status");
+            }
+            if (status == 1) {
+                p.setButtonState(false);
+            }
+
+        } catch (Exception e) {
+        }
+
+    }
+
+    public static void checkStatus2(StudentPanel p) {
+
+        try {
+            String query = """
+                           SELECT Answer.q_id, Answer.status
+                           FROM `Answer`
+                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, p.q2);
+            System.out.println("Question no 2 : " + p.q2);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int status = 0;
+            while (resultSet.next()) {
+                status = resultSet.getInt("status");
+            }
+            if (status == 1) {
+                p.setButtonState2(false);
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
+    public static void checkStatus3(StudentPanel p) {
+
+        try {
+            String query = """
+                           SELECT Answer.q_id, Answer.status
+                           FROM `Answer`
+                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, p.q3);
+            System.out.println("Question no 3 : " + p.q3);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int status = 0;
+            while (resultSet.next()) {
+                status = resultSet.getInt("status");
+            }
+            if (status == 1) {
+                p.setButtonState3(false);
+            }
+        } catch (Exception e) {
+        }
+    }
+
 }

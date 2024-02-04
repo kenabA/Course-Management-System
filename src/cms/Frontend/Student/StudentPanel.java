@@ -52,8 +52,10 @@ public class StudentPanel extends javax.swing.JFrame {
 
     DefaultTableModel model;
     DefaultTableModel model2;
+    public int q1;
 
-    private int q1, q2, q3;
+    public int q2;
+    public int q3;
 
     /**
      * Creates new form StudentPanel
@@ -118,82 +120,13 @@ public class StudentPanel extends javax.swing.JFrame {
 
     }
 
+   
     private void checkIfSubmitted() {
-        Con c = new Con();
-//        int q1 =  Integer.parseInt(data[0][0]);
-//        int q2 = Integer.parseInt(data[1][0]);
-//        int q3 = Integer.parseInt(data[2][0]);
 
-        // FOR ID 1
-        try {
-            String query = """
-                           SELECT Answer.q_id, Answer.status
-                           FROM `Answer`
-                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
-                           """;
+        Account.checkStatus1(this);
+        Account.checkStatus2(this);
+        Account.checkStatus3(this);
 
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, q1);
-            System.out.println("Question no 1 : " + q1);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            int status = 0;
-            while (resultSet.next()) {
-                status = resultSet.getInt("status");
-            }
-            if (status == 1) {
-                setButtonState(false);
-            }
-
-        } catch (Exception e) {
-        }
-
-        // FOR ID 2
-        try {
-            String query = """
-                           SELECT Answer.q_id, Answer.status
-                           FROM `Answer`
-                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
-                           """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, q2);
-            System.out.println("Question no 2 : " + q2);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            int status = 0;
-            while (resultSet.next()) {
-                status = resultSet.getInt("status");
-            }
-            if (status == 1) {
-                setButtonState2(false);
-            }
-
-        } catch (Exception e) {
-        }
-
-        // FOR ID 3
-        try {
-            String query = """
-                           SELECT Answer.q_id, Answer.status
-                           FROM `Answer`
-                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
-                           """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, q3);
-            System.out.println("Question no 3 : " + q3);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            int status = 0;
-            while (resultSet.next()) {
-                status = resultSet.getInt("status");
-            }
-            if (status == 1) {
-                setButtonState3(false);
-            }
-        } catch (Exception e) {
-        }
     }
 
     public void setAnnouncement(String[][] data) {
