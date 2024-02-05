@@ -2420,7 +2420,9 @@ public class StudentPanel extends javax.swing.JFrame {
         a.setVisible(true);
     }//GEN-LAST:event_submitBtn3MouseClicked
     public void setButtonState(boolean enabled) {
+
         submitBtn1.setText("Submitted");
+        submitBtn1.setBackground(Color.red);
         submitBtn1.setEnabled(false);
 
     }

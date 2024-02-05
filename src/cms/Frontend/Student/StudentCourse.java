@@ -1,6 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ *
+ * @author kenabkc
  */
 package cms.Frontend.Student;
 
@@ -15,10 +15,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-/**
- *
- * @author kenabkc
- */
 public class StudentCourse {
 
     public static JTable table;
