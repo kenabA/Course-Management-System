@@ -6,6 +6,7 @@ package cms.Frontend.Student;
 import cms.Frontend.Person;
 import cms.Backend.Account;
 import cms.Backend.Logics;
+import cms.Backend.StudentAccount;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.CellRenderer.GradeCellRenderer;
@@ -104,8 +105,8 @@ public class StudentPanel extends javax.swing.JFrame {
         gradesTable.getColumnModel().getColumn(4).setCellRenderer(new GradeCellRenderer());
 
         // UPating the activity when we log in
-        Account.updateActivity("Login", StudentPanel.role, StudentPanel.id);
-        boolean newNotifications = Account.checkNotifications(StudentPanel.role, StudentPanel.id);
+        Account.updateActivity("Login");
+        boolean newNotifications = Account.checkNotifications();
 
         if (newNotifications) {
 
@@ -227,15 +228,15 @@ public class StudentPanel extends javax.swing.JFrame {
                 StudentPanel.password = result.getString("password");
                 this.course = result.getString("course");
                 StudentPanel.date = result.getString("date_created");
-                this.students = Account.getStudentCount(course);
-                this.courseId = Account.getCourseId(course);
+                this.students = StudentAccount.getStudentCount(course);
+                this.courseId = StudentAccount.getCourseId(course);
                 this.modules = String.valueOf(Account.getModulesCount(courseId));
-                this.announcement = Account.getAnnouncementData(courseId);
-                this.semester = Account.getSemester(StudentPanel.date);
+                this.announcement = StudentAccount.getAnnouncementData(courseId);
+                this.semester = StudentAccount.getSemester(StudentPanel.date);
 
                 this.p = new Person(this.fName, this.lName, id, this.course, role, this.courseId);
 
-                this.questionDetails = Account.getAssignmentsData();
+                this.questionDetails = StudentAccount.getAssignmentsData();
 
             }
 
@@ -2047,7 +2048,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
         if (Logics.showConfirmationDialog()) {
             // Setting the logout time
-            Account.updateActivity("Logout", StudentPanel.role, StudentPanel.id);
+            Account.updateActivity("Logout");
             dispose();
             new Login().setVisible(true);
         }
@@ -2435,6 +2436,7 @@ public class StudentPanel extends javax.swing.JFrame {
         submitBtn3.setEnabled(false);
 
     }
+
     /**
      * @param args the command line arguments
      */

@@ -9,10 +9,12 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class Validation {
-
+    
+    // For getting the error message and error title
     private static String errorMsg;
     private static String errorTitle;
 
+    // Naming convention for each fields
     public static String namingConvention(String field) {
 
         return switch (field) {
@@ -69,6 +71,7 @@ Profile Updating Conventions :
         };
     }
 
+    // To validate if the field is empty
     public static boolean validateIfEmpty(String[] credentials) {
         boolean usertypeValidate = true;
         int length = credentials.length;
@@ -83,7 +86,8 @@ Profile Updating Conventions :
         return !credentials[0].isEmpty() && !credentials[1].isEmpty() && !credentials[2].isEmpty() && !credentials[3].isEmpty() && !credentials[4].isEmpty();
 
     }
-
+    
+    // Validates all the details once the fields are not empty
     public static boolean validateDetails(String fName, String lName, String username, String phone, String email, String pass, String rePass, String usertype) {
 
         String[] detailFields = {"Name", "Username", "Phone", "Email", "Pass"};
@@ -130,22 +134,20 @@ Profile Updating Conventions :
                     }
             }
         }
-
+        
+        // Calls the check duplicate function to check if the data already exists in the database
         return Account.checkDuplicate(username, email, usertype);
 
     }
-    
-    // Used concept of overriding 
-    
-     public static boolean validateDetails(String details[], String rePass, String role) {
+
+    // This is used when updating the data to the data : Used concept of overriding : Polymorphism
+    public static boolean validateDetails(String details[], String rePass, String role) {
 
         String[] detailFields = {"Username", "Phone", "Email", "Pass"};
 
         for (String detail : detailFields) {
 
             switch (detail) {
-
-              
 
                 case "Username":
 
@@ -178,11 +180,12 @@ Profile Updating Conventions :
                     }
             }
         }
-
+        // Again checks for the duplicate 
         return Account.checkDuplicate(details[0], details[1], role);
 
     }
-
+    
+    // Validation for Name
     private static boolean validateName(String fName, String lName) {
 
         String[] nameArr = {fName, lName};
@@ -199,7 +202,8 @@ Profile Updating Conventions :
         return true;
 
     }
-
+    
+    // Validation for Username
     private static boolean validateUsername(String username) {
 
         Pattern pattern = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_]{4,14}$");
@@ -215,7 +219,8 @@ Profile Updating Conventions :
         return matchFound;
 
     }
-
+    
+    // Validation for Email
     private static boolean validateEmail(String email) {
 
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9.]{5,}+@heraldcollege.edu.np$");
@@ -232,6 +237,7 @@ Profile Updating Conventions :
 
     }
 
+    // Validation for Phone Number
     private static boolean validatePhone(String phone) {
 
         Pattern pattern = Pattern.compile("^[0-9]{10}$");
@@ -248,6 +254,7 @@ Profile Updating Conventions :
 
     }
 
+    // Validation for Phone Password
     private static boolean validatePass(String pass) {
 
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9_!@#]{8,}$");
@@ -263,6 +270,7 @@ Profile Updating Conventions :
         return matchFound;
     }
 
+    // Validation for repassword
     private static boolean validateRepass(String pass, String rePass) {
 
         boolean matchFound = pass.equals(rePass);

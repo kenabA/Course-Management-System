@@ -5,6 +5,7 @@
 package cms.Frontend.Student;
 
 import cms.Backend.Account;
+import cms.Backend.StudentAccount;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
@@ -154,8 +155,7 @@ public class Answer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitAssignment() {
-        System.out.println("QUESTION ID: " + this.qid);
-        System.out.println("HELLO 1");
+
         // It first gets what the user has written 
         String answer = answerField.getText();
 
@@ -165,15 +165,8 @@ public class Answer extends javax.swing.JFrame {
             return;
         }
 
-        System.out.println("HELLO 2");
-
         // If not empty, we submit it from Account class from backend.
-        int rowsCount = Account.submitAssignment(this.qid, this.id, answer);
-
-        System.out.println("QUESTION ID: " + this.qid);
-        System.out.println(" ID: " + this.id);
-
-        System.out.println("HELLO 3");
+        int rowsCount = StudentAccount.submitAssignment(this.qid, answer);
 
         // If rows count is not 0, 
         if (rowsCount != 0) {

@@ -5,6 +5,7 @@
 package cms.Frontend.Student;
 
 import cms.Backend.Account;
+import cms.Backend.StudentAccount;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTable;
@@ -19,13 +20,13 @@ import javax.swing.table.JTableHeader;
  * @author kenabkc
  */
 public class StudentCourse {
-    
+
     public static JTable table;
 
     public static void updateDetails(int courseId, JTable table, String tableName) {
         StudentCourse.table = table;
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
+
         getModuleData(courseId, model, tableName);
 
     }
@@ -35,7 +36,7 @@ public class StudentCourse {
             Account.forTable1(courseId, model);
 
         } else if (tableName.equals("t2")) {
-            Account.forTable2(courseId, model);
+            StudentAccount.forTable2(courseId, model);
         }
     }
 

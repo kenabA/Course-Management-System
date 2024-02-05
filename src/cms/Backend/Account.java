@@ -19,17 +19,16 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
-public class Account {
+public class Account extends CreateConnection {
 
-    private static final Con c = new Con();
-
+    // Declaring the necessary assets
     StudentPanel sp;
 
     private static String usertype;
     private static int id;
 
     static String loginTime;
-    static String logoutTime;
+    static String lastLoggedInTime;
 
     Icon erIcon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/errorIcon.png"));
     Icon icon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/checkIcon.png"));
@@ -113,9 +112,14 @@ public class Account {
             if (loginValidation.next()) {
                 UIManager.put("OptionPane.okButtonText", "OK");
                 JOptionPane.showMessageDialog(null, "You have successfully logged into your account.", "Login Successful", JOptionPane.INFORMATION_MESSAGE, icon);
-                UIManager.put("JOptionPane.okButtonText", "OK");
+
+//                UIManager.put("JOptionPane.okButtonText", "OK");
                 Account.usertype = usertype.toString();
+
+                // Setting the global id for futuristic use
                 Account.id = loginValidation.getInt("id");
+
+                // If the Student is logging in : 
                 if (usertype.equals("Student")) {
                     sp = new StudentPanel();
                     sp.setName(username);
@@ -123,7 +127,8 @@ public class Account {
                     sp.setVisible(true);
                     return true;
 
-                } else if (usertype.equals("Teacher")) {
+                } // If the Teacher or Admin is logging in : 
+                else if (usertype.equals("Teacher")) {
                     new TeacherPanel().setVisible(true);
                 } else {
                     new AdminPanel().setVisible(true);
@@ -142,7 +147,7 @@ public class Account {
     // ------------- GETTING ALL USER DATA : USING USERNAME -------------
     public static ResultSet getUserData(String username) {
         try {
-            String query = "select * from Student where binary username = '" + username + "' ";
+            String query = "select * from `" + usertype + "` where binary username = '" + username + "' ";
             ResultSet resultSet = c.statement.executeQuery(query);
             return resultSet;
 
@@ -150,40 +155,6 @@ public class Account {
             System.out.println(e);
         }
         return null;
-    }
-
-    // ------------- STUDENT COUNT : USING COURSE -------------
-    public static int getStudentCount(String course) {
-        try {
-            String query = "select count(*) as student_count from Student where course = '" + course + "';";
-            ResultSet resultSet = c.statement.executeQuery(query);
-            if (resultSet.next()) {
-                int totalCount = resultSet.getInt("student_count");
-
-                return totalCount;
-            } else {
-                System.out.println("Cannot get the count.");
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return 0;
-    }
-
-    // ------------- COURSE ID : USING COURSE -------------
-    public static int getCourseId(String course) {
-        try {
-            String query = "SELECT course_id FROM `Course` WHERE course_name = '" + course + "';";
-            ResultSet resultSet = c.statement.executeQuery(query);
-            if (resultSet.next()) {
-                int courseId = resultSet.getInt("course_id");
-                return courseId;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
-
     }
 
     // ------------- MODULE COUNT : USING COURSE ID -------------
@@ -199,71 +170,6 @@ public class Account {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
-    }
-
-    // ------------- ANNOUNCEMENTS : USING COURSE ID -------------
-    public static String[][] getAnnouncementData(int courseId) {
-
-        String announcementDetails[][] = new String[2][4];
-
-        try {
-
-            String query = """
-                                SELECT Message.message, Teacher.f_name, Teacher.l_name, Message.date_posted
-                                FROM Message
-                                INNER JOIN Course ON Course.course_id = Message.course_id
-                                INNER JOIN Teacher ON Teacher.id = Message.teacher_id
-                                WHERE Course.course_id = ?
-                                ORDER BY Message.date_posted DESC LIMIT 2;
-                                """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, courseId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            int i = 0;
-
-            while (resultSet.next()) {
-
-                String message = resultSet.getString("message");
-                String fName = resultSet.getString("f_name");
-                String lName = resultSet.getString("l_name");
-                String date = resultSet.getString("date_posted");
-
-                announcementDetails[i][0] = message;
-                announcementDetails[i][1] = fName;
-                announcementDetails[i][2] = lName;
-                announcementDetails[i][3] = date;
-
-                i++;
-
-            }
-
-            return announcementDetails;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-
-    }
-
-    // ------------- SEMESTER : USING DATE : ACCOUNT CREATION DATE  -------------
-    public static String getSemester(String date) {
-
-        LocalDate startDate = LocalDate.parse(date);
-        LocalDate endDate = LocalDate.now();
-        Period period = Period.between(startDate, endDate);
-        int months = period.getYears() * 12 + period.getMonths();
-        System.out.println(months);
-        int semester = 1;
-
-        for (int i = 2; i < months; i += 2) {
-            semester++;
-        }
-        Person.setSemester(semester);
-        return Logics.convertToOrdinal(semester);
     }
 
     // ------------- UPDATING DATA : USING NECESSARY DATA : PROFILE SECTION -------------
@@ -293,8 +199,8 @@ public class Account {
         }
 
     }
-    // ------------- FOR TABLE 1 : COURSES -------------
 
+    // ------------- FOR TABLE 1 : COURSES -------------
     public static void forTable1(int courseId, DefaultTableModel model) {
         try {
             String query = """
@@ -328,56 +234,15 @@ public class Account {
         }
     }
 
-    // ------------- FOR TABLE 2 : GRADES -------------
-    public static void forTable2(int courseId, DefaultTableModel model) {
-        try {
-            String query = """
-                                SELECT
-                                                                    Module.module_id,
-                                                                    Module.module_name,
-                                                                    Module.semester,
-                                                                    Grade.grade
-                                                                
-                                                                FROM
-                                                                	Grade
-                                                                INNER JOIN Module ON Module.module_id = Grade.module_id
-                                                                INNER JOIN Student ON Student.id = Grade.student_id
-                                                                WHERE
-                                                                    Student.id = ?;
-                                """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, courseId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-
-                String moduleId = String.valueOf(resultSet.getInt("module_id"));
-                String name = resultSet.getString("module_name");
-                String sem = String.valueOf(resultSet.getInt("semester"));
-                String percentage = String.valueOf(resultSet.getInt("grade")) + "%";
-                String grade = Logics.getGrades(resultSet.getInt("grade"));
-                String row[] = {moduleId, name, sem, percentage, grade};
-
-                model.addRow(row);
-
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     // ------------- UPDATE ACTIVITY -------------
-    public static void updateActivity(String act, String role, int id) {
+    public static void updateActivity(String act) {
 
         try {
 
             String query = "INSERT INTO `Activity` (`activity`, `role`, `role_id`, `time`) VALUES (?, ?, ?, ?);";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setString(1, act);
-            preparedStatement.setString(2, role);
+            preparedStatement.setString(2, usertype);
             preparedStatement.setInt(3, id);
 
             /*
@@ -395,17 +260,16 @@ public class Account {
     }
 
     // ------------- CHECK IF ANY NEW NOTIFICATIONS -------------
-    public static boolean checkNotifications(String role, int id) {
-        Account.logoutTime = getLastLogoutTime(role, id);
+    public static boolean checkNotifications() {
+        // Just to get the last logged out time.
+        Account.lastLoggedInTime = getLastLoginTime();
 
         try {
             String query = " SELECT message FROM Message WHERE date_posted > ? AND course_id = ? ;";
 
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setString(1, Account.logoutTime);
+            preparedStatement.setString(1, Account.lastLoggedInTime);
             preparedStatement.setInt(2, Person.getCourseId());
-
-            System.out.println(Person.getCourseId());
 
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next();
@@ -417,96 +281,35 @@ public class Account {
     }
 
     // ------------- GETTING THE LAST LOGGED OUT  -------------
-    private static String getLastLogoutTime(String role, int id) {
+    private static String getLastLoginTime() {
 
         try {
             String query = """
-                                 SELECT MAX(time) as last_logout_time
+                                 SELECT MAX(time) as last_login_time
                                                             FROM Activity
                                                             WHERE role = ? AND role_id = ? AND time < ? AND activity = 'Login';
                                                                 
                                 """;
 
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setString(1, role);
+            preparedStatement.setString(1, usertype);
             preparedStatement.setInt(2, id);
             preparedStatement.setString(3, Account.loginTime);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            String lastLoggedOutTime = null;
+            String lastLoggedinTime = null;
 
             while (resultSet.next()) {
 
-                lastLoggedOutTime = resultSet.getString("last_logout_time");
+                lastLoggedinTime = resultSet.getString("last_login_time");
 
             }
-            return lastLoggedOutTime;
+            return lastLoggedinTime;
 
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-
-    }
-
-    public static String[][] getAssignmentsData() {
-
-        try {
-            String query = """
-                            SELECT Module.module_name, Question.date_posted, Question.question, Question.semester, Question.q_id FROM `Question`                   
-                            INNER JOIN Module ON Module.module_id = Question.module_id
-                             INNER JOIN Course ON Course.course_id = Module.course_id
-                             WHERE Question.semester = ? AND Course.course_id = ? ORDER BY Question.date_posted DESC LIMIT 3;
-                           """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, Person.getSemester());
-            preparedStatement.setInt(2, Person.getCourseId());
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            String questionDetails[][] = new String[3][4];
-            int i = 0;
-
-            while (resultSet.next()) {
-                int questionId = resultSet.getInt("q_id");
-                String questionName = resultSet.getString("question");
-                String moduleName = resultSet.getString("module_name");
-                String time = resultSet.getString("date_posted");
-
-                questionDetails[i][0] = String.valueOf(questionId);
-                questionDetails[i][1] = questionName;
-                questionDetails[i][2] = moduleName;
-                questionDetails[i][3] = time;
-
-                i++;
-
-            }
-            return questionDetails;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    // FOR SUBMITTING ANSWERS
-    public static int submitAssignment(int qid, int id, String answer) {
-        try {
-            // Inserts the assingments and inserts the status to 1.
-            String query = "INSERT INTO `Answer` (`Answers`, `q_id`, `s_id`,`status`,`date_submitted`) VALUES (?, ?, ?, ?,current_timestamp());";
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setString(1, answer);
-            preparedStatement.setInt(2, qid);
-            preparedStatement.setInt(3, id);
-            preparedStatement.setInt(4, 1);
-            int rows = preparedStatement.executeUpdate();
-            return rows;
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return 0;
 
     }
 
