@@ -6,6 +6,7 @@ package cms.Backend;
 
 import static cms.Backend.CreateConnection.c;
 import cms.Frontend.Person;
+import cms.Frontend.Student.StudentPanel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -157,7 +158,8 @@ public class StudentAccount extends CreateConnection {
         }
     }
 
-    public static String[][] getAssignmentsData() {
+    // ------------- TO GET THE QUESTIONS DATA -------------
+    public static String[][] getQuestions() {
 
         try {
             String query = """
@@ -198,7 +200,7 @@ public class StudentAccount extends CreateConnection {
         return null;
     }
 
-    // FOR SUBMITTING ANSWERS
+    // ------------- To Submit the assignment -------------
     public static int submitAssignment(int qid, String answer) {
         try {
             // Inserts the assingments and inserts the status to 1.
@@ -218,4 +220,83 @@ public class StudentAccount extends CreateConnection {
 
     }
 
+    // ------------- Checking the submitted status of a specific student  -------------
+    public static void checkStatus1(StudentPanel p) {
+        try {
+
+            String query = """
+                           SELECT Answer.status
+                           FROM `Answer`
+                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, Person.getId());
+            preparedStatement.setInt(2, p.q1);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int status = 0;
+            while (resultSet.next()) {
+                status = resultSet.getInt("status");
+            }
+            if (status == 1) {
+                // If the assignment is submitted, the button will be set to unclickable
+                p.setButtonState(false);
+            }
+
+        } catch (Exception e) {
+        }
+
+    }
+
+    public static void checkStatus2(StudentPanel p) {
+
+        try {
+            String query = """
+                           SELECT Answer.q_id, Answer.status
+                           FROM `Answer`
+                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, Person.getId());
+            preparedStatement.setInt(2, p.q2);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int status = 0;
+            while (resultSet.next()) {
+                status = resultSet.getInt("status");
+            }
+            if (status == 1) {
+                p.setButtonState2(false);
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
+    public static void checkStatus3(StudentPanel p) {
+
+        try {
+            String query = """
+                           SELECT Answer.q_id, Answer.status
+                           FROM `Answer`
+                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, Person.getId());
+            preparedStatement.setInt(2, p.q3);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int status = 0;
+            while (resultSet.next()) {
+                status = resultSet.getInt("status");
+            }
+            if (status == 1) {
+                p.setButtonState3(false);
+            }
+        } catch (Exception e) {
+        }
+    }
 }

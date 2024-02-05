@@ -113,7 +113,6 @@ public class Account extends CreateConnection {
                 UIManager.put("OptionPane.okButtonText", "OK");
                 JOptionPane.showMessageDialog(null, "You have successfully logged into your account.", "Login Successful", JOptionPane.INFORMATION_MESSAGE, icon);
 
-//                UIManager.put("JOptionPane.okButtonText", "OK");
                 Account.usertype = usertype.toString();
 
                 // Setting the global id for futuristic use
@@ -311,85 +310,6 @@ public class Account extends CreateConnection {
         }
         return null;
 
-    }
-
-    public static void checkStatus1(StudentPanel p) {
-        try {
-
-            String query = """
-                           SELECT Answer.status
-                           FROM `Answer`
-                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
-                           """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, p.q1);
-            System.out.println("Question no 1 : " + p.q1);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            int status = 0;
-            while (resultSet.next()) {
-                status = resultSet.getInt("status");
-            }
-            if (status == 1) {
-                // If the assignment is submitted, the button will be set to unclickable
-                p.setButtonState(false);
-            }
-
-        } catch (Exception e) {
-        }
-
-    }
-
-    public static void checkStatus2(StudentPanel p) {
-
-        try {
-            String query = """
-                           SELECT Answer.q_id, Answer.status
-                           FROM `Answer`
-                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
-                           """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, p.q2);
-            System.out.println("Question no 2 : " + p.q2);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            int status = 0;
-            while (resultSet.next()) {
-                status = resultSet.getInt("status");
-            }
-            if (status == 1) {
-                p.setButtonState2(false);
-            }
-
-        } catch (Exception e) {
-        }
-    }
-
-    public static void checkStatus3(StudentPanel p) {
-
-        try {
-            String query = """
-                           SELECT Answer.q_id, Answer.status
-                           FROM `Answer`
-                           WHERE Answer.s_id = ? AND Answer.q_id = ? ;
-                           """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, p.q3);
-            System.out.println("Question no 3 : " + p.q3);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            int status = 0;
-            while (resultSet.next()) {
-                status = resultSet.getInt("status");
-            }
-            if (status == 1) {
-                p.setButtonState3(false);
-            }
-        } catch (Exception e) {
-        }
     }
 
     public static String getQuesName(int qid) {

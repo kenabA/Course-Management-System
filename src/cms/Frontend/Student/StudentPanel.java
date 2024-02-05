@@ -121,9 +121,9 @@ public class StudentPanel extends javax.swing.JFrame {
 
     private void checkIfSubmitted() {
         // Checks wether the assignments are submitted or not
-        Account.checkStatus1(this);
-        Account.checkStatus2(this);
-        Account.checkStatus3(this);
+        StudentAccount.checkStatus1(this);
+        StudentAccount.checkStatus2(this);
+        StudentAccount.checkStatus3(this);
 
     }
 
@@ -220,7 +220,7 @@ public class StudentPanel extends javax.swing.JFrame {
         try {
             ResultSet result = Account.getUserData(StudentPanel.username);
             if (result.next()) {
-                this.id = result.getInt("id");
+                StudentPanel.id = result.getInt("id");
                 this.fName = result.getString("f_name");
                 this.lName = result.getString("l_name");
                 StudentPanel.email = result.getString("email");
@@ -236,7 +236,7 @@ public class StudentPanel extends javax.swing.JFrame {
 
                 this.p = new Person(this.fName, this.lName, id, this.course, role, this.courseId);
 
-                this.questionDetails = StudentAccount.getAssignmentsData();
+                this.questionDetails = StudentAccount.getQuestions();
 
             }
 
