@@ -289,15 +289,22 @@ public class StudentAccount extends CreateConnection {
 
         try {
             String query = """
-                               SELECT date_created FROM Student WHERE id = ?;
+                               SELECT date_created FROM student WHERE id = ?;
                                 """;
-
+            System.out.println("stdid: " + id);
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setInt(1, Integer.parseInt(id));
+            System.out.println("stdid2: " + id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            return resultSet.getString("date_created");
+            String date = null;
+
+            while (resultSet.next()) {
+                date = resultSet.getString("date_created");
+            }
+
+            return date;
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }

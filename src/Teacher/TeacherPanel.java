@@ -2,6 +2,8 @@ package Teacher;
 
 import cms.Backend.Account;
 import cms.Backend.HelperMethods;
+import static cms.Backend.HelperMethods.alignTableContents;
+import static cms.Backend.HelperMethods.setTableAppearance;
 import cms.Backend.StudentAccount;
 import cms.Backend.TeacherAccount;
 import cms.Backend.Validation;
@@ -105,9 +107,8 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         this.model = (DefaultTableModel) studentsTable.getModel();
 
         TeacherAccount.getTableData(courseId, model, "t3");
-
-//        alignTableContents(coursesTable);
-//        setTableAppearance(coursesTable);
+        alignTableContents(studentsTable);
+        setTableAppearance(studentsTable);
 //
 //        // Updating the Grades Tables
 //        StudentCourse.updateDetails(id, gradesTable, "t2");

@@ -62,8 +62,7 @@ public class TeacherAccount {
                 String cName = resultSet.getString("course");
                 String accCreationDate = StudentAccount.getAccountCreatedDate(studentId);
                 String sem = StudentAccount.getSemester(accCreationDate);
-                System.out.println(sem);
-                String row[] = {studentId, name, cName, sem, email};
+                String row[] = {studentId, name, sem, cName, email};
                 model.addRow(row);
 
             }
