@@ -5,6 +5,8 @@
 package cms.Backend;
 
 import static cms.Backend.CreateConnection.c;
+import cms.Frontend.Person;
+import cms.Frontend.Student.StudentPanel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,27 +46,24 @@ public class TeacherAccount {
     public static void studentsTable(int courseId, DefaultTableModel model) {
         try {
             String query = """
-                                SELECT Module.module_id, Module.module_name, Course.course_name, Module.semester, Teacher.f_name, Teacher.l_name
-                                                                FROM Module
-                                                                INNER JOIN Course ON Course.course_id = Module.course_id
-                                                                INNER JOIN Teacher ON Teacher.id = Module.teacher_id
-                                                                WHERE Course.course_id = ?
+                                SELECT Student.id, Student.f_name, Student.l_name, Student.email, Student.course FROM Student WHERE Student.course = ?;                                                                
                                 """;
 
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, courseId);
+            preparedStatement.setString(1, Person.getCourseName());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
 
-                String moduleId = String.valueOf(resultSet.getInt("module_id"));
-                String name = resultSet.getString("module_name");
-                String cName = resultSet.getString("course_name");
-                String sem = String.valueOf(resultSet.getInt("semester"));
-                String tName = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
-
-                String row[] = {moduleId, name, cName, sem, tName};
+                String studentId = String.valueOf(resultSet.getInt("id"));
+                String name = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
+                String email = resultSet.getString("email");
+                String cName = resultSet.getString("course");
+                String accCreationDate = StudentAccount.getAccountCreatedDate(studentId);
+                String sem = StudentAccount.getSemester(accCreationDate);
+                System.out.println(sem);
+                String row[] = {studentId, name, cName, sem, email};
                 model.addRow(row);
 
             }

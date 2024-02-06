@@ -46,6 +46,10 @@ public class Person {
         return id;
     }
 
+    public static String getCourseName() {
+        return course;
+    }
+
     // Gets the course id of the person if std and teacher
     public static int getCourseId() {
         return courseId;

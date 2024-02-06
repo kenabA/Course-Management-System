@@ -284,4 +284,23 @@ public class StudentAccount extends CreateConnection {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public static String getAccountCreatedDate(String id) {
+
+        try {
+            String query = """
+                               SELECT date_created FROM Student WHERE id = ?;
+                                """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, Integer.parseInt(id));
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.getString("date_created");
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
