@@ -580,10 +580,10 @@ public class Registration extends javax.swing.JFrame {
 
     private void registerUsertypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerUsertypeActionPerformed
         // TODO add your handling code here:
-        if (registerUsertype.getSelectedItem().equals("Student")) {
-            courseSelection.setVisible(true);
-        } else {
+        if (registerUsertype.getSelectedItem().equals("Admin")) {
             courseSelection.setVisible(false);
+        } else {
+            courseSelection.setVisible(true);
         }
     }//GEN-LAST:event_registerUsertypeActionPerformed
 

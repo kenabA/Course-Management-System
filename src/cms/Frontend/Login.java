@@ -240,6 +240,7 @@ public class Login extends javax.swing.JFrame {
             if (!username.isEmpty() && !password.isEmpty()) {
                 u1 = new Account();
                 boolean logged = u1.loginAccount(usertype, username, password);
+                System.out.println("HELLO");
                 if (logged) {
                     dispose();
                 }

@@ -3,15 +3,13 @@
  */
 package cms.Backend;
 
+import Teacher.TeacherPanel;
 import cms.Frontend.AdminPanel;
 import cms.Frontend.Person;
 import cms.Frontend.Student.StudentPanel;
-import cms.Frontend.TeacherPanel;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -23,6 +21,7 @@ public class Account extends CreateConnection {
 
     // Declaring the necessary assets
     StudentPanel sp;
+    TeacherPanel tp;
 
     private static String usertype;
     private static int id;
@@ -39,14 +38,16 @@ public class Account extends CreateConnection {
         try {
 
             switch (credentials[7]) {
-                case "Student" -> {
-                    String query = "INSERT INTO `" + credentials[7] + "` (`f_name`, `l_name`, `username`, `email`, `ph_num`, `password`, `date_created`, `course`) VALUES ('" + credentials[0] + "', '" + credentials[1] + "', '" + credentials[2] + "', '" + credentials[3] + "', '" + credentials[4] + "', '" + credentials[5] + "', current_timestamp() , '" + credentials[8] + "' );";
-                    c.statement.executeUpdate(query);
-                    break;
-                }
-                default -> {
+                case "Admin" -> {
+
                     String query1 = "INSERT INTO `" + credentials[7] + "` (`f_name`, `l_name`, `username`, `email`, `ph_num`, `password`, `date_created`) VALUES ('" + credentials[0] + "', '" + credentials[1] + "', '" + credentials[2] + "', '" + credentials[3] + "', '" + credentials[4] + "', '" + credentials[5] + "', current_timestamp());";
                     c.statement.executeUpdate(query1);
+                    break;
+
+                }
+                default -> {
+                    String query = "INSERT INTO `" + credentials[7] + "` (`f_name`, `l_name`, `username`, `email`, `ph_num`, `password`, `date_created`, `course`) VALUES ('" + credentials[0] + "', '" + credentials[1] + "', '" + credentials[2] + "', '" + credentials[3] + "', '" + credentials[4] + "', '" + credentials[5] + "', current_timestamp() , '" + credentials[8] + "' );";
+                    c.statement.executeUpdate(query);
                     break;
                 }
             }
@@ -128,7 +129,10 @@ public class Account extends CreateConnection {
 
                 } // If the Teacher or Admin is logging in : 
                 else if (usertype.equals("Teacher")) {
-                    new TeacherPanel().setVisible(true);
+                    tp = new TeacherPanel();
+                    tp.setName(username);
+                    tp.updateDetails();
+                    tp.setVisible(true);
                 } else {
                     new AdminPanel().setVisible(true);
                 }
@@ -251,6 +255,7 @@ public class Account extends CreateConnection {
             loginTime = Logics.getCurrentTime();
 
             preparedStatement.setString(4, loginTime);
+
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
@@ -267,7 +272,7 @@ public class Account extends CreateConnection {
             String query = " SELECT message FROM Message WHERE date_posted > ? AND course_id = ? ;";
 
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setString(1, Account.lastLoggedInTime);
+            preparedStatement.setString(1, lastLoggedInTime);
             preparedStatement.setInt(2, Person.getCourseId());
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -331,6 +336,89 @@ public class Account extends CreateConnection {
             return quesName;
 
         } catch (Exception e) {
+        }
+        return null;
+
+    }
+
+    // ------------- COURSE ID : USING COURSE -------------
+    public static int getCourseId(String course) {
+        try {
+            String query = "SELECT course_id FROM `Course` WHERE course_name = '" + course + "';";
+            ResultSet resultSet = c.statement.executeQuery(query);
+            if (resultSet.next()) {
+                int courseId = resultSet.getInt("course_id");
+                return courseId;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+
+    }
+
+    // ------------- STUDENT COUNT : USING COURSE -------------
+    public static int getTotalTeacherCount(String course) {
+
+        try {
+
+            String query = "select count(*) as teacher_count from Teacher where course = '" + course + "';";
+            ResultSet resultSet = c.statement.executeQuery(query);
+            if (resultSet.next()) {
+                int totalCount = resultSet.getInt("teacher_count");
+                return totalCount;
+            } else {
+                System.out.println("Cannot get the count.");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
+    // ------------- ANNOUNCEMENTS : USING COURSE ID -------------
+    public static String[][] getAnnouncementData(int courseId) {
+
+        String announcementDetails[][] = new String[2][4];
+
+        try {
+
+            String query = """
+                                SELECT Message.message, Teacher.f_name, Teacher.l_name, Message.date_posted
+                                FROM Message
+                                INNER JOIN Course ON Course.course_id = Message.course_id
+                                INNER JOIN Teacher ON Teacher.id = Message.teacher_id
+                                WHERE Course.course_id = ?
+                                ORDER BY Message.date_posted DESC LIMIT 2;
+                                """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, courseId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            int i = 0;
+
+            while (resultSet.next()) {
+
+                String message = resultSet.getString("message");
+                String fName = resultSet.getString("f_name");
+                String lName = resultSet.getString("l_name");
+                String date = resultSet.getString("date_posted");
+
+                announcementDetails[i][0] = message;
+                announcementDetails[i][1] = fName;
+                announcementDetails[i][2] = lName;
+                announcementDetails[i][3] = date;
+
+                i++;
+
+            }
+
+            return announcementDetails;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
 

@@ -18,25 +18,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class StudentAccount extends CreateConnection {
 
-    // ------------- COURSE ID : USING COURSE -------------
-    public static int getCourseId(String course) {
-        try {
-            String query = "SELECT course_id FROM `Course` WHERE course_name = '" + course + "';";
-            ResultSet resultSet = c.statement.executeQuery(query);
-            if (resultSet.next()) {
-                int courseId = resultSet.getInt("course_id");
-                return courseId;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
-
-    }
-
     // ------------- STUDENT COUNT : USING COURSE -------------
-    public static int getStudentCount(String course) {
+    public static int getTotalStudentCount(String course) {
+
         try {
+
             String query = "select count(*) as student_count from Student where course = '" + course + "';";
             ResultSet resultSet = c.statement.executeQuery(query);
             if (resultSet.next()) {
@@ -52,53 +38,7 @@ public class StudentAccount extends CreateConnection {
         return 0;
     }
 
-    // ------------- ANNOUNCEMENTS : USING COURSE ID -------------
-    public static String[][] getAnnouncementData(int courseId) {
-
-        String announcementDetails[][] = new String[2][4];
-
-        try {
-
-            String query = """
-                                SELECT Message.message, Teacher.f_name, Teacher.l_name, Message.date_posted
-                                FROM Message
-                                INNER JOIN Course ON Course.course_id = Message.course_id
-                                INNER JOIN Teacher ON Teacher.id = Message.teacher_id
-                                WHERE Course.course_id = ?
-                                ORDER BY Message.date_posted DESC LIMIT 2;
-                                """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, courseId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            int i = 0;
-
-            while (resultSet.next()) {
-
-                String message = resultSet.getString("message");
-                String fName = resultSet.getString("f_name");
-                String lName = resultSet.getString("l_name");
-                String date = resultSet.getString("date_posted");
-
-                announcementDetails[i][0] = message;
-                announcementDetails[i][1] = fName;
-                announcementDetails[i][2] = lName;
-                announcementDetails[i][3] = date;
-
-                i++;
-
-            }
-
-            return announcementDetails;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-
-    }
+   
 
     // ------------- SEMESTER : USING DATE : ACCOUNT CREATION DATE  -------------
     public static String getSemester(String date) {

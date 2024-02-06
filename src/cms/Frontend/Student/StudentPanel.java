@@ -10,9 +10,11 @@ import cms.Backend.StudentAccount;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.CellRenderer.GradeCellRenderer;
+import cms.Frontend.Contents;
 import cms.Frontend.Login;
 import static cms.Frontend.Student.StudentCourse.alignTableContents;
 import static cms.Frontend.Student.StudentCourse.setTableAppearance;
+import cms.Frontend.StudentTeacher;
 import java.sql.ResultSet;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
@@ -26,9 +28,10 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-public class StudentPanel extends javax.swing.JFrame {
+public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
 
     Answer a;
+    private Contents contents = new Contents();
 
     private static String username;
     private static int id;
@@ -76,6 +79,15 @@ public class StudentPanel extends javax.swing.JFrame {
 
     public void updateDetails() {
 
+        // Upating the activity when we log in
+        Account.updateActivity("Login");
+        boolean newNotifications = Account.checkNotifications();
+
+        if (newNotifications) {
+
+            newText.setVisible(true);
+        }
+
         // Updating the dashboard panel
         stdPanelName.setText(Person.getName());
         courseName.setText(this.course);
@@ -83,7 +95,8 @@ public class StudentPanel extends javax.swing.JFrame {
         modulesCount.setText(this.modules);
         currentSemester.setText(this.semester);
 
-        setAnnouncement(this.announcement);
+        // For announcements
+        setContents();
 
         // Updating the course panel
         this.model = (DefaultTableModel) coursesTable.getModel();
@@ -104,15 +117,6 @@ public class StudentPanel extends javax.swing.JFrame {
         setTableAppearance(gradesTable);
         gradesTable.getColumnModel().getColumn(4).setCellRenderer(new GradeCellRenderer());
 
-        // UPating the activity when we log in
-        Account.updateActivity("Login");
-        boolean newNotifications = Account.checkNotifications();
-
-        if (newNotifications) {
-
-            newText.setVisible(true);
-        }
-
         // Updating the Assignments Section
         setQuestionDetails(this.questionDetails);
         checkIfSubmitted();
@@ -127,28 +131,9 @@ public class StudentPanel extends javax.swing.JFrame {
 
     }
 
-    public void setAnnouncement(String[][] data) {
-
-        msg1.setText(data[0][0]);
-
-        String fullName = data[0][1] + " " + data[0][2];
-
-        teacher1.setText("- " + fullName);
-        date1.setText(data[0][3]);
-
-        if (data[1][0] == null) {
-            msg2.setText("There has been only one announcement for this course.");
-            teacher2.setVisible(false);
-            date2.setVisible(false);
-        } else {
-            msg2.setText(data[1][0]);
-
-            String fullName2 = data[1][1] + " " + data[1][2];
-
-            teacher2.setText("- " + fullName2);
-            date2.setText(data[1][3]);
-        }
-
+    @Override
+    public void setContents() {
+        contents.setAnnouncement(announcement, this);
     }
 
     public void setQuestionDetails(String[][] data) {
@@ -228,10 +213,10 @@ public class StudentPanel extends javax.swing.JFrame {
                 StudentPanel.password = result.getString("password");
                 this.course = result.getString("course");
                 StudentPanel.date = result.getString("date_created");
-                this.students = StudentAccount.getStudentCount(course);
-                this.courseId = StudentAccount.getCourseId(course);
+                this.students = StudentAccount.getTotalStudentCount(course);
+                this.courseId = Account.getCourseId(course);
                 this.modules = String.valueOf(Account.getModulesCount(courseId));
-                this.announcement = StudentAccount.getAnnouncementData(courseId);
+                this.announcement = Account.getAnnouncementData(courseId);
                 this.semester = StudentAccount.getSemester(StudentPanel.date);
 
                 this.p = new Person(this.fName, this.lName, id, this.course, role, this.courseId);
@@ -328,6 +313,7 @@ public class StudentPanel extends javax.swing.JFrame {
         jPanel25 = new javax.swing.JPanel();
         searchGrades = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         panelFourth = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         questionsPanel = new javax.swing.JPanel();
@@ -1268,22 +1254,34 @@ public class StudentPanel extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/printer.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tableScrollPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(tableScrollPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
@@ -2419,6 +2417,11 @@ public class StudentPanel extends javax.swing.JFrame {
         a = new Answer(q3, StudentPanel.id, 3, this);
         a.setVisible(true);
     }//GEN-LAST:event_submitBtn3MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Feature under construction.", "Print Result Slip", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jLabel6MouseClicked
     public void setButtonState(boolean enabled) {
 
         submitBtn1.setText("Submitted");
@@ -2462,8 +2465,8 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel courseName;
     private javax.swing.JTable coursesTable;
     private javax.swing.JLabel currentSemester;
-    private javax.swing.JLabel date1;
-    private javax.swing.JLabel date2;
+    public javax.swing.JLabel date1;
+    public javax.swing.JLabel date2;
     private javax.swing.JLabel directEmail;
     private javax.swing.JTable gradesTable;
     private javax.swing.JPanel header;
@@ -2490,6 +2493,7 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -2529,8 +2533,8 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel modulesCount;
-    private javax.swing.JTextArea msg1;
-    private javax.swing.JTextArea msg2;
+    public javax.swing.JTextArea msg1;
+    public javax.swing.JTextArea msg2;
     private javax.swing.JLabel newText;
     private javax.swing.JLabel notificationBtn;
     private javax.swing.JPanel panelFifth;
@@ -2581,8 +2585,8 @@ public class StudentPanel extends javax.swing.JFrame {
     private javax.swing.JLabel tabName;
     private javax.swing.JScrollPane tableScrollPanel;
     private javax.swing.JScrollPane tableScrollPanel1;
-    private javax.swing.JLabel teacher1;
-    private javax.swing.JLabel teacher2;
+    public javax.swing.JLabel teacher1;
+    public javax.swing.JLabel teacher2;
     private javax.swing.JLabel usertypeShow;
     // End of variables declaration//GEN-END:variables
 
