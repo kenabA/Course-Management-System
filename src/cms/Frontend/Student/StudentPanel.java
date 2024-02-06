@@ -5,15 +5,13 @@ package cms.Frontend.Student;
 
 import cms.Frontend.Person;
 import cms.Backend.Account;
-import cms.Backend.Logics;
+import cms.Backend.HelperMethods;
 import cms.Backend.StudentAccount;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.CellRenderer.GradeCellRenderer;
 import cms.Frontend.Contents;
 import cms.Frontend.Login;
-import static cms.Frontend.Student.StudentCourse.alignTableContents;
-import static cms.Frontend.Student.StudentCourse.setTableAppearance;
 import cms.Frontend.StudentTeacher;
 import java.sql.ResultSet;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -100,9 +98,10 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
 
         // Updating the course panel
         this.model = (DefaultTableModel) coursesTable.getModel();
-        StudentCourse.updateDetails(courseId, coursesTable, "t1");
-        alignTableContents(coursesTable);
-        setTableAppearance(coursesTable);
+
+        StudentAccount.getTableData(courseId, model, "t1");
+        HelperMethods.alignTableContents(coursesTable);
+        HelperMethods.setTableAppearance(coursesTable);
 
         // Updating the Profile Panel
         profileUsername.setText(StudentPanel.username);
@@ -112,9 +111,9 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
         profilePhone.setText(StudentPanel.phNum);
 
         // Updating the Grades Tables
-        StudentCourse.updateDetails(StudentPanel.id, gradesTable, "t2");
-        alignTableContents(gradesTable);
-        setTableAppearance(gradesTable);
+        StudentAccount.getTableData(StudentPanel.id, model, "t2");
+        HelperMethods.alignTableContents(gradesTable);
+        HelperMethods.setTableAppearance(gradesTable);
         gradesTable.getColumnModel().getColumn(4).setCellRenderer(new GradeCellRenderer());
 
         // Updating the Assignments Section
@@ -2044,7 +2043,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-        if (Logics.showConfirmationDialog()) {
+        if (HelperMethods.showConfirmationDialog()) {
             // Setting the logout time
             Account.updateActivity("Logout");
             dispose();
@@ -2235,7 +2234,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
 
-        if (Logics.showConfirmationDialog()) {
+        if (HelperMethods.showConfirmationDialog()) {
 
             String tempUsername = profileUsername.getText();
             String tempEmail = profileEmail.getText();
@@ -2280,52 +2279,52 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void profileUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusGained
 
-        Logics.handleFocusGainedLost(profileUsername, StudentPanel.username, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileUsername, StudentPanel.username, new Color(158, 160, 170), evt);
 
     }//GEN-LAST:event_profileUsernameFocusGained
 
     private void profileUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusLost
 
-        Logics.handleFocusGainedLost(profileUsername, StudentPanel.username, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileUsername, StudentPanel.username, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileUsernameFocusLost
 
     private void profileEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusGained
 
-        Logics.handleFocusGainedLost(profileEmail, StudentPanel.email, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileEmail, StudentPanel.email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusGained
 
     private void profileEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusLost
 
-        Logics.handleFocusGainedLost(profileEmail, StudentPanel.email, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileEmail, StudentPanel.email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusLost
 
     private void profilePasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusGained
 
-        Logics.handleFocusGainedLost(profilePassword, StudentPanel.password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePassword, StudentPanel.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusGained
 
     private void profilePasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusLost
 
-        Logics.handleFocusGainedLost(profilePassword, StudentPanel.password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePassword, StudentPanel.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusLost
 
     private void profileConfirmPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusGained
 
-        Logics.handleFocusGainedLost(profileConfirmPassword, StudentPanel.password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileConfirmPassword, StudentPanel.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusGained
 
     private void profileConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusLost
 
-        Logics.handleFocusGainedLost(profileConfirmPassword, StudentPanel.password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileConfirmPassword, StudentPanel.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusLost
 
     private void profilePhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusGained
 
-        Logics.handleFocusGainedLost(profilePhone, StudentPanel.phNum, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePhone, StudentPanel.phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusGained
 
     private void profilePhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusLost
-        Logics.handleFocusGainedLost(profilePhone, StudentPanel.phNum, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePhone, StudentPanel.phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusLost
 
     private void profilePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePasswordActionPerformed

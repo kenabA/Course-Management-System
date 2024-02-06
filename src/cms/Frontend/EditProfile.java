@@ -1,7 +1,7 @@
 package cms.Frontend;
 
 import cms.Backend.Account;
-import cms.Backend.Logics;
+import cms.Backend.HelperMethods;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
 import java.awt.Color;
@@ -489,12 +489,12 @@ public class EditProfile extends javax.swing.JFrame{
 
     private void profileUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusGained
 
-        Logics.handleFocusGainedLost(profileUsername, EditProfile.username, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileUsername, EditProfile.username, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileUsernameFocusGained
 
     private void profileUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusLost
 
-        Logics.handleFocusGainedLost(profileUsername, EditProfile.username, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileUsername, EditProfile.username, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileUsernameFocusLost
 
     private void profileUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileUsernameActionPerformed
@@ -503,12 +503,12 @@ public class EditProfile extends javax.swing.JFrame{
 
     private void profilePasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusGained
 
-        Logics.handleFocusGainedLost(profilePassword, EditProfile.password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePassword, EditProfile.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusGained
 
     private void profilePasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusLost
 
-        Logics.handleFocusGainedLost(profilePassword, EditProfile.password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePassword, EditProfile.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusLost
 
     private void profilePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePasswordActionPerformed
@@ -517,21 +517,21 @@ public class EditProfile extends javax.swing.JFrame{
 
     private void profilePhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusGained
 
-        Logics.handleFocusGainedLost(profilePhone, EditProfile.phNum, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePhone, EditProfile.phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusGained
 
     private void profilePhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusLost
-        Logics.handleFocusGainedLost(profilePhone, EditProfile.phNum, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePhone, EditProfile.phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusLost
 
     private void profileEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusGained
 
-        Logics.handleFocusGainedLost(profileEmail, EditProfile.email, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileEmail, EditProfile.email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusGained
 
     private void profileEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusLost
 
-        Logics.handleFocusGainedLost(profileEmail, EditProfile.email, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileEmail, EditProfile.email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusLost
 
     private void profileEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileEmailActionPerformed
@@ -540,7 +540,7 @@ public class EditProfile extends javax.swing.JFrame{
 
     private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
 
-        if (Logics.showConfirmationDialog()) {
+        if (HelperMethods.showConfirmationDialog()) {
 
             String tempUsername = profileUsername.getText();
             String tempEmail = profileEmail.getText();
@@ -580,12 +580,12 @@ public class EditProfile extends javax.swing.JFrame{
 
     private void profileConfirmPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusGained
 
-        Logics.handleFocusGainedLost(profileConfirmPassword, this.password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileConfirmPassword, this.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusGained
 
     private void profileConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusLost
 
-        Logics.handleFocusGainedLost(profileConfirmPassword, this.password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileConfirmPassword, this.password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusLost
 
     private void profileConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileConfirmPasswordActionPerformed

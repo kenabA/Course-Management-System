@@ -204,7 +204,7 @@
                       <Color blue="aa" green="a0" red="9e" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="2"/>
-                    <Property name="text" type="java.lang.String" value="Courses"/>
+                    <Property name="text" type="java.lang.String" value="Students"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1229,7 +1229,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="coursesTable">
+                        <Component class="javax.swing.JTable" name="studentsTable">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Helvetica Neue" size="13" style="1"/>
@@ -1239,12 +1239,41 @@
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="5" rowCount="0">
-                                <Column editable="false" title="ID" type="java.lang.Integer"/>
-                                <Column editable="false" title="Module" type="java.lang.String"/>
-                                <Column editable="false" title="Courses" type="java.lang.String"/>
+                                <Column editable="false" title="Student ID" type="java.lang.Integer"/>
+                                <Column editable="false" title="Student Name" type="java.lang.String"/>
                                 <Column editable="false" title="Semester" type="java.lang.Integer"/>
-                                <Column editable="false" title="Instructor" type="java.lang.String"/>
+                                <Column editable="false" title="Course" type="java.lang.String"/>
+                                <Column editable="false" title="Email" type="java.lang.String"/>
                               </Table>
+                            </Property>
+                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                              <TableColumnModel selectionModel="0">
+                                <Column maxWidth="100" minWidth="-1" prefWidth="100" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="500" minWidth="-1" prefWidth="500" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="300" minWidth="-1" prefWidth="300" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                              </TableColumnModel>
                             </Property>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                               <Color id="Default Cursor"/>

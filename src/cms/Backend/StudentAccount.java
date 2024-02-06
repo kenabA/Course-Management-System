@@ -14,9 +14,12 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class StudentAccount extends CreateConnection {
+
+    public static JTable table;
 
     // ------------- STUDENT COUNT : USING COURSE -------------
     public static int getTotalStudentCount(String course) {
@@ -38,8 +41,6 @@ public class StudentAccount extends CreateConnection {
         return 0;
     }
 
-   
-
     // ------------- SEMESTER : USING DATE : ACCOUNT CREATION DATE  -------------
     public static String getSemester(String date) {
 
@@ -54,48 +55,7 @@ public class StudentAccount extends CreateConnection {
             semester++;
         }
         Person.setSemester(semester);
-        return Logics.convertToOrdinal(semester);
-    }
-
-    // ------------- FOR TABLE 2 : GRADES TABLE -------------
-    public static void forTable2(int courseId, DefaultTableModel model) {
-        try {
-            String query = """
-                                SELECT
-                                                                    Module.module_id,
-                                                                    Module.module_name,
-                                                                    Module.semester,
-                                                                    Grade.grade
-                                                                
-                                                                FROM
-                                                                	Grade
-                                                                INNER JOIN Module ON Module.module_id = Grade.module_id
-                                                                INNER JOIN Student ON Student.id = Grade.student_id
-                                                                WHERE
-                                                                    Student.id = ?;
-                                """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, courseId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-
-                String moduleId = String.valueOf(resultSet.getInt("module_id"));
-                String name = resultSet.getString("module_name");
-                String sem = String.valueOf(resultSet.getInt("semester"));
-                String percentage = String.valueOf(resultSet.getInt("grade")) + "%";
-                String grade = Logics.getGrades(resultSet.getInt("grade"));
-                String row[] = {moduleId, name, sem, percentage, grade};
-
-                model.addRow(row);
-
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        return HelperMethods.convertToOrdinal(semester);
     }
 
     // ------------- TO GET THE QUESTIONS DATA -------------
@@ -237,6 +197,91 @@ public class StudentAccount extends CreateConnection {
                 p.setButtonState3(false);
             }
         } catch (Exception e) {
+        }
+    }
+
+    public static void getTableData(int courseId, DefaultTableModel model, String tableName) {
+        if (tableName.equals("t1")) {
+            coursesTable(courseId, model);
+
+        }
+        if (tableName.equals("t2")) {
+            gradesTable(courseId, model);
+        }
+    }
+
+    // ------------- FOR TABLE 1 : COURSES -------------
+    public static void coursesTable(int courseId, DefaultTableModel model) {
+        try {
+            String query = """
+                                SELECT Module.module_id, Module.module_name, Course.course_name, Module.semester, Teacher.f_name, Teacher.l_name
+                                                                FROM Module
+                                                                INNER JOIN Course ON Course.course_id = Module.course_id
+                                                                INNER JOIN Teacher ON Teacher.id = Module.teacher_id
+                                                                WHERE Course.course_id = ?
+                                """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, courseId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String moduleId = String.valueOf(resultSet.getInt("module_id"));
+                String name = resultSet.getString("module_name");
+                String cName = resultSet.getString("course_name");
+                String sem = String.valueOf(resultSet.getInt("semester"));
+                String tName = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
+
+                String row[] = {moduleId, name, cName, sem, tName};
+                model.addRow(row);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    // ------------- FOR TABLE 2 : GRADES TABLE -------------
+    public static void gradesTable(int courseId, DefaultTableModel model) {
+        try {
+            String query = """
+                                SELECT
+                                                                    Module.module_id,
+                                                                    Module.module_name,
+                                                                    Module.semester,
+                                                                    Grade.grade
+                                                                
+                                                                FROM
+                                                                	Grade
+                                                                INNER JOIN Module ON Module.module_id = Grade.module_id
+                                                                INNER JOIN Student ON Student.id = Grade.student_id
+                                                                WHERE
+                                                                    Student.id = ?;
+                                """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, courseId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String moduleId = String.valueOf(resultSet.getInt("module_id"));
+                String name = resultSet.getString("module_name");
+                String sem = String.valueOf(resultSet.getInt("semester"));
+                String percentage = String.valueOf(resultSet.getInt("grade")) + "%";
+                String grade = HelperMethods.getGrades(resultSet.getInt("grade"));
+                String row[] = {moduleId, name, sem, percentage, grade};
+
+                model.addRow(row);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

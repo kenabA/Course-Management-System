@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,6 +32,8 @@ public class Account extends CreateConnection {
 
     Icon erIcon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/errorIcon.png"));
     Icon icon = new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/checkIcon.png"));
+
+    public static JTable table;
 
     // ------------- INSERTING DATA -------------
     public static void registerAccount(String[] credentials) {
@@ -203,40 +206,6 @@ public class Account extends CreateConnection {
 
     }
 
-    // ------------- FOR TABLE 1 : COURSES -------------
-    public static void forTable1(int courseId, DefaultTableModel model) {
-        try {
-            String query = """
-                                SELECT Module.module_id, Module.module_name, Course.course_name, Module.semester, Teacher.f_name, Teacher.l_name
-                                                                FROM Module
-                                                                INNER JOIN Course ON Course.course_id = Module.course_id
-                                                                INNER JOIN Teacher ON Teacher.id = Module.teacher_id
-                                                                WHERE Course.course_id = ?
-                                """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, courseId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-
-                String moduleId = String.valueOf(resultSet.getInt("module_id"));
-                String name = resultSet.getString("module_name");
-                String cName = resultSet.getString("course_name");
-                String sem = String.valueOf(resultSet.getInt("semester"));
-                String tName = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
-
-                String row[] = {moduleId, name, cName, sem, tName};
-                model.addRow(row);
-
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     // ------------- UPDATE ACTIVITY -------------
     public static void updateActivity(String act) {
 
@@ -252,7 +221,7 @@ public class Account extends CreateConnection {
                 Instead of passing the current_timestamp(), we pass our custom loginTime 
                 to make sure there are no differences in time while checking for new messages.
              */
-            loginTime = Logics.getCurrentTime();
+            loginTime = HelperMethods.getCurrentTime();
 
             preparedStatement.setString(4, loginTime);
 
@@ -274,11 +243,11 @@ public class Account extends CreateConnection {
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setString(1, lastLoggedInTime);
             preparedStatement.setInt(2, Person.getCourseId());
-            
+
             System.out.println(Person.getCourseId());
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            
+
             return resultSet.next();
 
         } catch (SQLException ex) {
@@ -358,25 +327,6 @@ public class Account extends CreateConnection {
         }
         return 0;
 
-    }
-
-    // ------------- STUDENT COUNT : USING COURSE -------------
-    public static int getTotalTeacherCount(String course) {
-
-        try {
-
-            String query = "select count(*) as teacher_count from Teacher where course = '" + course + "';";
-            ResultSet resultSet = c.statement.executeQuery(query);
-            if (resultSet.next()) {
-                int totalCount = resultSet.getInt("teacher_count");
-                return totalCount;
-            } else {
-                System.out.println("Cannot get the count.");
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return 0;
     }
 
     // ------------- ANNOUNCEMENTS : USING COURSE ID -------------

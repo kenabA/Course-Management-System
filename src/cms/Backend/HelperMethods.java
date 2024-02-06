@@ -5,13 +5,19 @@
 package cms.Backend;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
-public class Logics {
+public class HelperMethods {
 
     // Gets the current time
     public static String getCurrentTime() {
@@ -83,6 +89,36 @@ public class Logics {
         }
 
         return grade;
+    }
+
+    public static void alignTableContents(JTable table) {
+        DefaultTableCellRenderer alignRenderer = new DefaultTableCellRenderer();
+        alignRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(alignRenderer);
+        }
+    }
+
+    public static void setTableAppearance(JTable table) {
+
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+
+        headerRenderer.setBorder(new EmptyBorder(10, 20, 10, 20));
+
+        table.setShowHorizontalLines(true);
+        table.setShowVerticalLines(true);
+        table.setSelectionBackground(new Color(241, 240, 255));
+        table.setSelectionForeground(new Color(108, 99, 255));
+        int margin = 20;
+        table.setRowHeight(table.getRowHeight() + margin);
+        JTableHeader header = table.getTableHeader();
+        Font originalFont = header.getFont();
+        Font boldFont = new Font(originalFont.getFontName(), Font.BOLD, originalFont.getSize());
+        header.setFont(boldFont);
+        header.setForeground(new Color(102, 102, 102));
+
     }
 
 }

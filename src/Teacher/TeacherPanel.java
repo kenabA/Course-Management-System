@@ -1,8 +1,9 @@
 package Teacher;
 
 import cms.Backend.Account;
-import cms.Backend.Logics;
+import cms.Backend.HelperMethods;
 import cms.Backend.StudentAccount;
+import cms.Backend.TeacherAccount;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.Contents;
@@ -31,7 +32,7 @@ import javax.swing.table.TableRowSorter;
 public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private Answer a;
-    private Contents contents = new Contents();
+    private final Contents contents = new Contents();
 
     private static String username;
     private static int id;
@@ -100,9 +101,11 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
         setContents();
 
-//        // Updating the course panel
-//        this.model = (DefaultTableModel) coursesTable.getModel();
-//        StudentCourse.updateDetails(courseId, coursesTable, "t1");
+        // Updating the students panel
+        this.model = (DefaultTableModel) studentsTable.getModel();
+
+        TeacherAccount.getTableData(courseId, model, "t3");
+
 //        alignTableContents(coursesTable);
 //        setTableAppearance(coursesTable);
 //
@@ -137,7 +140,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                 this.course = result.getString("course");
                 TeacherPanel.date = result.getString("date_created");
                 this.studentsCount = StudentAccount.getTotalStudentCount(course);
-                this.teachersCount = Account.getTotalTeacherCount(course);
+                this.teachersCount = TeacherAccount.getTotalTeacherCount(course);
                 this.courseId = Account.getCourseId(course);
                 this.modules = String.valueOf(Account.getModulesCount(courseId));
 
@@ -231,7 +234,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         panelSecond = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         tableScrollPanel = new javax.swing.JScrollPane();
-        coursesTable = new javax.swing.JTable();
+        studentsTable = new javax.swing.JTable();
         jPanel13 = new javax.swing.JPanel();
         searchCourses = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -352,7 +355,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
         tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        tabBtn2.setText("Courses");
+        tabBtn2.setText("Students");
 
         javax.swing.GroupLayout tab2Layout = new javax.swing.GroupLayout(tab2);
         tab2.setLayout(tab2Layout);
@@ -947,18 +950,18 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         tableScrollPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
         tableScrollPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        coursesTable.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        coursesTable.setForeground(new java.awt.Color(51, 51, 51));
-        coursesTable.setModel(new javax.swing.table.DefaultTableModel(
+        studentsTable.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        studentsTable.setForeground(new java.awt.Color(51, 51, 51));
+        studentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Module", "Courses", "Semester", "Instructor"
+                "Student ID", "Student Name", "Semester", "Course", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -972,11 +975,19 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                 return canEdit [columnIndex];
             }
         });
-        coursesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        coursesTable.setGridColor(new java.awt.Color(238, 238, 238));
-        coursesTable.setIgnoreRepaint(true);
-        coursesTable.getTableHeader().setReorderingAllowed(false);
-        tableScrollPanel.setViewportView(coursesTable);
+        studentsTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        studentsTable.setGridColor(new java.awt.Color(238, 238, 238));
+        studentsTable.setIgnoreRepaint(true);
+        studentsTable.getTableHeader().setReorderingAllowed(false);
+        tableScrollPanel.setViewportView(studentsTable);
+        if (studentsTable.getColumnModel().getColumnCount() > 0) {
+            studentsTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            studentsTable.getColumnModel().getColumn(0).setMaxWidth(100);
+            studentsTable.getColumnModel().getColumn(1).setPreferredWidth(500);
+            studentsTable.getColumnModel().getColumn(1).setMaxWidth(500);
+            studentsTable.getColumnModel().getColumn(4).setPreferredWidth(300);
+            studentsTable.getColumnModel().getColumn(4).setMaxWidth(300);
+        }
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
         jPanel13.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
@@ -2054,7 +2065,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     }//GEN-LAST:event_tab4MouseClicked
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-        if (Logics.showConfirmationDialog()) {
+        if (HelperMethods.showConfirmationDialog()) {
             // Setting the logout time
             Account.updateActivity("Logout");
             dispose();
@@ -2143,7 +2154,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private void searchCoursesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchCoursesKeyReleased
 
         TableRowSorter<DefaultTableModel> obj1 = new TableRowSorter<>(this.model);
-        coursesTable.setRowSorter(obj1);
+        studentsTable.setRowSorter(obj1);
         RowFilter filterRow = RowFilter.regexFilter(searchCourses.getText());
         obj1.setRowFilter(filterRow);
     }//GEN-LAST:event_searchCoursesKeyReleased
@@ -2217,12 +2228,12 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void profileUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusGained
 
-        Logics.handleFocusGainedLost(profileUsername, username, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileUsername, username, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileUsernameFocusGained
 
     private void profileUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusLost
 
-        Logics.handleFocusGainedLost(profileUsername, username, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileUsername, username, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileUsernameFocusLost
 
     private void profileUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileUsernameActionPerformed
@@ -2231,12 +2242,12 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void profilePasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusGained
 
-        Logics.handleFocusGainedLost(profilePassword, password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePassword, password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusGained
 
     private void profilePasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusLost
 
-        Logics.handleFocusGainedLost(profilePassword, password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePassword, password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusLost
 
     private void profilePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePasswordActionPerformed
@@ -2245,21 +2256,21 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void profilePhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusGained
 
-        Logics.handleFocusGainedLost(profilePhone, phNum, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePhone, phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusGained
 
     private void profilePhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusLost
-        Logics.handleFocusGainedLost(profilePhone, phNum, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profilePhone, phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusLost
 
     private void profileEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusGained
 
-        Logics.handleFocusGainedLost(profileEmail, email, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileEmail, email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusGained
 
     private void profileEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusLost
 
-        Logics.handleFocusGainedLost(profileEmail, email, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileEmail, email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusLost
 
     private void profileEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileEmailActionPerformed
@@ -2268,7 +2279,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
 
-        if (Logics.showConfirmationDialog()) {
+        if (HelperMethods.showConfirmationDialog()) {
 
             String tempUsername = profileUsername.getText();
             String tempEmail = profileEmail.getText();
@@ -2308,12 +2319,12 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void profileConfirmPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusGained
 
-        Logics.handleFocusGainedLost(profileConfirmPassword, password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileConfirmPassword, password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusGained
 
     private void profileConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusLost
 
-        Logics.handleFocusGainedLost(profileConfirmPassword, password, new Color(158, 160, 170), evt);
+        HelperMethods.handleFocusGainedLost(profileConfirmPassword, password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusLost
 
     private void profileConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileConfirmPasswordActionPerformed
@@ -2359,7 +2370,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private javax.swing.JPanel announcementPanel;
     private javax.swing.JLabel announcementTitle;
     private javax.swing.JLabel courseName;
-    private javax.swing.JTable coursesTable;
     public javax.swing.JLabel date1;
     public javax.swing.JLabel date2;
     private javax.swing.JLabel directEmail;
@@ -2464,6 +2474,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private javax.swing.JPanel secondAnnouncementPanel;
     private javax.swing.JLabel stdPanelName;
     private javax.swing.JLabel studentCount;
+    private javax.swing.JTable studentsTable;
     public static javax.swing.JButton submitBtn1;
     private javax.swing.JButton submitBtn2;
     private javax.swing.JButton submitBtn3;
