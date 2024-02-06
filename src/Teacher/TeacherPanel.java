@@ -44,8 +44,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private static String date;
     private String modules;
 
-    boolean newNotifications;
-
     public final static String role = "Teacher";
 
     private int courseId;
@@ -67,6 +65,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
      */
     public TeacherPanel() {
         initComponents();
+        newText.setVisible(false);
     }
 
     Person p;
@@ -76,7 +75,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         // Upating the activity when we log in
         Account.updateActivity("Login");
 
-        newNotifications = Account.checkNotifications();
+        boolean newNotifications = Account.checkNotifications();
 
         // Checking if any new notifications is present
         if (newNotifications) {

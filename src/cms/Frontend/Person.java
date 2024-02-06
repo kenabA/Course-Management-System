@@ -48,12 +48,10 @@ public class Person {
 
     // Gets the course id of the person if std and teacher
     public static int getCourseId() {
-        System.out.println("THE INNER COURSE ID :" + courseId);
         return courseId;
     }
 
     // ---------------- + ENCAPSULATION + ----------------
-    
     // Sets the semester of the student
     public static void setSemester(int sem) {
         Person.semester = sem;

@@ -274,8 +274,11 @@ public class Account extends CreateConnection {
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setString(1, lastLoggedInTime);
             preparedStatement.setInt(2, Person.getCourseId());
+            
+            System.out.println(Person.getCourseId());
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            
             return resultSet.next();
 
         } catch (SQLException ex) {
