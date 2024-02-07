@@ -57,7 +57,7 @@ public class Answer extends javax.swing.JFrame {
         submitAnsBtn1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(250, 250, 250));
+        setBackground(new java.awt.Color(108, 99, 255));
         setResizable(false);
 
         quesNo.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N

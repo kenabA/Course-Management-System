@@ -58,7 +58,7 @@ public class GradeStudent extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(241, 240, 255));
+        setBackground(new java.awt.Color(108, 99, 255));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(250, 250, 250));

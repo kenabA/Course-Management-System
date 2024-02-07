@@ -319,6 +319,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(108, 99, 255));
         setResizable(false);
 
         mainPanel.setBackground(new java.awt.Color(245, 246, 250));

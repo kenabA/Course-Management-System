@@ -70,7 +70,7 @@ public class EditProfile extends javax.swing.JFrame {
         saveBtn1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
-        setBackground(new java.awt.Color(250, 250, 250));
+        setBackground(new java.awt.Color(108, 99, 255));
 
         jPanel15.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -470,8 +470,8 @@ public class EditProfile extends javax.swing.JFrame {
                 .addContainerGap(74, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
