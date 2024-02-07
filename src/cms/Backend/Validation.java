@@ -293,4 +293,12 @@ Profile Updating Conventions :
 
         return matchFound;
     }
+
+    public static boolean validateQuestionField(String qs) {
+        if (!qs.isEmpty()) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(null, "Cannot publish empty assignments", "Add Assignments", JOptionPane.INFORMATION_MESSAGE);
+        return false;
+    }
 }

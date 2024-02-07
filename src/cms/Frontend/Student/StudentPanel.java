@@ -8,7 +8,6 @@ import cms.Backend.Account;
 import cms.Backend.HelperMethods;
 import cms.Backend.StudentAccount;
 import cms.Backend.Validation;
-import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.CellRenderer.GradeCellRenderer;
 import cms.Frontend.Contents;
 import cms.Frontend.Login;
@@ -118,9 +117,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
         HelperMethods.setTableAppearance(gradesTable);
         gradesTable.getColumnModel().getColumn(4).setCellRenderer(new GradeCellRenderer());
 
-        // Updating the Assignments Section
-        setQuestionDetails(this.questionDetails);
-        checkIfSubmitted();
+        overallProgressBar.setValue(Person.getOverallPerformance());
 
     }
 
@@ -129,77 +126,13 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
         StudentAccount.checkStatus1(this);
         StudentAccount.checkStatus2(this);
         StudentAccount.checkStatus3(this);
-
     }
 
     @Override
     public void setContents() {
         contents.setAnnouncement(announcement, this);
-    }
-
-    public void setQuestionDetails(String[][] data) {
-
-        if (data[0][0] == null) {
-            qsNo1.setText("No Assingments yet.");
-            qsLabel1.setText("Assingments yet to assign by the respected teacher.");
-            qsMod1.setText("Module Name");
-            qsDate1.setText("Date of Question Posted");
-            submitBtn1.setVisible(false);
-
-            qsPanel2.setVisible(false);
-            qsPanel3.setVisible(false);
-
-        } else if (data[1][0] == null) {
-            q1 = Integer.parseInt(data[0][0]);
-            qsNo1.setText("Question Number " + data[0][0]);
-            qsLabel1.setText(data[0][1]);
-            qsMod1.setText(data[0][2]);
-            qsDate1.setText(data[0][3]);
-
-            qsPanel2.setVisible(false);
-            qsPanel3.setVisible(false);
-
-        } else if (data[1][0] != null && data[2][0] == null) {
-            q1 = Integer.parseInt(data[0][0]);
-            q2 = Integer.parseInt(data[1][0]);
-
-            qsNo1.setText("Question Number " + data[0][0]);
-            qsLabel1.setText(data[0][1]);
-            qsMod1.setText(data[0][2]);
-            qsDate1.setText(data[0][3]);
-
-            qsNo2.setText("Question Number " + data[1][0]);
-            qsLabel2.setText(data[1][1]);
-            qsMod2.setText(data[1][2]);
-            qsDate2.setText(data[1][3]);
-
-            qsPanel3.setVisible(false);
-
-        } else {
-            // Storing the question numbers in a variable for future use
-            q1 = Integer.parseInt(data[0][0]);
-            q2 = Integer.parseInt(data[1][0]);
-            q3 = Integer.parseInt(data[2][0]);
-
-            // Setting all the texts
-            qsNo1.setText("Question Number " + data[0][0]);
-            qsNo2.setText("Question Number " + data[1][0]);
-            qsNo3.setText("Question Number " + data[2][0]);
-
-            qsLabel1.setText(data[0][1]);
-            qsLabel2.setText(data[1][1]);
-            qsLabel3.setText(data[2][1]);
-
-            qsMod1.setText(data[0][2]);
-            qsMod2.setText(data[1][2]);
-            qsMod3.setText(data[2][2]);
-
-            qsDate1.setText(data[0][3]);
-            qsDate2.setText(data[1][3]);
-            qsDate3.setText(data[2][3]);
-
-        }
-
+        contents.setQuestionsDetails(questionDetails, this);
+        checkIfSubmitted();
     }
 
     public void extractDetails() {
@@ -268,7 +201,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
         notificationBtn = new javax.swing.JLabel();
         newText = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        overallProgressBar = new javax.swing.JProgressBar();
         jLabel3 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         mainBody = new javax.swing.JTabbedPane();
@@ -628,10 +561,10 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jProgressBar1.setBackground(new java.awt.Color(242, 242, 242));
-        jProgressBar1.setForeground(new java.awt.Color(108, 99, 255));
-        jProgressBar1.setValue(20);
-        jProgressBar1.setBorder(null);
+        overallProgressBar.setBackground(new java.awt.Color(242, 242, 242));
+        overallProgressBar.setForeground(new java.awt.Color(108, 99, 255));
+        overallProgressBar.setValue(20);
+        overallProgressBar.setBorder(null);
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
@@ -645,7 +578,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(overallProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -654,7 +587,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(6, 6, 6)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(overallProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -673,6 +606,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(newText)
+                .addGap(0, 0, 0)
                 .addComponent(notificationBtn)
                 .addGap(18, 18, 18)
                 .addComponent(directEmail)
@@ -2290,7 +2224,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
 
             if (tempUsername.equals(StudentPanel.username) && tempEmail.equals(StudentPanel.email) && tempPassword.equals(StudentPanel.password) && tempPhNum.equals(StudentPanel.phNum)) {
 
-                JOptionPane.showMessageDialog(null, namingConvention("blankValue"), "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No values were updated", "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
 
@@ -2564,7 +2498,6 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -2584,6 +2517,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
     public javax.swing.JTextArea msg2;
     private javax.swing.JLabel newText;
     private javax.swing.JLabel notificationBtn;
+    private javax.swing.JProgressBar overallProgressBar;
     private javax.swing.JPanel panelFifth;
     private javax.swing.JPanel panelFirst;
     private javax.swing.JPanel panelFourth;
@@ -2594,21 +2528,21 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
     private javax.swing.JPasswordField profilePassword;
     private javax.swing.JTextField profilePhone;
     private javax.swing.JTextField profileUsername;
-    private javax.swing.JLabel qsDate1;
-    private javax.swing.JLabel qsDate2;
-    private javax.swing.JLabel qsDate3;
-    private javax.swing.JLabel qsLabel1;
-    private javax.swing.JLabel qsLabel2;
-    private javax.swing.JLabel qsLabel3;
-    private javax.swing.JLabel qsMod1;
-    private javax.swing.JLabel qsMod2;
-    private javax.swing.JLabel qsMod3;
-    private javax.swing.JLabel qsNo1;
-    private javax.swing.JLabel qsNo2;
-    private javax.swing.JLabel qsNo3;
-    private javax.swing.JPanel qsPanel1;
-    private javax.swing.JPanel qsPanel2;
-    private javax.swing.JPanel qsPanel3;
+    public javax.swing.JLabel qsDate1;
+    public javax.swing.JLabel qsDate2;
+    public javax.swing.JLabel qsDate3;
+    public javax.swing.JLabel qsLabel1;
+    public javax.swing.JLabel qsLabel2;
+    public javax.swing.JLabel qsLabel3;
+    public javax.swing.JLabel qsMod1;
+    public javax.swing.JLabel qsMod2;
+    public javax.swing.JLabel qsMod3;
+    public javax.swing.JLabel qsNo1;
+    public javax.swing.JLabel qsNo2;
+    public javax.swing.JLabel qsNo3;
+    public javax.swing.JPanel qsPanel1;
+    public javax.swing.JPanel qsPanel2;
+    public javax.swing.JPanel qsPanel3;
     private javax.swing.JPanel questionsPanel;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchCourses;

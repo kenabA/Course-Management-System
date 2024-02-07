@@ -13,6 +13,7 @@ public class Person {
     private static String role;
     private static int courseId;
     private static int semester;
+    private static int overallPerformance;
 
     // FOR ADMIN 
     public Person(String fName, String lName, int id) {
@@ -63,6 +64,14 @@ public class Person {
 
     public static int getSemester() {
         return Person.semester;
+    }
+
+    public static void setOverallPerformance(int overall) {
+        overallPerformance = overall;
+    }
+
+    public static int getOverallPerformance() {
+        return overallPerformance;
     }
 
 }

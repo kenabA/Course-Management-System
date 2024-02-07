@@ -388,6 +388,7 @@
                       <Component id="jSeparator5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="newText" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="notificationBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="directEmail" min="-2" max="-2" attributes="0"/>
@@ -515,7 +516,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
+                              <Component id="overallProgressBar" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -527,14 +528,14 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Component id="jProgressBar1" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="overallProgressBar" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+                <Component class="javax.swing.JProgressBar" name="overallProgressBar">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f2" green="f2" red="f2" type="rgb"/>
@@ -1792,6 +1793,9 @@
                                   <Color blue="ff" green="f0" red="f1" type="rgb"/>
                                 </Property>
                               </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                              </AuxValues>
 
                               <Layout>
                                 <DimensionLayout dim="0">
@@ -1858,6 +1862,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Internet Software Architecture"/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JSeparator" name="jSeparator8">
                                 </Component>
@@ -1872,6 +1879,9 @@
                                     <Property name="horizontalAlignment" type="int" value="4"/>
                                     <Property name="text" type="java.lang.String" value="2024-01-26 22:18:02"/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="qsNo2">
                                   <Properties>
@@ -1880,6 +1890,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Question Number 1"/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="qsLabel2">
                                   <Properties>
@@ -1891,6 +1904,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="What is the process of Encapsulation in Java? "/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="submitBtn2">
                                   <Properties>
@@ -1923,6 +1939,9 @@
                                   <Color blue="ff" green="f0" red="f1" type="rgb"/>
                                 </Property>
                               </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                              </AuxValues>
 
                               <Layout>
                                 <DimensionLayout dim="0">
@@ -1990,6 +2009,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Internet Software Architecture"/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JSeparator" name="jSeparator9">
                                 </Component>
@@ -2004,6 +2026,9 @@
                                     <Property name="horizontalAlignment" type="int" value="4"/>
                                     <Property name="text" type="java.lang.String" value="2024-01-26 22:18:02"/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="qsNo1">
                                   <Properties>
@@ -2012,6 +2037,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Question Number 1"/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="qsLabel1">
                                   <Properties>
@@ -2023,6 +2051,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="What is the process of Encapsulation in Java? "/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="submitBtn1">
                                   <Properties>
@@ -2058,6 +2089,9 @@
                                   <Color blue="ff" green="f0" red="f1" type="rgb"/>
                                 </Property>
                               </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                              </AuxValues>
 
                               <Layout>
                                 <DimensionLayout dim="0">
@@ -2124,6 +2158,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Internet Software Architecture"/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JSeparator" name="jSeparator10">
                                 </Component>
@@ -2138,6 +2175,9 @@
                                     <Property name="horizontalAlignment" type="int" value="4"/>
                                     <Property name="text" type="java.lang.String" value="2024-01-26 22:18:02"/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="qsNo3">
                                   <Properties>
@@ -2146,6 +2186,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Question Number 1"/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="qsLabel3">
                                   <Properties>
@@ -2157,6 +2200,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="What is the process of Encapsulation in Java? "/>
                                   </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="submitBtn3">
                                   <Properties>

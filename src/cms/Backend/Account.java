@@ -66,7 +66,7 @@ public class Account extends CreateConnection {
 
         try {
 
-            String getUsername = "select * from " + usertype + " where binary username = '" + username + "' ";
+            String getUsername = "select * from " + usertype + " where binary username = '" + username + "' and not id = " + id + " ";
 
             ResultSet userName = c.statement.executeQuery(getUsername);
 
@@ -76,7 +76,7 @@ public class Account extends CreateConnection {
                 return false;
             }
 
-            String getEmail = "select * from " + usertype + " where binary email = '" + email + "' ";
+            String getEmail = "select * from " + usertype + " where binary email = '" + email + "' and not id = " + id + " ";
 
             ResultSet eMail = c.statement.executeQuery(getEmail);
 
@@ -392,5 +392,7 @@ public class Account extends CreateConnection {
         return null;
 
     }
+    
+    
 
 }

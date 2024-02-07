@@ -267,18 +267,28 @@ public class StudentAccount extends CreateConnection {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            int totalPercentage = 0;
+            int count = 0;
+
             while (resultSet.next()) {
 
                 String moduleId = String.valueOf(resultSet.getInt("module_id"));
                 String name = resultSet.getString("module_name");
                 String sem = String.valueOf(resultSet.getInt("semester"));
                 String percentage = String.valueOf(resultSet.getInt("grade")) + "%";
-                String grade = HelperMethods.getGrades(resultSet.getInt("grade"));
+                int percentageCount = resultSet.getInt("grade");
+                String grade = HelperMethods.getGrades(percentageCount);
+
                 String row[] = {moduleId, name, sem, percentage, grade};
 
                 model.addRow(row);
 
+                totalPercentage = totalPercentage + percentageCount;
+                count++;
+
             }
+
+            Person.setOverallPerformance(totalPercentage / count);
 
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -37,6 +36,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private Answer a;
     private final Contents contents = new Contents();
+    private Assignment assignment;
     GradeStudent gs;
     Person p;
 
@@ -59,7 +59,8 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private String semester;
 
     private String announcement[][];
-//    String questionDetails[][];
+    private String questionDetails[][];
+
     private DefaultTableModel model;
     private DefaultTableModel model2;
     public int q1;
@@ -78,13 +79,15 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     }
 
     private void setValueChanged() {
+
         gradeBtn.setVisible(false);
         studentsTable.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
                 if (studentsTable.getSelectedRow() != -1) {
+                    gradeSubText.setVisible(false);
                     gradeBtn.setVisible(true);
                 } else {
-
+                    gradeSubText.setVisible(true);
                     gradeBtn.setVisible(false);
                 }
             }
@@ -126,21 +129,13 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         TeacherAccount.getTableData(courseId, model, "t3");
         alignTableContents(studentsTable);
         setTableAppearance(studentsTable);
-//
-//        // Updating the Grades Tables
-//        StudentCourse.updateDetails(id, gradesTable, "t2");
-//        alignTableContents(gradesTable);
-//        setTableAppearance(gradesTable);
-//        gradesTable.getColumnModel().getColumn(4).setCellRenderer(new GradeCellRenderer());
 
-        // Updating the Assignments Section
-//        setQuestionDetails(this.questionDetails);
-//        checkIfSubmitted();
     }
 
     @Override
     public void setContents() {
         contents.setAnnouncement(announcement, this);
+        contents.setQuestionsDetails(questionDetails, this);
     }
 
     public void extractDetails() {
@@ -163,10 +158,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
                 this.announcement = Account.getAnnouncementData(courseId);
 
-//                this.semester = StudentAccount.getSemester(TeacherPanel.date);
                 this.p = new Person(this.fName, this.lName, id, this.course, role, this.courseId);
 
-//                this.questionDetails = StudentAccount.getQuestions();
+                this.questionDetails = TeacherAccount.getQuestions();
             }
 
         } catch (SQLException ex) {
@@ -251,6 +245,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         searchCourses = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         gradeBtn = new javax.swing.JButton();
+        gradeSubText = new javax.swing.JLabel();
         panelThird = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         tableScrollPanel1 = new javax.swing.JScrollPane();
@@ -261,6 +256,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         jLabel6 = new javax.swing.JLabel();
         panelFourth = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        addAssignmentBtn = new javax.swing.JButton();
+        gradeBtn2 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
         questionsPanel = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
         qsPanel2 = new javax.swing.JPanel();
@@ -269,21 +267,21 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         qsDate2 = new javax.swing.JLabel();
         qsNo2 = new javax.swing.JLabel();
         qsLabel2 = new javax.swing.JLabel();
-        submitBtn2 = new javax.swing.JButton();
+        qsLabel5 = new javax.swing.JLabel();
         qsPanel1 = new javax.swing.JPanel();
         qsMod1 = new javax.swing.JLabel();
         jSeparator9 = new javax.swing.JSeparator();
         qsDate1 = new javax.swing.JLabel();
         qsNo1 = new javax.swing.JLabel();
         qsLabel1 = new javax.swing.JLabel();
-        submitBtn1 = new javax.swing.JButton();
+        qsLabel4 = new javax.swing.JLabel();
         qsPanel3 = new javax.swing.JPanel();
         qsMod3 = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
         qsDate3 = new javax.swing.JLabel();
         qsNo3 = new javax.swing.JLabel();
         qsLabel3 = new javax.swing.JLabel();
-        submitBtn3 = new javax.swing.JButton();
+        qsLabel6 = new javax.swing.JLabel();
         panelFifth = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -318,6 +316,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         mainPanel.setBackground(new java.awt.Color(245, 246, 250));
         mainPanel.setForeground(new java.awt.Color(108, 99, 255));
@@ -396,7 +395,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
         tabBtn3.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        tabBtn3.setText("Grades");
+        tabBtn3.setText("Questions");
 
         javax.swing.GroupLayout tab3Layout = new javax.swing.GroupLayout(tab3);
         tab3.setLayout(tab3Layout);
@@ -1018,7 +1017,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         jPanel13.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
 
         searchCourses.setForeground(new java.awt.Color(158, 160, 170));
-        searchCourses.setText("Search course...");
+        searchCourses.setText("Search student...");
         searchCourses.setBorder(null);
         searchCourses.setName(""); // NOI18N
         searchCourses.setPreferredSize(new java.awt.Dimension(64, 24));
@@ -1072,6 +1071,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         gradeBtn.setBackground(new java.awt.Color(241, 240, 255));
         gradeBtn.setForeground(new java.awt.Color(108, 99, 255));
         gradeBtn.setText("Grade");
+        gradeBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(108, 99, 255)));
         gradeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         gradeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1084,28 +1084,35 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
             }
         });
 
+        gradeSubText.setForeground(new java.awt.Color(153, 153, 153));
+        gradeSubText.setText("Select a student to Grade");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(gradeSubText)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(tableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(gradeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGap(32, 32, 32)
+                .addComponent(gradeSubText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(tableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
         );
@@ -1275,6 +1282,42 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
         jPanel6.setBackground(new java.awt.Color(250, 250, 250));
 
+        addAssignmentBtn.setBackground(new java.awt.Color(108, 99, 255));
+        addAssignmentBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        addAssignmentBtn.setForeground(new java.awt.Color(241, 240, 255));
+        addAssignmentBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/plus.png"))); // NOI18N
+        addAssignmentBtn.setMnemonic('[');
+        addAssignmentBtn.setText("Add Assignment");
+        addAssignmentBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 99, 255), 1, true));
+        addAssignmentBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addAssignmentBtn.setIconTextGap(8);
+        addAssignmentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addAssignmentBtnMouseClicked(evt);
+            }
+        });
+        addAssignmentBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAssignmentBtnActionPerformed(evt);
+            }
+        });
+
+        gradeBtn2.setBackground(new java.awt.Color(250, 250, 250));
+        gradeBtn2.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        gradeBtn2.setForeground(new java.awt.Color(108, 99, 255));
+        gradeBtn2.setMnemonic('[');
+        gradeBtn2.setText("Refresh");
+        gradeBtn2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 99, 255), 1, true));
+        gradeBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        gradeBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeBtn2ActionPerformed(evt);
+            }
+        });
+
+        jScrollPane3.setBorder(null);
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         questionsPanel.setBackground(new java.awt.Color(241, 240, 255));
 
         jPanel26.setBackground(new java.awt.Color(241, 240, 255));
@@ -1297,17 +1340,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         qsLabel2.setForeground(new java.awt.Color(102, 102, 102));
         qsLabel2.setText("What is the process of Encapsulation in Java? ");
 
-        submitBtn2.setBackground(new java.awt.Color(241, 240, 255));
-        submitBtn2.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        submitBtn2.setForeground(new java.awt.Color(108, 99, 255));
-        submitBtn2.setText("Submit Assignment");
-        submitBtn2.setBorder(null);
-        submitBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        submitBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                submitBtn2MouseClicked(evt);
-            }
-        });
+        qsLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        qsLabel5.setForeground(new java.awt.Color(108, 95, 255));
+        qsLabel5.setText("Assigned");
 
         javax.swing.GroupLayout qsPanel2Layout = new javax.swing.GroupLayout(qsPanel2);
         qsPanel2.setLayout(qsPanel2Layout);
@@ -1318,16 +1353,14 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(qsPanel2Layout.createSequentialGroup()
                         .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, qsPanel2Layout.createSequentialGroup()
-                                .addComponent(qsMod2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(submitBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(qsPanel2Layout.createSequentialGroup()
-                                .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(qsNo2)
-                                    .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(32, 32, 32))
+                            .addComponent(qsNo2)
+                            .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, qsPanel2Layout.createSequentialGroup()
+                                    .addComponent(qsMod2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(qsLabel5))
+                                .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(qsPanel2Layout.createSequentialGroup()
                         .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(qsDate2)
@@ -1345,9 +1378,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addComponent(qsLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(qsMod2))
-                .addGap(24, 24, 24)
+                    .addComponent(qsMod2)
+                    .addComponent(qsLabel5))
+                .addGap(27, 27, 27)
                 .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1369,17 +1402,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         qsLabel1.setForeground(new java.awt.Color(102, 102, 102));
         qsLabel1.setText("What is the process of Encapsulation in Java? ");
 
-        submitBtn1.setBackground(new java.awt.Color(241, 240, 255));
-        submitBtn1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        submitBtn1.setForeground(new java.awt.Color(108, 99, 255));
-        submitBtn1.setText("Submit Assignment");
-        submitBtn1.setBorder(null);
-        submitBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        submitBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                submitBtn1MouseClicked(evt);
-            }
-        });
+        qsLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        qsLabel4.setForeground(new java.awt.Color(108, 95, 255));
+        qsLabel4.setText("Assigned");
 
         javax.swing.GroupLayout qsPanel1Layout = new javax.swing.GroupLayout(qsPanel1);
         qsPanel1.setLayout(qsPanel1Layout);
@@ -1390,16 +1415,14 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(qsPanel1Layout.createSequentialGroup()
                         .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, qsPanel1Layout.createSequentialGroup()
-                                .addComponent(qsMod1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(submitBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(qsPanel1Layout.createSequentialGroup()
-                                .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(qsNo1)
-                                    .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(32, 32, 32))
+                            .addComponent(qsNo1)
+                            .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, qsPanel1Layout.createSequentialGroup()
+                                    .addComponent(qsMod1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(qsLabel4))
+                                .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(32, 32, Short.MAX_VALUE))
                     .addGroup(qsPanel1Layout.createSequentialGroup()
                         .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(qsDate1)
@@ -1417,9 +1440,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addComponent(qsLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(qsMod1))
-                .addGap(24, 24, 24)
+                    .addComponent(qsMod1)
+                    .addComponent(qsLabel4))
+                .addGap(27, 27, 27)
                 .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -1442,17 +1465,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         qsLabel3.setForeground(new java.awt.Color(102, 102, 102));
         qsLabel3.setText("What is the process of Encapsulation in Java? ");
 
-        submitBtn3.setBackground(new java.awt.Color(241, 240, 255));
-        submitBtn3.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        submitBtn3.setForeground(new java.awt.Color(108, 99, 255));
-        submitBtn3.setText("Submit Assignment");
-        submitBtn3.setBorder(null);
-        submitBtn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        submitBtn3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                submitBtn3MouseClicked(evt);
-            }
-        });
+        qsLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        qsLabel6.setForeground(new java.awt.Color(108, 95, 255));
+        qsLabel6.setText("Assigned");
 
         javax.swing.GroupLayout qsPanel3Layout = new javax.swing.GroupLayout(qsPanel3);
         qsPanel3.setLayout(qsPanel3Layout);
@@ -1463,16 +1478,14 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(qsPanel3Layout.createSequentialGroup()
                         .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, qsPanel3Layout.createSequentialGroup()
-                                .addComponent(qsMod3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(submitBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(qsPanel3Layout.createSequentialGroup()
-                                .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(qsNo3)
-                                    .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(32, 32, 32))
+                            .addComponent(qsNo3)
+                            .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, qsPanel3Layout.createSequentialGroup()
+                                    .addComponent(qsMod3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(qsLabel6))
+                                .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(qsPanel3Layout.createSequentialGroup()
                         .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(qsDate3)
@@ -1490,9 +1503,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addComponent(qsLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(qsMod3))
-                .addGap(24, 24, 24)
+                    .addComponent(qsMod3)
+                    .addComponent(qsLabel6))
+                .addGap(27, 27, 27)
                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1501,10 +1514,10 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         jPanel26Layout.setHorizontalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(qsPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(qsPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(qsPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(qsPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
@@ -1519,7 +1532,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addComponent(qsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(qsPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addGap(64, 64, 64))
             .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel26Layout.createSequentialGroup()
                     .addGap(10, 10, 10)
@@ -1538,31 +1551,49 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
             .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        jScrollPane3.setViewportView(questionsPanel);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(questionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(gradeBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(0, 30, Short.MAX_VALUE)
-                .addComponent(questionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gradeBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout panelFourthLayout = new javax.swing.GroupLayout(panelFourth);
         panelFourth.setLayout(panelFourthLayout);
         panelFourthLayout.setHorizontalGroup(
             panelFourthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 903, Short.MAX_VALUE)
+            .addGroup(panelFourthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelFourthLayout.setVerticalGroup(
             panelFourthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 693, Short.MAX_VALUE)
+            .addGroup(panelFourthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFourthLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         mainBody.addTab("tab4", panelFourth);
@@ -2007,6 +2038,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
@@ -2178,7 +2210,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void searchCoursesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCoursesFocusGained
 
-        if (searchCourses.getText().equals("Search course...")) {
+        if (searchCourses.getText().equals("Search student...")) {
             searchCourses.setText("");
             searchCourses.setForeground(Color.BLACK);
         }
@@ -2187,7 +2219,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private void searchCoursesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCoursesFocusLost
 
         if (searchCourses.getText().isEmpty()) {
-            searchCourses.setText("Search course...");
+            searchCourses.setText("Search student...");
             searchCourses.setForeground(new Color(158, 160, 170));
         }
     }//GEN-LAST:event_searchCoursesFocusLost
@@ -2245,35 +2277,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Feature under construction.", "Print Result Slip", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jLabel6MouseClicked
-
-    private void submitBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn2MouseClicked
-
-        if (submitBtn2.getText().equals("Submitted")) {
-            return;
-        }
-//        a = new Answer(q2, id, 2, this);
-        a.setVisible(true);
-    }//GEN-LAST:event_submitBtn2MouseClicked
-
-    private void submitBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn1MouseClicked
-
-        // If the assignment is already submitted: Returns and does not do anything
-        if (submitBtn1.getText().equals("Submitted")) {
-            return;
-        } // Else ,a new Answer class is called to submit the answer : we pass the current object
-//        a = new Answer(q1, id, 1, this);
-        a.setVisible(true);
-    }//GEN-LAST:event_submitBtn1MouseClicked
-
-    private void submitBtn3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn3MouseClicked
-
-        // TODO add your handling code here:
-        if (submitBtn3.getText().equals("Submitted")) {
-            return;
-        }
-//        a = new Answer(q3, id, 3, this);
-        a.setVisible(true);
-    }//GEN-LAST:event_submitBtn3MouseClicked
 
     private void profileUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusGained
 
@@ -2418,8 +2421,23 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     }//GEN-LAST:event_gradeBtnMouseClicked
 
+    private void addAssignmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAssignmentBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addAssignmentBtnActionPerformed
+
+    private void gradeBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gradeBtn2ActionPerformed
+
+    private void addAssignmentBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAssignmentBtnMouseClicked
+        // TODO add your handling code here:
+        assignment = new Assignment();
+        assignment.setVisible(true);
+    }//GEN-LAST:event_addAssignmentBtnMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addAssignmentBtn;
     private javax.swing.JPanel announcementPanel;
     private javax.swing.JLabel announcementTitle;
     private javax.swing.JLabel courseName;
@@ -2427,6 +2445,8 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     public javax.swing.JLabel date2;
     private javax.swing.JLabel directEmail;
     private javax.swing.JButton gradeBtn;
+    private javax.swing.JButton gradeBtn2;
+    private javax.swing.JLabel gradeSubText;
     private javax.swing.JTable gradesTable;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
@@ -2480,6 +2500,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
@@ -2506,21 +2527,24 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private javax.swing.JPasswordField profilePassword;
     private javax.swing.JTextField profilePhone;
     private javax.swing.JTextField profileUsername;
-    private javax.swing.JLabel qsDate1;
-    private javax.swing.JLabel qsDate2;
-    private javax.swing.JLabel qsDate3;
-    private javax.swing.JLabel qsLabel1;
-    private javax.swing.JLabel qsLabel2;
-    private javax.swing.JLabel qsLabel3;
-    private javax.swing.JLabel qsMod1;
-    private javax.swing.JLabel qsMod2;
-    private javax.swing.JLabel qsMod3;
-    private javax.swing.JLabel qsNo1;
-    private javax.swing.JLabel qsNo2;
-    private javax.swing.JLabel qsNo3;
+    public javax.swing.JLabel qsDate1;
+    public javax.swing.JLabel qsDate2;
+    public javax.swing.JLabel qsDate3;
+    public javax.swing.JLabel qsLabel1;
+    public javax.swing.JLabel qsLabel2;
+    public javax.swing.JLabel qsLabel3;
+    public javax.swing.JLabel qsLabel4;
+    public javax.swing.JLabel qsLabel5;
+    public javax.swing.JLabel qsLabel6;
+    public javax.swing.JLabel qsMod1;
+    public javax.swing.JLabel qsMod2;
+    public javax.swing.JLabel qsMod3;
+    public javax.swing.JLabel qsNo1;
+    public javax.swing.JLabel qsNo2;
+    public javax.swing.JLabel qsNo3;
     private javax.swing.JPanel qsPanel1;
-    private javax.swing.JPanel qsPanel2;
-    private javax.swing.JPanel qsPanel3;
+    public javax.swing.JPanel qsPanel2;
+    public javax.swing.JPanel qsPanel3;
     private javax.swing.JPanel questionsPanel;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchCourses;
@@ -2529,9 +2553,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private javax.swing.JLabel stdPanelName;
     private javax.swing.JLabel studentCount;
     private javax.swing.JTable studentsTable;
-    public static javax.swing.JButton submitBtn1;
-    private javax.swing.JButton submitBtn2;
-    private javax.swing.JButton submitBtn3;
     private javax.swing.JPanel tab1;
     private javax.swing.JPanel tab2;
     private javax.swing.JPanel tab3;

@@ -3,10 +3,11 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -245,7 +246,7 @@
                       <Color blue="aa" green="a0" red="9e" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="2"/>
-                    <Property name="text" type="java.lang.String" value="Grades"/>
+                    <Property name="text" type="java.lang.String" value="Questions"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1194,12 +1195,15 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="tableScrollPanel" min="-2" pref="835" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="gradeBtn" min="-2" pref="127" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="gradeSubText" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="tableScrollPanel" min="-2" pref="835" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="gradeBtn" min="-2" pref="93" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace pref="36" max="32767" attributes="0"/>
@@ -1209,12 +1213,14 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jPanel13" max="32767" attributes="0"/>
-                                  <Component id="gradeBtn" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="gradeSubText" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
+                                  <Component id="gradeBtn" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="32767" attributes="0"/>
                               <Component id="tableScrollPanel" min="-2" pref="475" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                           </Group>
@@ -1347,7 +1353,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="aa" green="a0" red="9e" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Search course..."/>
+                            <Property name="text" type="java.lang.String" value="Search student..."/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="null"/>
                             </Property>
@@ -1382,6 +1388,13 @@
                           <Color blue="ff" green="63" red="6c" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Grade"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder>
+                              <Color PropertyName="color" blue="ff" green="63" red="6c" type="rgb"/>
+                            </LineBorder>
+                          </Border>
+                        </Property>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Hand Cursor"/>
                         </Property>
@@ -1390,6 +1403,14 @@
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="gradeBtnMouseClicked"/>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gradeBtnActionPerformed"/>
                       </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="gradeSubText">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="99" red="99" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Select a student to Grade"/>
+                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1613,12 +1634,21 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="903" max="32767" attributes="0"/>
+                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                          <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="693" max="32767" attributes="0"/>
+                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1635,7 +1665,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="questionsPanel" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="gradeBtn2" min="-2" pref="93" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                      <Component id="addAssignmentBtn" min="-2" pref="195" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1643,34 +1680,91 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="30" max="32767" attributes="0"/>
-                              <Component id="questionsPanel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="gradeBtn2" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="addAssignmentBtn" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="jScrollPane3" min="-2" pref="543" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="questionsPanel">
+                    <Component class="javax.swing.JButton" name="addAssignmentBtn">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="63" red="6c" type="rgb"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Helvetica Neue" size="13" style="1"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="f0" red="f1" type="rgb"/>
                         </Property>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/cms/Icons/plus.png"/>
+                        </Property>
+                        <Property name="mnemonic" type="int" value="91"/>
+                        <Property name="text" type="java.lang.String" value="Add Assignment"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder roundedCorners="true">
+                              <Color PropertyName="color" blue="ff" green="63" red="6c" type="rgb"/>
+                            </LineBorder>
+                          </Border>
+                        </Property>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
+                        <Property name="iconTextGap" type="int" value="8"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addAssignmentBtnMouseClicked"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addAssignmentBtnActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="gradeBtn2">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="fa" green="fa" red="fa" type="rgb"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Helvetica Neue" size="13" style="1"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="63" red="6c" type="rgb"/>
+                        </Property>
+                        <Property name="mnemonic" type="int" value="91"/>
+                        <Property name="text" type="java.lang.String" value="Refresh"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder roundedCorners="true">
+                              <Color PropertyName="color" blue="ff" green="63" red="6c" type="rgb"/>
+                            </LineBorder>
+                          </Border>
+                        </Property>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gradeBtn2ActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                      <Properties>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
+                        </Property>
+                        <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                       </Properties>
 
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel26" alignment="0" pref="839" max="32767" attributes="0"/>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel26" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Container class="javax.swing.JPanel" name="jPanel26">
+                        <Container class="javax.swing.JPanel" name="questionsPanel">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="f0" red="f1" type="rgb"/>
@@ -1680,44 +1774,17 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="qsPanel2" alignment="1" min="-2" pref="833" max="-2" attributes="0"/>
-                                          <Component id="qsPanel3" alignment="1" min="-2" pref="833" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="qsPanel1" min="-2" pref="833" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="jPanel26" alignment="0" pref="839" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace pref="187" max="32767" attributes="0"/>
-                                      <Component id="qsPanel2" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="qsPanel3" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="qsPanel1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="394" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="jPanel26" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
                           <SubComponents>
-                            <Container class="javax.swing.JPanel" name="qsPanel2">
+                            <Container class="javax.swing.JPanel" name="jPanel26">
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="ff" green="f0" red="f1" type="rgb"/>
@@ -1727,391 +1794,446 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="qsMod2" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="submitBtn2" min="-2" pref="138" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="qsNo2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="qsPanel2" max="32767" attributes="0"/>
+                                              <Component id="qsPanel3" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="qsPanel1" min="-2" pref="833" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace pref="187" max="32767" attributes="0"/>
+                                          <Component id="qsPanel2" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="qsPanel3" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                              <Component id="qsPanel1" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace pref="394" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                              </Layout>
+                              <SubComponents>
+                                <Container class="javax.swing.JPanel" name="qsPanel2">
+                                  <Properties>
+                                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                      <Color blue="ff" green="f0" red="f1" type="rgb"/>
+                                    </Property>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
+
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="qsNo2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                              <Group type="102" alignment="0" attributes="0">
+                                                                  <Component id="qsMod2" min="-2" max="-2" attributes="0"/>
+                                                                  <EmptySpace max="32767" attributes="0"/>
+                                                                  <Component id="qsLabel5" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
                                                               <Component id="jSeparator8" alignment="0" min="-2" pref="777" max="-2" attributes="0"/>
                                                           </Group>
-                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                       </Group>
+                                                      <EmptySpace min="32" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="qsDate2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="qsLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="qsDate2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="qsLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
-                                  </Group>
-                                </DimensionLayout>
-                                <DimensionLayout dim="1">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                          <Component id="qsNo2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                          <Component id="qsDate2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                          <Component id="qsLabel2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="submitBtn2" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                                              <Component id="qsMod2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                              <Component id="qsNo2" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                              <Component id="qsDate2" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                              <Component id="qsLabel2" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="qsMod2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="qsLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                              <Component id="jSeparator8" min="-2" pref="10" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                          <Component id="jSeparator8" min="-2" pref="10" max="-2" attributes="0"/>
                                       </Group>
-                                  </Group>
-                                </DimensionLayout>
-                              </Layout>
-                              <SubComponents>
-                                <Component class="javax.swing.JLabel" name="qsMod2">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="13" style="1"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="66" green="66" red="66" type="rgb"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Internet Software Architecture"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JSeparator" name="jSeparator8">
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="qsDate2">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="14" style="0"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="aa" green="a0" red="9f" type="rgb"/>
-                                    </Property>
-                                    <Property name="horizontalAlignment" type="int" value="4"/>
-                                    <Property name="text" type="java.lang.String" value="2024-01-26 22:18:02"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="qsNo2">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="16" style="1"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Question Number 1"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="qsLabel2">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="14" style="0"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="66" green="66" red="66" type="rgb"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="What is the process of Encapsulation in Java? "/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="submitBtn2">
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="qsMod2">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="13" style="1"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="66" green="66" red="66" type="rgb"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Internet Software Architecture"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JSeparator" name="jSeparator8">
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsDate2">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="aa" green="a0" red="9f" type="rgb"/>
+                                        </Property>
+                                        <Property name="horizontalAlignment" type="int" value="4"/>
+                                        <Property name="text" type="java.lang.String" value="2024-01-26 22:18:02"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsNo2">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="16" style="1"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Question Number 1"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsLabel2">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="66" green="66" red="66" type="rgb"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="What is the process of Encapsulation in Java? "/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsLabel5">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="ff" green="5f" red="6c" type="rgb"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Assigned"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JPanel" name="qsPanel1">
                                   <Properties>
                                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                       <Color blue="ff" green="f0" red="f1" type="rgb"/>
                                     </Property>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="13" style="1"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="ff" green="63" red="6c" type="rgb"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Submit Assignment"/>
-                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                                      <Border info="null"/>
-                                    </Property>
-                                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                                      <Color id="Hand Cursor"/>
-                                    </Property>
                                   </Properties>
-                                  <Events>
-                                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="submitBtn2MouseClicked"/>
-                                  </Events>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="javax.swing.JPanel" name="qsPanel1">
-                              <Properties>
-                                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                  <Color blue="ff" green="f0" red="f1" type="rgb"/>
-                                </Property>
-                              </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                  </AuxValues>
 
-                              <Layout>
-                                <DimensionLayout dim="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="qsMod1" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="submitBtn1" min="-2" pref="138" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="qsNo1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="qsNo1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                              <Group type="102" alignment="0" attributes="0">
+                                                                  <Component id="qsMod1" min="-2" max="-2" attributes="0"/>
+                                                                  <EmptySpace max="32767" attributes="0"/>
+                                                                  <Component id="qsLabel4" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
                                                               <Component id="jSeparator9" alignment="0" min="-2" pref="777" max="-2" attributes="0"/>
                                                           </Group>
-                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                       </Group>
+                                                      <EmptySpace min="32" pref="32" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="qsDate1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="qsLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="qsDate1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="qsLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
-                                  </Group>
-                                </DimensionLayout>
-                                <DimensionLayout dim="1">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                          <Component id="qsNo1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                          <Component id="qsDate1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                          <Component id="qsLabel1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="submitBtn1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                                              <Component id="qsMod1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                              <Component id="qsNo1" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                              <Component id="qsDate1" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                              <Component id="qsLabel1" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="qsMod1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="qsLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                              <Component id="jSeparator9" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                          <Component id="jSeparator9" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                       </Group>
-                                  </Group>
-                                </DimensionLayout>
-                              </Layout>
-                              <SubComponents>
-                                <Component class="javax.swing.JLabel" name="qsMod1">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="13" style="1"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="66" green="66" red="66" type="rgb"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Internet Software Architecture"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JSeparator" name="jSeparator9">
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="qsDate1">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="14" style="0"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="aa" green="a0" red="9f" type="rgb"/>
-                                    </Property>
-                                    <Property name="horizontalAlignment" type="int" value="4"/>
-                                    <Property name="text" type="java.lang.String" value="2024-01-26 22:18:02"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="qsNo1">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="16" style="1"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Question Number 1"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="qsLabel1">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="14" style="0"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="66" green="66" red="66" type="rgb"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="What is the process of Encapsulation in Java? "/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="submitBtn1">
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="qsMod1">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="13" style="1"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="66" green="66" red="66" type="rgb"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Internet Software Architecture"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JSeparator" name="jSeparator9">
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsDate1">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="aa" green="a0" red="9f" type="rgb"/>
+                                        </Property>
+                                        <Property name="horizontalAlignment" type="int" value="4"/>
+                                        <Property name="text" type="java.lang.String" value="2024-01-26 22:18:02"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsNo1">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="16" style="1"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Question Number 1"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsLabel1">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="66" green="66" red="66" type="rgb"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="What is the process of Encapsulation in Java? "/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsLabel4">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="ff" green="5f" red="6c" type="rgb"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Assigned"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JPanel" name="qsPanel3">
                                   <Properties>
                                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                       <Color blue="ff" green="f0" red="f1" type="rgb"/>
                                     </Property>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="13" style="1"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="ff" green="63" red="6c" type="rgb"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Submit Assignment"/>
-                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                                      <Border info="null"/>
-                                    </Property>
-                                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                                      <Color id="Hand Cursor"/>
-                                    </Property>
                                   </Properties>
-                                  <Events>
-                                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="submitBtn1MouseClicked"/>
-                                  </Events>
                                   <AuxValues>
-                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                                   </AuxValues>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="javax.swing.JPanel" name="qsPanel3">
-                              <Properties>
-                                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                  <Color blue="ff" green="f0" red="f1" type="rgb"/>
-                                </Property>
-                              </Properties>
 
-                              <Layout>
-                                <DimensionLayout dim="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="qsMod3" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="submitBtn3" min="-2" pref="138" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="qsNo3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="qsNo3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                              <Group type="102" alignment="0" attributes="0">
+                                                                  <Component id="qsMod3" min="-2" max="-2" attributes="0"/>
+                                                                  <EmptySpace max="32767" attributes="0"/>
+                                                                  <Component id="qsLabel6" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
                                                               <Component id="jSeparator10" alignment="0" min="-2" pref="777" max="-2" attributes="0"/>
                                                           </Group>
-                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                       </Group>
+                                                      <EmptySpace min="32" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="qsDate3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="qsLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="qsDate3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="qsLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
-                                  </Group>
-                                </DimensionLayout>
-                                <DimensionLayout dim="1">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                          <Component id="qsNo3" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                          <Component id="qsDate3" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                          <Component id="qsLabel3" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="submitBtn3" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                                              <Component id="qsMod3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                              <Component id="qsNo3" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                              <Component id="qsDate3" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                              <Component id="qsLabel3" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="qsMod3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="qsLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                              <Component id="jSeparator10" min="-2" pref="10" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                          <Component id="jSeparator10" min="-2" pref="10" max="-2" attributes="0"/>
                                       </Group>
-                                  </Group>
-                                </DimensionLayout>
-                              </Layout>
-                              <SubComponents>
-                                <Component class="javax.swing.JLabel" name="qsMod3">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="13" style="1"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="66" green="66" red="66" type="rgb"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Internet Software Architecture"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JSeparator" name="jSeparator10">
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="qsDate3">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="14" style="0"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="aa" green="a0" red="9f" type="rgb"/>
-                                    </Property>
-                                    <Property name="horizontalAlignment" type="int" value="4"/>
-                                    <Property name="text" type="java.lang.String" value="2024-01-26 22:18:02"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="qsNo3">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="16" style="1"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Question Number 1"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="qsLabel3">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="14" style="0"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="66" green="66" red="66" type="rgb"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="What is the process of Encapsulation in Java? "/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="submitBtn3">
-                                  <Properties>
-                                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="ff" green="f0" red="f1" type="rgb"/>
-                                    </Property>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Helvetica Neue" size="13" style="1"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="ff" green="63" red="6c" type="rgb"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Submit Assignment"/>
-                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                                      <Border info="null"/>
-                                    </Property>
-                                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                                      <Color id="Hand Cursor"/>
-                                    </Property>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="submitBtn3MouseClicked"/>
-                                  </Events>
-                                </Component>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="qsMod3">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="13" style="1"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="66" green="66" red="66" type="rgb"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Internet Software Architecture"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JSeparator" name="jSeparator10">
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsDate3">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="aa" green="a0" red="9f" type="rgb"/>
+                                        </Property>
+                                        <Property name="horizontalAlignment" type="int" value="4"/>
+                                        <Property name="text" type="java.lang.String" value="2024-01-26 22:18:02"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsNo3">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="16" style="1"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Question Number 1"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsLabel3">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="66" green="66" red="66" type="rgb"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="What is the process of Encapsulation in Java? "/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="qsLabel6">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Helvetica Neue" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="ff" green="5f" red="6c" type="rgb"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Assigned"/>
+                                      </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
                           </SubComponents>

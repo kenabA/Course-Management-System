@@ -6,6 +6,7 @@ package cms.Frontend;
 
 import Teacher.TeacherPanel;
 import cms.Frontend.Student.StudentPanel;
+import static cms.Frontend.Student.StudentPanel.submitBtn1;
 
 /**
  *
@@ -59,6 +60,136 @@ public class Contents {
 
             tp.teacher2.setText("- " + fullName2);
             tp.date2.setText(data[1][3]);
+        }
+
+    }
+
+    public void setQuestionsDetails(String[][] data, StudentPanel sp) {
+
+        if (data[0][0] == null) {
+            sp.qsNo1.setText("No Assingments yet.");
+            sp.qsLabel1.setText("Assingments yet to assign by the respected teacher.");
+            sp.qsMod1.setText("Module Name");
+            sp.qsDate1.setText("Date of Question Posted");
+            submitBtn1.setVisible(false);
+
+            sp.qsPanel2.setVisible(false);
+            sp.qsPanel3.setVisible(false);
+
+        } else if (data[1][0] == null) {
+            sp.q1 = Integer.parseInt(data[0][0]);
+            sp.qsNo1.setText("Question Number " + data[0][0]);
+            sp.qsLabel1.setText(data[0][1]);
+            sp.qsMod1.setText(data[0][2]);
+            sp.qsDate1.setText(data[0][3]);
+
+            sp.qsPanel2.setVisible(false);
+            sp.qsPanel3.setVisible(false);
+
+        } else if (data[1][0] != null && data[2][0] == null) {
+            sp.q1 = Integer.parseInt(data[0][0]);
+            sp.q2 = Integer.parseInt(data[1][0]);
+
+            sp.qsNo1.setText("Question Number " + data[0][0]);
+            sp.qsLabel1.setText(data[0][1]);
+            sp.qsMod1.setText(data[0][2]);
+            sp.qsDate1.setText(data[0][3]);
+
+            sp.qsNo2.setText("Question Number " + data[1][0]);
+            sp.qsLabel2.setText(data[1][1]);
+            sp.qsMod2.setText(data[1][2]);
+            sp.qsDate2.setText(data[1][3]);
+
+            sp.qsPanel3.setVisible(false);
+
+        } else {
+            // Storing the question numbers in a variable for future use
+            sp.q1 = Integer.parseInt(data[0][0]);
+            sp.q2 = Integer.parseInt(data[1][0]);
+            sp.q3 = Integer.parseInt(data[2][0]);
+
+            // Setting all the texts
+            sp.qsNo1.setText("Question Number " + data[0][0]);
+            sp.qsNo2.setText("Question Number " + data[1][0]);
+            sp.qsNo3.setText("Question Number " + data[2][0]);
+
+            sp.qsLabel1.setText(data[0][1]);
+            sp.qsLabel2.setText(data[1][1]);
+            sp.qsLabel3.setText(data[2][1]);
+
+            sp.qsMod1.setText(data[0][2]);
+            sp.qsMod2.setText(data[1][2]);
+            sp.qsMod3.setText(data[2][2]);
+
+            sp.qsDate1.setText(data[0][3]);
+            sp.qsDate2.setText(data[1][3]);
+            sp.qsDate3.setText(data[2][3]);
+
+        }
+
+    }
+
+    public void setQuestionsDetails(String[][] data, TeacherPanel tp) {
+
+        if (data[0][0] == null) {
+            tp.qsNo1.setText("No Assingments yet.");
+            tp.qsLabel1.setText("Assingments yet to assign by the retpected teacher.");
+            tp.qsMod1.setText("Module Name");
+            tp.qsDate1.setText("Date of Question Posted");
+            submitBtn1.setVisible(false);
+
+            tp.qsPanel2.setVisible(false);
+            tp.qsPanel3.setVisible(false);
+
+        } else if (data[1][0] == null) {
+            tp.q1 = Integer.parseInt(data[0][0]);
+            tp.qsNo1.setText("Question Number " + data[0][0]);
+            tp.qsLabel1.setText(data[0][1]);
+            tp.qsMod1.setText(data[0][2]);
+            tp.qsDate1.setText(data[0][3]);
+
+            tp.qsPanel2.setVisible(false);
+            tp.qsPanel3.setVisible(false);
+
+        } else if (data[1][0] != null && data[2][0] == null) {
+            tp.q1 = Integer.parseInt(data[0][0]);
+            tp.q2 = Integer.parseInt(data[1][0]);
+
+            tp.qsNo1.setText("Question Number " + data[0][0]);
+            tp.qsLabel1.setText(data[0][1]);
+            tp.qsMod1.setText(data[0][2]);
+            tp.qsDate1.setText(data[0][3]);
+
+            tp.qsNo2.setText("Question Number " + data[1][0]);
+            tp.qsLabel2.setText(data[1][1]);
+            tp.qsMod2.setText(data[1][2]);
+            tp.qsDate2.setText(data[1][3]);
+
+            tp.qsPanel3.setVisible(false);
+
+        } else {
+            // Storing the question numbers in a variable for future use
+            tp.q1 = Integer.parseInt(data[0][0]);
+            tp.q2 = Integer.parseInt(data[1][0]);
+            tp.q3 = Integer.parseInt(data[2][0]);
+
+            // Setting all the texts
+            tp.qsNo1.setText("Question Number " + data[0][0]);
+            tp.qsNo2.setText("Question Number " + data[1][0]);
+            tp.qsNo3.setText("Question Number " + data[2][0]);
+
+            tp.qsLabel1.setText(data[0][1]);
+            tp.qsLabel2.setText(data[1][1]);
+            tp.qsLabel3.setText(data[2][1]);
+
+            tp.qsMod1.setText(data[0][2]);
+            tp.qsMod2.setText(data[1][2]);
+            tp.qsMod3.setText(data[2][2]);
+
+            tp.qsDate1.setText(data[0][3]);
+            tp.qsDate2.setText(data[1][3]);
+            tp.qsDate3.setText(data[2][3]);
+
         }
 
     }
