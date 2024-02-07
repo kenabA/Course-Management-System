@@ -4,20 +4,39 @@
  */
 package Teacher;
 
-import cms.Frontend.Person;
+import cms.Backend.Account;
+import cms.Backend.HelperMethods;
+import static cms.Backend.HelperMethods.showConfirmationDialog;
+import cms.Backend.TeacherAccount;
+import cms.Backend.Validation;
+import cms.Frontend.Student.StudentPanel;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import javax.swing.JOptionPane;
 
 public class GradeStudent extends javax.swing.JFrame {
 
-    public GradeStudent(int tp, String name, String course, String email, String email1) {
+    private int id;
+    private String name;
+    private String course;
+    private int semester;
+    private String email;
+
+    public GradeStudent(int id, String name, String semester, String course, String email) {
+
         initComponents();
+        this.id = id;
+        this.name = name;
+        this.course = course;
+        this.semester = Integer.parseInt(semester.substring(0, semester.length() - 2));
+        this.email = email;
 
         setFields();
     }
 
     private void setFields() {
-        System.out.println();
-        stdName.setText(Person.getName());
+
+        stdName.setText(name);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,12 +50,13 @@ public class GradeStudent extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         stdName = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        moduleName = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         stdPerformanceSlider = new javax.swing.JSlider();
         uploadGradeBtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        percentage = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(241, 240, 255));
@@ -66,9 +86,9 @@ public class GradeStudent extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Module Name :");
 
-        jComboBox1.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Internet Software Architecture", "Item 2", "Item 3", "Item 4" }));
+        moduleName.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        moduleName.setForeground(new java.awt.Color(51, 51, 51));
+        moduleName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Internet Software Architecture", "Fundamentals of Computing", "Concepts & Technologies of Artificial Intelligence", "Object Oriented Design & Programming", "Principle of Business", "Business Math" }));
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
@@ -96,11 +116,24 @@ public class GradeStudent extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("Percentage : ");
 
-        jTextField1.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField1.setText("Enter Percentage");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        percentage.setForeground(new java.awt.Color(204, 204, 204));
+        percentage.setText("Enter Percentage");
+        percentage.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                percentageFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                percentageFocusLost(evt);
+            }
+        });
+        percentage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                percentageMouseClicked(evt);
+            }
+        });
+        percentage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                percentageActionPerformed(evt);
             }
         });
 
@@ -113,9 +146,10 @@ public class GradeStudent extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(uploadGradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(133, 133, 133)
@@ -134,8 +168,8 @@ public class GradeStudent extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(133, 133, 133)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(percentage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(moduleName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(stdName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(48, 48, 48))
         );
@@ -156,16 +190,18 @@ public class GradeStudent extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(moduleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(percentage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(stdPerformanceSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addComponent(uploadGradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
@@ -187,17 +223,50 @@ public class GradeStudent extends javax.swing.JFrame {
 
     private void uploadGradeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadGradeBtnMouseClicked
 
-        System.out.println(stdPerformanceSlider.getValue());
+        if (showConfirmationDialog()) {
 
+            if (Validation.validatePercentageField(percentage.getText())) {
+
+                int totalPercentage = Integer.parseInt(percentage.getText());
+                String modName = (String) moduleName.getSelectedItem();
+
+                int moduleId = Account.getModuleId(modName);
+
+                int uploaded = TeacherAccount.uploadGrades(id, totalPercentage, stdPerformanceSlider.getValue(), moduleId);
+
+                if (uploaded <= 0) {
+                    JOptionPane.showMessageDialog(null, "Error uploading grades.", "Grade Students", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                JOptionPane.showMessageDialog(null, "Successfully updated the grades.", "Grade Students", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        }
     }//GEN-LAST:event_uploadGradeBtnMouseClicked
 
     private void uploadGradeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadGradeBtnActionPerformed
 
     }//GEN-LAST:event_uploadGradeBtnActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void percentageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_percentageActionPerformed
 
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_percentageActionPerformed
+
+    private void percentageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_percentageMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_percentageMouseClicked
+
+    private void percentageFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_percentageFocusGained
+        // TODO add your handling code here:
+        HelperMethods.handleFocusGainedLost(percentage, "Enter Percentage", new Color(158, 160, 170), evt);
+    }//GEN-LAST:event_percentageFocusGained
+
+    private void percentageFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_percentageFocusLost
+        // TODO add your handling code here:
+        HelperMethods.handleFocusGainedLost(percentage, "Enter Percentage", new Color(158, 160, 170), evt);
+    }//GEN-LAST:event_percentageFocusLost
 
     /**
      * @param args the command line arguments
@@ -213,7 +282,6 @@ public class GradeStudent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -221,7 +289,9 @@ public class GradeStudent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JComboBox<String> moduleName;
+    private javax.swing.JTextField percentage;
     private javax.swing.JLabel quesNo;
     private javax.swing.JLabel stdName;
     private javax.swing.JSlider stdPerformanceSlider;

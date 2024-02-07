@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class Validation {
-    
+
     // For getting the error message and error title
     private static String errorMsg;
     private static String errorTitle;
@@ -86,7 +86,7 @@ Profile Updating Conventions :
         return !credentials[0].isEmpty() && !credentials[1].isEmpty() && !credentials[2].isEmpty() && !credentials[3].isEmpty() && !credentials[4].isEmpty();
 
     }
-    
+
     // Validates all the details once the fields are not empty
     public static boolean validateDetails(String fName, String lName, String username, String phone, String email, String pass, String rePass, String usertype) {
 
@@ -134,7 +134,7 @@ Profile Updating Conventions :
                     }
             }
         }
-        
+
         // Calls the check duplicate function to check if the data already exists in the database
         return Account.checkDuplicate(username, email, usertype);
 
@@ -184,7 +184,18 @@ Profile Updating Conventions :
         return Account.checkDuplicate(details[0], details[1], role);
 
     }
-    
+
+    // Validation for Percentage field for grading panel
+    public static boolean validatePercentageField(String totalPercentage) {
+
+        if (HelperMethods.allCharactersAreDigits(totalPercentage)) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(null, "Please enter the Percentage in Numeric form.", "Grade Students", JOptionPane.INFORMATION_MESSAGE);
+        return false;
+
+    }
+
     // Validation for Name
     private static boolean validateName(String fName, String lName) {
 
@@ -202,7 +213,7 @@ Profile Updating Conventions :
         return true;
 
     }
-    
+
     // Validation for Username
     private static boolean validateUsername(String username) {
 
@@ -219,7 +230,7 @@ Profile Updating Conventions :
         return matchFound;
 
     }
-    
+
     // Validation for Email
     private static boolean validateEmail(String email) {
 

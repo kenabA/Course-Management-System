@@ -2416,7 +2416,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
             gs.setVisible(true);
         }
 
-
     }//GEN-LAST:event_gradeBtnMouseClicked
 
 

@@ -178,6 +178,22 @@ public class Account extends CreateConnection {
         return 0;
     }
 
+    // ------------- MODULE COUNT : USING COURSE ID -------------
+    public static int getModuleId(String moduleName) {
+        try {
+            String query = "SELECT module_id FROM Module WHERE module_name = '" + moduleName + "';";
+            ResultSet resultSet = c.statement.executeQuery(query);
+            if (resultSet.next()) {
+                System.out.println(moduleName);
+                int modulesId = resultSet.getInt("module_id");
+                return modulesId;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
     // ------------- UPDATING DATA : USING NECESSARY DATA : PROFILE SECTION -------------
     public static boolean updateProfile(String[] updatingDetails, int id) {
 

@@ -71,4 +71,25 @@ public class TeacherAccount {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public static int uploadGrades(int id, int percentage, int stdPerformanceSlider, int moduleId) {
+        try {
+            // Inserts the assingments and inserts the status to 1.
+            String query = "INSERT INTO `Grade` (`grade`, `overall`, `student_id`, `module_id`) VALUES (?,?,?,?);";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            preparedStatement.setInt(1, percentage);
+            preparedStatement.setInt(2, stdPerformanceSlider);
+            preparedStatement.setInt(3, id);
+            preparedStatement.setInt(4, moduleId);
+
+            int rows = preparedStatement.executeUpdate();
+
+            return rows;
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
 }
