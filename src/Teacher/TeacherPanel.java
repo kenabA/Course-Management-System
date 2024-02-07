@@ -260,7 +260,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         panelFourth = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         addAssignmentBtn = new javax.swing.JButton();
-        gradeBtn2 = new javax.swing.JButton();
+        refreshBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         questionsPanel = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
@@ -1298,16 +1298,16 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
             }
         });
 
-        gradeBtn2.setBackground(new java.awt.Color(250, 250, 250));
-        gradeBtn2.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        gradeBtn2.setForeground(new java.awt.Color(108, 99, 255));
-        gradeBtn2.setMnemonic('[');
-        gradeBtn2.setText("Refresh");
-        gradeBtn2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 99, 255), 1, true));
-        gradeBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        gradeBtn2.addActionListener(new java.awt.event.ActionListener() {
+        refreshBtn.setBackground(new java.awt.Color(250, 250, 250));
+        refreshBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        refreshBtn.setForeground(new java.awt.Color(108, 99, 255));
+        refreshBtn.setMnemonic('[');
+        refreshBtn.setText("Refresh");
+        refreshBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 99, 255), 1, true));
+        refreshBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gradeBtn2ActionPerformed(evt);
+                refreshBtnActionPerformed(evt);
             }
         });
 
@@ -1558,7 +1558,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(gradeBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(addAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32))
@@ -1568,7 +1568,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(gradeBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2421,9 +2421,11 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         // TODO add your handling code here:
     }//GEN-LAST:event_addAssignmentBtnActionPerformed
 
-    private void gradeBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtn2ActionPerformed
+    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_gradeBtn2ActionPerformed
+        this.questionDetails = TeacherAccount.getQuestions();
+        contents.setQuestionsDetails(questionDetails, this);
+    }//GEN-LAST:event_refreshBtnActionPerformed
 
     private void addAssignmentBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAssignmentBtnMouseClicked
         // TODO add your handling code here:
@@ -2441,7 +2443,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     public javax.swing.JLabel date2;
     private javax.swing.JLabel directEmail;
     private javax.swing.JButton gradeBtn;
-    private javax.swing.JButton gradeBtn2;
     private javax.swing.JTable gradesTable;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
@@ -2541,6 +2542,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     public javax.swing.JPanel qsPanel2;
     public javax.swing.JPanel qsPanel3;
     private javax.swing.JPanel questionsPanel;
+    private javax.swing.JButton refreshBtn;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchCourses;
     private javax.swing.JTextField searchGrades;
