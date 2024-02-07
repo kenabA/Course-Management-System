@@ -93,7 +93,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
         modulesCount.setText(this.modules);
 
-        // currentSemester.setText(this.semester);
         // Updating the Profile Panel
         profileUsername.setText(username);
         profileEmail.setText(email);

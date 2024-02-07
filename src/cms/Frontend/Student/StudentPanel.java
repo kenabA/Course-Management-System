@@ -110,8 +110,10 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
         profileConfirmPassword.setText(StudentPanel.password);
         profilePhone.setText(StudentPanel.phNum);
 
-        // Updating the Grades Tables
-        StudentAccount.getTableData(StudentPanel.id, model, "t2");
+        // Updating the Grades Tables 
+        this.model2 = (DefaultTableModel) gradesTable.getModel();
+
+        StudentAccount.getTableData(StudentPanel.id, model2, "t2");
         HelperMethods.alignTableContents(gradesTable);
         HelperMethods.setTableAppearance(gradesTable);
         gradesTable.getColumnModel().getColumn(4).setCellRenderer(new GradeCellRenderer());
