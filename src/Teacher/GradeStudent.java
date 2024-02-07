@@ -9,12 +9,9 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 public class GradeStudent extends javax.swing.JFrame {
 
-    TeacherPanel tp;
-
-    public GradeStudent(TeacherPanel tp) {
+    public GradeStudent(int tp, String name, String course, String email, String email1) {
         initComponents();
 
-        this.tp = tp;
         setFields();
     }
 

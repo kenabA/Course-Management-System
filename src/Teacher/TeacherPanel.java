@@ -132,7 +132,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 //        alignTableContents(gradesTable);
 //        setTableAppearance(gradesTable);
 //        gradesTable.getColumnModel().getColumn(4).setCellRenderer(new GradeCellRenderer());
-//
+
         // Updating the Assignments Section
 //        setQuestionDetails(this.questionDetails);
 //        checkIfSubmitted();
@@ -2401,9 +2401,21 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private void gradeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeBtnMouseClicked
         // TODO add your handling code here:
 
-        gs = new GradeStudent(this);
+        int selectedRow = studentsTable.getSelectedRow();
 
-        gs.setVisible(true);
+        if (selectedRow != -1) {
+
+            // Getting the selected row
+            int id = Integer.parseInt((String) studentsTable.getValueAt(selectedRow, 0));
+            String name = (String) studentsTable.getValueAt(selectedRow, 1);
+            String semester = (String) studentsTable.getValueAt(selectedRow, 2);
+            String course = (String) studentsTable.getValueAt(selectedRow, 3);
+            String email = (String) studentsTable.getValueAt(selectedRow, 4);
+
+            gs = new GradeStudent(id, name, semester, course, email);
+            gs.setVisible(true);
+        }
+
 
     }//GEN-LAST:event_gradeBtnMouseClicked
 
