@@ -10,16 +10,16 @@ import javax.swing.JOptionPane;
 /**
  * @author kenabkc
  */
+public class EditProfile extends javax.swing.JFrame {
 
-public class EditProfile extends javax.swing.JFrame{
     public static void main(String[] args) {
-        
+
     }
-    
+
     public EditProfile() {
         initComponents();
     }
-    
+
     private static int id;
     private static String username;
     private static String password;
@@ -35,6 +35,7 @@ public class EditProfile extends javax.swing.JFrame{
         EditProfile.id = Integer.parseInt(details[4]);
         EditProfile.role = details[5];
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -540,7 +541,7 @@ public class EditProfile extends javax.swing.JFrame{
 
     private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
 
-        if (HelperMethods.showConfirmationDialog()) {
+        if (HelperMethods.showConfirmationDialog("Do you want to make changes to your profile? ")) {
 
             String tempUsername = profileUsername.getText();
             String tempEmail = profileEmail.getText();
@@ -633,4 +634,3 @@ public class EditProfile extends javax.swing.JFrame{
     private javax.swing.JButton saveBtn1;
     // End of variables declaration//GEN-END:variables
 }
-

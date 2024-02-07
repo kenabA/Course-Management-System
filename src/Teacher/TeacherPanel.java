@@ -84,10 +84,10 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         studentsTable.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
                 if (studentsTable.getSelectedRow() != -1) {
-                    gradeSubText.setVisible(false);
+
                     gradeBtn.setVisible(true);
                 } else {
-                    gradeSubText.setVisible(true);
+
                     gradeBtn.setVisible(false);
                 }
             }
@@ -100,12 +100,12 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         Account.updateActivity("Login");
 
         boolean newNotifications = Account.checkNotifications();
-
+        System.out.println("chck3");
         // Checking if any new notifications is present
         if (newNotifications) {
             newText.setVisible(true);
         }
-
+        System.out.println("chck4");
         // Updating the dashboard panel
         stdPanelName.setText(Person.getName());
         courseName.setText(this.course);
@@ -121,7 +121,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         profileConfirmPassword.setText(password);
         profilePhone.setText(phNum);
 
+        System.out.println("chck5");
         setContents();
+        System.out.println("chck8");
 
         // Updating the students panel
         this.model = (DefaultTableModel) studentsTable.getModel();
@@ -135,7 +137,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     @Override
     public void setContents() {
         contents.setAnnouncement(announcement, this);
+        System.out.println("chck6");
         contents.setQuestionsDetails(questionDetails, this);
+        System.out.println("chck7");
     }
 
     public void extractDetails() {
@@ -245,7 +249,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         searchCourses = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         gradeBtn = new javax.swing.JButton();
-        gradeSubText = new javax.swing.JLabel();
         panelThird = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         tableScrollPanel1 = new javax.swing.JScrollPane();
@@ -1071,7 +1074,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         gradeBtn.setBackground(new java.awt.Color(241, 240, 255));
         gradeBtn.setForeground(new java.awt.Color(108, 99, 255));
         gradeBtn.setText("Grade");
-        gradeBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(108, 99, 255)));
         gradeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         gradeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1084,34 +1086,27 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
             }
         });
 
-        gradeSubText.setForeground(new java.awt.Color(153, 153, 153));
-        gradeSubText.setText("Select a student to Grade");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(gradeSubText)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(gradeSubText)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(tableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
@@ -2146,7 +2141,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     }//GEN-LAST:event_tab4MouseClicked
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-        if (HelperMethods.showConfirmationDialog()) {
+        if (HelperMethods.showConfirmationDialog("Do you want to logout from your account? ")) {
             // Setting the logout time
             Account.updateActivity("Logout");
             dispose();
@@ -2331,7 +2326,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
 
-        if (HelperMethods.showConfirmationDialog()) {
+        if (HelperMethods.showConfirmationDialog("Do you want to make changes to your profile? ")) {
 
             String tempUsername = profileUsername.getText();
             String tempEmail = profileEmail.getText();
@@ -2446,7 +2441,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private javax.swing.JLabel directEmail;
     private javax.swing.JButton gradeBtn;
     private javax.swing.JButton gradeBtn2;
-    private javax.swing.JLabel gradeSubText;
     private javax.swing.JTable gradesTable;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;

@@ -9,7 +9,6 @@ import cms.Backend.HelperMethods;
 import static cms.Backend.HelperMethods.showConfirmationDialog;
 import cms.Backend.TeacherAccount;
 import cms.Backend.Validation;
-import cms.Frontend.Student.StudentPanel;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -223,7 +222,7 @@ public class GradeStudent extends javax.swing.JFrame {
 
     private void uploadGradeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadGradeBtnMouseClicked
 
-        if (showConfirmationDialog()) {
+        if (showConfirmationDialog("Do you want to upload the grades? ")) {
 
             if (Validation.validatePercentageField(percentage.getText())) {
 

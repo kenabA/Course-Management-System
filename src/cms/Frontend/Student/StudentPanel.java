@@ -2021,7 +2021,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-        if (HelperMethods.showConfirmationDialog()) {
+        if (HelperMethods.showConfirmationDialog("Do you want to logout from your account? ")) {
             // Setting the logout time
             Account.updateActivity("Logout");
             dispose();
@@ -2212,7 +2212,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
 
-        if (HelperMethods.showConfirmationDialog()) {
+        if (HelperMethods.showConfirmationDialog("Do you want to make changes to your profile?")) {
 
             String tempUsername = profileUsername.getText();
             String tempEmail = profileEmail.getText();
@@ -2368,8 +2368,10 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void submitBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtn1MouseClicked
 
+        System.out.println("HELLO THIS IS A TEST ");
         // If the assignment is already submitted: Returns and does not do anything
         if (submitBtn1.getText().equals("Submitted")) {
+
             return;
         } // Else ,a new Answer class is called to submit the answer : we pass the current object
         a = new Answer(q1, StudentPanel.id, 1, this);

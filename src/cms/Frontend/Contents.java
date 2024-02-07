@@ -136,7 +136,6 @@ public class Contents {
             tp.qsLabel1.setText("Assingments yet to assign by the retpected teacher.");
             tp.qsMod1.setText("Module Name");
             tp.qsDate1.setText("Date of Question Posted");
-            submitBtn1.setVisible(false);
 
             tp.qsPanel2.setVisible(false);
             tp.qsPanel3.setVisible(false);

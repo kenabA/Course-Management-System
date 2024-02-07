@@ -69,13 +69,8 @@ public class HelperMethods {
     }
 
     // This is used to show the confirmation dialog
-    public static boolean showConfirmationDialog() {
-        int option = JOptionPane.showConfirmDialog(
-                null,
-                "Do you want to make changes to your profile?",
-                "Confirmation",
-                JOptionPane.YES_NO_OPTION);
-
+    public static boolean showConfirmationDialog(String text) {
+        int option = JOptionPane.showConfirmDialog(null, text, "Confirmation", JOptionPane.YES_NO_OPTION);
         return option == JOptionPane.YES_OPTION;
     }
 

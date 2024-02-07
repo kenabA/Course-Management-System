@@ -6,7 +6,6 @@ package cms.Backend;
 
 import static cms.Backend.CreateConnection.c;
 import cms.Frontend.Person;
-import cms.Frontend.Student.StudentPanel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

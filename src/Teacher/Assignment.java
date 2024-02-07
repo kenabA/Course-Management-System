@@ -5,11 +5,9 @@
 package Teacher;
 
 import cms.Backend.Account;
-import cms.Backend.HelperMethods;
 import static cms.Backend.HelperMethods.showConfirmationDialog;
 import cms.Backend.TeacherAccount;
 import cms.Backend.Validation;
-import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,13 +39,14 @@ public class Assignment extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         moduleName = new javax.swing.JComboBox<>();
-        uploadGradeBtn = new javax.swing.JButton();
+        uploadAssignmentBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         fullQuestion = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         semesterCount = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(108, 99, 255));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(250, 250, 250));
@@ -74,19 +73,19 @@ public class Assignment extends javax.swing.JFrame {
         moduleName.setForeground(new java.awt.Color(51, 51, 51));
         moduleName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Internet Software Architecture", "Fundamentals of Computing", "Concepts & Technologies of Artificial Intelligence", "Object Oriented Design & Programming", "Principle of Business", "Business Math" }));
 
-        uploadGradeBtn.setBackground(new java.awt.Color(108, 99, 255));
-        uploadGradeBtn.setForeground(new java.awt.Color(255, 255, 255));
-        uploadGradeBtn.setText("Upload Grade");
-        uploadGradeBtn.setBorder(null);
-        uploadGradeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        uploadGradeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        uploadAssignmentBtn.setBackground(new java.awt.Color(108, 99, 255));
+        uploadAssignmentBtn.setForeground(new java.awt.Color(255, 255, 255));
+        uploadAssignmentBtn.setText("Upload Grade");
+        uploadAssignmentBtn.setBorder(null);
+        uploadAssignmentBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        uploadAssignmentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                uploadGradeBtnMouseClicked(evt);
+                uploadAssignmentBtnMouseClicked(evt);
             }
         });
-        uploadGradeBtn.addActionListener(new java.awt.event.ActionListener() {
+        uploadAssignmentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                uploadGradeBtnActionPerformed(evt);
+                uploadAssignmentBtnActionPerformed(evt);
             }
         });
 
@@ -117,7 +116,7 @@ public class Assignment extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(uploadGradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(uploadAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jLabel3)
@@ -162,7 +161,7 @@ public class Assignment extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(moduleName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(uploadGradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(uploadAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
 
@@ -181,9 +180,9 @@ public class Assignment extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void uploadGradeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadGradeBtnMouseClicked
+    private void uploadAssignmentBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadAssignmentBtnMouseClicked
 
-        if (showConfirmationDialog()) {
+        if (showConfirmationDialog("Do you want to upload the assignments? ")) {
 
             if (Validation.validateQuestionField(fullQuestion.getText())) {
 
@@ -204,11 +203,11 @@ public class Assignment extends javax.swing.JFrame {
 
         }
 
-    }//GEN-LAST:event_uploadGradeBtnMouseClicked
+    }//GEN-LAST:event_uploadAssignmentBtnMouseClicked
 
-    private void uploadGradeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadGradeBtnActionPerformed
+    private void uploadAssignmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadAssignmentBtnActionPerformed
 
-    }//GEN-LAST:event_uploadGradeBtnActionPerformed
+    }//GEN-LAST:event_uploadAssignmentBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,6 +264,6 @@ public class Assignment extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> moduleName;
     private javax.swing.JLabel quesNo;
     private javax.swing.JSlider semesterCount;
-    private javax.swing.JButton uploadGradeBtn;
+    private javax.swing.JButton uploadAssignmentBtn;
     // End of variables declaration//GEN-END:variables
 }
