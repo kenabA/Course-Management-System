@@ -7,9 +7,11 @@ import Teacher.TeacherPanel;
 import cms.Frontend.AdminPanel;
 import cms.Frontend.Person;
 import cms.Frontend.Student.StudentPanel;
+import java.awt.List;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -318,6 +320,32 @@ public class Account extends CreateConnection {
         }
         return 0;
 
+    }
+    
+    public static ArrayList<String> getModuleNames(int semester) {
+        
+        ArrayList<String> modules = new ArrayList<>();
+        
+         try {
+            String query = " SELECT Module.module_name FROM `Module` INNER JOIN Teacher ON Module.teacher_id = Teacher.id WHERE Module.teacher_id = ? and semester = ?;";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, Person.getId());
+            preparedStatement.setInt(2, semester);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            
+            while (resultSet.next()) {
+                String moduleName = resultSet.getString("module_name");
+                System.out.println(moduleName);
+                modules.add(moduleName);
+            }
+            
+            return modules;
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

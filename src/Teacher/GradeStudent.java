@@ -11,6 +11,7 @@ import cms.Backend.TeacherAccount;
 import cms.Backend.Validation;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class GradeStudent extends javax.swing.JFrame {
@@ -18,8 +19,9 @@ public class GradeStudent extends javax.swing.JFrame {
     private int id;
     private String name;
     private String course;
-    private int semester;
+    private static int semester;
     private String email;
+    private static ArrayList<String> modules;
 
     public GradeStudent(int id, String name, String semester, String course, String email) {
 
@@ -33,9 +35,22 @@ public class GradeStudent extends javax.swing.JFrame {
         setFields();
     }
 
-    private void setFields() {
+    public static void setModules() {
 
+        modules = Account.getModuleNames(semester);
+
+        if (modules != null) {
+            moduleName.removeAllItems();
+
+            for (String mods : modules) {
+                moduleName.addItem(mods);
+            }
+        }
+    }
+
+    private void setFields() {
         stdName.setText(name);
+        setModules();
     }
 
     @SuppressWarnings("unchecked")
@@ -289,7 +304,7 @@ public class GradeStudent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JComboBox<String> moduleName;
+    private static javax.swing.JComboBox<String> moduleName;
     private javax.swing.JTextField percentage;
     private javax.swing.JLabel quesNo;
     private javax.swing.JLabel stdName;
