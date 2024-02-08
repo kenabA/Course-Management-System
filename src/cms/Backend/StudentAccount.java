@@ -4,6 +4,7 @@
  */
 package cms.Backend;
 
+import static cms.Backend.Account.lastLoggedInTime;
 import static cms.Backend.CreateConnection.c;
 import cms.Frontend.Person;
 import cms.Frontend.Student.StudentPanel;
@@ -318,4 +319,82 @@ public class StudentAccount extends CreateConnection {
         }
         return null;
     }
+
+    // ------------- ANNOUNCEMENTS : USING COURSE ID -------------
+    public static String[][] getAnnouncementData(int courseId) {
+
+        String announcementDetails[][] = new String[2][4];
+
+        try {
+
+            String query = """
+                                SELECT Message.message, Teacher.f_name, Teacher.l_name, Message.date_posted
+                                FROM Message
+                                INNER JOIN Course ON Course.course_id = Message.course_id
+                                INNER JOIN Teacher ON Teacher.id = Message.teacher_id
+                                WHERE Course.course_id = ? and Message.semester = ?
+                                ORDER BY Message.date_posted DESC LIMIT 2;
+                                """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, courseId);
+            preparedStatement.setInt(2, Person.getSemester());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            int i = 0;
+            System.out.println("chck1");
+            System.out.println("THE SEM IS : " + Person.getSemester());
+            while (resultSet.next()) {
+                System.out.println("chck2");
+
+                String message = resultSet.getString("message");
+                String fName = resultSet.getString("f_name");
+                String lName = resultSet.getString("l_name");
+                String date = resultSet.getString("date_posted");
+
+                announcementDetails[i][0] = message;
+                announcementDetails[i][1] = fName;
+                announcementDetails[i][2] = lName;
+                announcementDetails[i][3] = date;
+
+                i++;
+
+            }
+
+            return announcementDetails;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+    
+    private static String lastLoggedInTime;
+
+    // ------------- CHECK IF ANY NEW NOTIFICATIONS -------------
+    public static boolean checkNotifications() {
+        // Just to get the last logged out time.
+        
+        lastLoggedInTime = Account.getLastLoginTime();
+
+        try {
+            String query = " SELECT message FROM Message WHERE date_posted > ? AND course_id = ? AND Message.semester = ?  ;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setString(1, lastLoggedInTime);
+            preparedStatement.setInt(2, Person.getCourseId());
+            preparedStatement.setInt(3, Person.getSemester());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.next();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

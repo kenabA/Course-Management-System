@@ -301,4 +301,12 @@ Profile Updating Conventions :
         JOptionPane.showMessageDialog(null, "Cannot publish empty assignments", "Add Assignments", JOptionPane.INFORMATION_MESSAGE);
         return false;
     }
+
+    public static boolean validateAnnouncementField(String msg) {
+        if (!msg.isEmpty()) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(null, "Cannot publish empty annonucements", "Add announcements", JOptionPane.INFORMATION_MESSAGE);
+        return false;
+    }
 }

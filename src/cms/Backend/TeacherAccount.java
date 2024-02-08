@@ -112,6 +112,28 @@ public class TeacherAccount {
         return 0;
     }
 
+    public static int uploadAnnouncement(String msg, int semester) {
+        try {
+            // Inserts the assingments and inserts the status to 1.
+            String query = "INSERT INTO `Message` (`message`, `semester`, `date_posted`, `course_id`, `teacher_id`) VALUES (?, ?, current_timestamp(), ?, ?);";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            preparedStatement.setString(1, msg);
+            preparedStatement.setInt(2, semester);
+            preparedStatement.setInt(3, Person.getCourseId());
+            preparedStatement.setInt(4, Person.getId());
+            System.out.println(Person.getCourseId());
+
+            int rows = preparedStatement.executeUpdate();
+
+            return rows;
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
     // ------------- TO GET THE QUESTIONS DATA -------------
     public static String[][] getQuestions() {
 
@@ -153,4 +175,77 @@ public class TeacherAccount {
 
         return null;
     }
+
+    // ------------- ANNOUNCEMENTS : USING COURSE ID -------------
+    public static String[][] getAnnouncementData(int courseId) {
+
+        String announcementDetails[][] = new String[2][4];
+
+        try {
+
+            String query = """
+                                SELECT Message.message, Teacher.f_name, Teacher.l_name, Message.date_posted
+                                FROM Message
+                                INNER JOIN Course ON Course.course_id = Message.course_id
+                                INNER JOIN Teacher ON Teacher.id = Message.teacher_id
+                                WHERE Course.course_id = ?
+                                ORDER BY Message.date_posted DESC LIMIT 2;
+                                """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, courseId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            int i = 0;
+
+            while (resultSet.next()) {
+
+                String message = resultSet.getString("message");
+                String fName = resultSet.getString("f_name");
+                String lName = resultSet.getString("l_name");
+                String date = resultSet.getString("date_posted");
+
+                announcementDetails[i][0] = message;
+                announcementDetails[i][1] = fName;
+                announcementDetails[i][2] = lName;
+                announcementDetails[i][3] = date;
+
+                i++;
+
+            }
+
+            return announcementDetails;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+
+    private static String lastLoggedInTime;
+
+    // ------------- CHECK IF ANY NEW NOTIFICATIONS -------------
+    public static boolean checkNotifications() {
+        // Just to get the last logged out time.
+
+        lastLoggedInTime = Account.getLastLoginTime();
+
+        try {
+            String query = " SELECT message FROM Message WHERE date_posted > '" + lastLoggedInTime + "' AND course_id = ?  ;";
+            System.out.println("THE LAST LOGGED IN TIME: " + lastLoggedInTime);
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, Person.getCourseId());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.next();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

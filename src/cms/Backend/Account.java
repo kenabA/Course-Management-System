@@ -247,30 +247,8 @@ public class Account extends CreateConnection {
         }
     }
 
-    // ------------- CHECK IF ANY NEW NOTIFICATIONS -------------
-    public static boolean checkNotifications() {
-        // Just to get the last logged out time.
-        Account.lastLoggedInTime = getLastLoginTime();
-
-        try {
-            String query = " SELECT message FROM Message WHERE date_posted > ? AND course_id = ? ;";
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setString(1, lastLoggedInTime);
-            preparedStatement.setInt(2, Person.getCourseId());
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            return resultSet.next();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
     // ------------- GETTING THE LAST LOGGED OUT  -------------
-    private static String getLastLoginTime() {
+    public static String getLastLoginTime() {
 
         try {
             String query = """
@@ -339,54 +317,6 @@ public class Account extends CreateConnection {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
-
-    }
-
-    // ------------- ANNOUNCEMENTS : USING COURSE ID -------------
-    public static String[][] getAnnouncementData(int courseId) {
-
-        String announcementDetails[][] = new String[2][4];
-
-        try {
-
-            String query = """
-                                SELECT Message.message, Teacher.f_name, Teacher.l_name, Message.date_posted
-                                FROM Message
-                                INNER JOIN Course ON Course.course_id = Message.course_id
-                                INNER JOIN Teacher ON Teacher.id = Message.teacher_id
-                                WHERE Course.course_id = ?
-                                ORDER BY Message.date_posted DESC LIMIT 2;
-                                """;
-
-            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setInt(1, courseId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            int i = 0;
-
-            while (resultSet.next()) {
-
-                String message = resultSet.getString("message");
-                String fName = resultSet.getString("f_name");
-                String lName = resultSet.getString("l_name");
-                String date = resultSet.getString("date_posted");
-
-                announcementDetails[i][0] = message;
-                announcementDetails[i][1] = fName;
-                announcementDetails[i][2] = lName;
-                announcementDetails[i][3] = date;
-
-                i++;
-
-            }
-
-            return announcementDetails;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
 
     }
 

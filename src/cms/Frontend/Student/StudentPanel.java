@@ -78,7 +78,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
 
         // Upating the activity when we log in
         Account.updateActivity("Login");
-        boolean newNotifications = Account.checkNotifications();
+        boolean newNotifications = StudentAccount.checkNotifications();
 
         if (newNotifications) {
 
@@ -150,8 +150,8 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
                 this.students = StudentAccount.getTotalStudentCount(course);
                 this.courseId = Account.getCourseId(course);
                 this.modules = String.valueOf(Account.getModulesCount(courseId));
-                this.announcement = Account.getAnnouncementData(courseId);
                 this.semester = StudentAccount.getSemester(StudentPanel.date);
+                this.announcement = StudentAccount.getAnnouncementData(courseId);
 
                 this.p = new Person(this.fName, this.lName, id, this.course, role, this.courseId);
 
