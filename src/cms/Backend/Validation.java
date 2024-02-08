@@ -82,7 +82,7 @@ Profile Updating Conventions :
             JOptionPane.showMessageDialog(null, errorMsg, errorTitle, JOptionPane.INFORMATION_MESSAGE);
             return !credentials[0].isEmpty() && !credentials[1].isEmpty() && !credentials[2].isEmpty() && !credentials[3].isEmpty() && !credentials[4].isEmpty() && !credentials[5].isEmpty() && !credentials[6].isEmpty() && usertypeValidate;
         }
-        System.out.println("USING SECOND RETURN");
+
         return !credentials[0].isEmpty() && !credentials[1].isEmpty() && !credentials[2].isEmpty() && !credentials[3].isEmpty() && !credentials[4].isEmpty();
 
     }

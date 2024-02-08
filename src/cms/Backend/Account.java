@@ -158,7 +158,7 @@ public class Account extends CreateConnection {
             return resultSet;
 
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Error in the Account file : " + e);
         }
         return null;
     }
@@ -184,7 +184,6 @@ public class Account extends CreateConnection {
             String query = "SELECT module_id FROM Module WHERE module_name = '" + moduleName + "';";
             ResultSet resultSet = c.statement.executeQuery(query);
             if (resultSet.next()) {
-                System.out.println(moduleName);
                 int modulesId = resultSet.getInt("module_id");
                 return modulesId;
             }
@@ -259,8 +258,6 @@ public class Account extends CreateConnection {
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setString(1, lastLoggedInTime);
             preparedStatement.setInt(2, Person.getCourseId());
-
-            System.out.println(Person.getCourseId());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -392,7 +389,5 @@ public class Account extends CreateConnection {
         return null;
 
     }
-    
-    
 
 }

@@ -147,14 +147,11 @@ public class Contents {
             tp.qsMod1.setText(data[0][2]);
             tp.qsDate1.setText(data[0][3]);
 
-            System.out.println("WHATS UPPPP");
-
             tp.qsPanel2.setVisible(false);
             tp.qsPanel3.setVisible(false);
 
         } else if (data[1][0] != null && data[2][0] == null) {
 
-            System.out.println("WHATS UPPPP 22222");
             tp.q1 = Integer.parseInt(data[0][0]);
             tp.q2 = Integer.parseInt(data[1][0]);
 

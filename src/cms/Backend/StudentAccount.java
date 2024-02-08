@@ -48,7 +48,6 @@ public class StudentAccount extends CreateConnection {
         LocalDate endDate = LocalDate.now();
         Period period = Period.between(startDate, endDate);
         int months = period.getYears() * 12 + period.getMonths();
-        System.out.println(months);
         int semester = 1;
 
         for (int i = 2; i < months; i += 2) {
@@ -301,10 +300,9 @@ public class StudentAccount extends CreateConnection {
             String query = """
                                SELECT date_created FROM student WHERE id = ?;
                                 """;
-            System.out.println("stdid: " + id);
+
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setInt(1, Integer.parseInt(id));
-            System.out.println("stdid2: " + id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

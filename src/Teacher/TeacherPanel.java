@@ -100,12 +100,12 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         Account.updateActivity("Login");
 
         boolean newNotifications = Account.checkNotifications();
-        System.out.println("chck3");
+
         // Checking if any new notifications is present
         if (newNotifications) {
             newText.setVisible(true);
         }
-        System.out.println("chck4");
+
         // Updating the dashboard panel
         stdPanelName.setText(Person.getName());
         courseName.setText(this.course);
@@ -121,9 +121,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         profileConfirmPassword.setText(password);
         profilePhone.setText(phNum);
 
-        System.out.println("chck5");
         setContents();
-        System.out.println("chck8");
 
         // Updating the students panel
         this.model = (DefaultTableModel) studentsTable.getModel();
@@ -137,9 +135,9 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     @Override
     public void setContents() {
         contents.setAnnouncement(announcement, this);
-        System.out.println("chck6");
+
         contents.setQuestionsDetails(questionDetails, this);
-        System.out.println("chck7");
+
     }
 
     public void extractDetails() {
@@ -285,6 +283,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         qsNo3 = new javax.swing.JLabel();
         qsLabel3 = new javax.swing.JLabel();
         qsLabel6 = new javax.swing.JLabel();
+        qsLabel7 = new javax.swing.JLabel();
         panelFifth = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -1549,15 +1548,21 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
         jScrollPane3.setViewportView(questionsPanel);
 
+        qsLabel7.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        qsLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        qsLabel7.setText("Latest Questions");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(qsLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(addAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1567,10 +1572,15 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(qsLabel7)
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68))
         );
@@ -2192,7 +2202,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private void notificationBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notificationBtnMouseClicked
         // TODO add your handling code here:
-        System.out.println("OK");
 
         if (newText.isShowing()) {
             Notification n1 = new Notification();
@@ -2424,13 +2433,6 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
         // TODO add your handling code here:
         this.questionDetails = TeacherAccount.getQuestions();
-        System.out.println("TESTING PHASE: ");
-        for (String[] q : questionDetails) {
-            for (String r : q) {
-                System.out.println(r);
-            }
-
-        }
         contents.setQuestionsDetails(this.questionDetails, this);
     }//GEN-LAST:event_refreshBtnActionPerformed
 
@@ -2539,13 +2541,14 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     public javax.swing.JLabel qsLabel4;
     public javax.swing.JLabel qsLabel5;
     public javax.swing.JLabel qsLabel6;
+    public javax.swing.JLabel qsLabel7;
     public javax.swing.JLabel qsMod1;
     public javax.swing.JLabel qsMod2;
     public javax.swing.JLabel qsMod3;
     public javax.swing.JLabel qsNo1;
     public javax.swing.JLabel qsNo2;
     public javax.swing.JLabel qsNo3;
-    private javax.swing.JPanel qsPanel1;
+    public javax.swing.JPanel qsPanel1;
     public javax.swing.JPanel qsPanel2;
     public javax.swing.JPanel qsPanel3;
     private javax.swing.JPanel questionsPanel;
