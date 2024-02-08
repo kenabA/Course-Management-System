@@ -6,17 +6,31 @@ package Teacher;
 
 import cms.Backend.Account;
 import static cms.Backend.HelperMethods.showConfirmationDialog;
+import cms.Backend.StudentAccount;
 import cms.Backend.TeacherAccount;
 import cms.Backend.Validation;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Assignment extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Assignment
-     */
+    ArrayList<String> modules;
+
     public Assignment() {
         initComponents();
+        setModules();
+    }
+
+    private void setModules() {
+        modules = Account.getModuleNames();
+
+        if (modules != null) {
+            moduleName.removeAllItems();
+
+            for (String mods : modules) {
+                moduleName.addItem(mods);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -33,8 +47,6 @@ public class Assignment extends javax.swing.JFrame {
         uploadAssignmentBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         fullQuestion = new javax.swing.JTextArea();
-        jLabel7 = new javax.swing.JLabel();
-        semesterCount = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(108, 99, 255));
@@ -85,20 +97,6 @@ public class Assignment extends javax.swing.JFrame {
         fullQuestion.setRows(5);
         jScrollPane1.setViewportView(fullQuestion);
 
-        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel7.setText("Semester : ");
-
-        semesterCount.setForeground(new java.awt.Color(108, 92, 255));
-        semesterCount.setMajorTickSpacing(1);
-        semesterCount.setMaximum(6);
-        semesterCount.setMinimum(1);
-        semesterCount.setPaintLabels(true);
-        semesterCount.setPaintTicks(true);
-        semesterCount.setSnapToTicks(true);
-        semesterCount.setToolTipText("");
-        semesterCount.setValue(1);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -114,7 +112,6 @@ public class Assignment extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
@@ -124,9 +121,8 @@ public class Assignment extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(quesNo)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(semesterCount, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 354, Short.MAX_VALUE)))))
                 .addGap(48, 48, 48))
         );
         jPanel1Layout.setVerticalGroup(
@@ -143,10 +139,6 @@ public class Assignment extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(jLabel7)
-                .addGap(12, 12, 12)
-                .addComponent(semesterCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(jLabel4)
                 .addGap(12, 12, 12)
@@ -178,11 +170,11 @@ public class Assignment extends javax.swing.JFrame {
             if (Validation.validateQuestionField(fullQuestion.getText())) {
 
                 String qs = fullQuestion.getText();
-                int semester = semesterCount.getValue();
+
                 String modName = (String) moduleName.getSelectedItem();
                 int moduleId = Account.getModuleId(modName);
 
-                int uploaded = TeacherAccount.uploadAssignment(qs, semester, moduleId);
+                int uploaded = TeacherAccount.uploadAssignment(qs, moduleId);
 
                 if (uploaded <= 0) {
                     JOptionPane.showMessageDialog(null, "Error uploading assignments.", "Add Assignments", JOptionPane.INFORMATION_MESSAGE);
@@ -249,12 +241,10 @@ public class Assignment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> moduleName;
     private javax.swing.JLabel quesNo;
-    private javax.swing.JSlider semesterCount;
     private javax.swing.JButton uploadAssignmentBtn;
     // End of variables declaration//GEN-END:variables
 }

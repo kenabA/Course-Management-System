@@ -252,7 +252,8 @@ public class StudentAccount extends CreateConnection {
                                                                     Module.module_id,
                                                                     Module.module_name,
                                                                     Module.semester,
-                                                                    Grade.grade
+                                                                    Grade.grade,
+                           Grade.overall
                                                                 
                                                                 FROM
                                                                 	Grade
@@ -267,7 +268,7 @@ public class StudentAccount extends CreateConnection {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            int totalPercentage = 0;
+            int totalPerformance = 0;
             int count = 0;
 
             while (resultSet.next()) {
@@ -278,17 +279,19 @@ public class StudentAccount extends CreateConnection {
                 String percentage = String.valueOf(resultSet.getInt("grade")) + "%";
                 int percentageCount = resultSet.getInt("grade");
                 String grade = HelperMethods.getGrades(percentageCount);
+                int overall = resultSet.getInt("overall");
+                System.out.println(overall);
 
                 String row[] = {moduleId, name, sem, percentage, grade};
 
                 model.addRow(row);
 
-                totalPercentage = totalPercentage + percentageCount;
+                totalPerformance = totalPerformance + overall;
                 count++;
 
             }
 
-            Person.setOverallPerformance(totalPercentage / count);
+            Person.setOverallPerformance(totalPerformance / count);
 
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
@@ -343,10 +346,8 @@ public class StudentAccount extends CreateConnection {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             int i = 0;
-            System.out.println("chck1");
-            System.out.println("THE SEM IS : " + Person.getSemester());
+
             while (resultSet.next()) {
-                System.out.println("chck2");
 
                 String message = resultSet.getString("message");
                 String fName = resultSet.getString("f_name");
@@ -370,13 +371,13 @@ public class StudentAccount extends CreateConnection {
         return null;
 
     }
-    
+
     private static String lastLoggedInTime;
 
     // ------------- CHECK IF ANY NEW NOTIFICATIONS -------------
     public static boolean checkNotifications() {
+
         // Just to get the last logged out time.
-        
         lastLoggedInTime = Account.getLastLoginTime();
 
         try {

@@ -321,27 +321,92 @@ public class Account extends CreateConnection {
         return 0;
 
     }
-    
+
     public static ArrayList<String> getModuleNames(int semester) {
-        
+
         ArrayList<String> modules = new ArrayList<>();
-        
-         try {
+
+        try {
             String query = " SELECT Module.module_name FROM `Module` INNER JOIN Teacher ON Module.teacher_id = Teacher.id WHERE Module.teacher_id = ? and semester = ?;";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setInt(1, Person.getId());
             preparedStatement.setInt(2, semester);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            
-            
+
             while (resultSet.next()) {
                 String moduleName = resultSet.getString("module_name");
                 System.out.println(moduleName);
                 modules.add(moduleName);
             }
-            
+
             return modules;
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static ArrayList<String> getModuleNames() {
+
+        ArrayList<String> modules = new ArrayList<>();
+
+        try {
+            String query = " SELECT Module.module_name FROM `Module` INNER JOIN Teacher ON Module.teacher_id = Teacher.id WHERE Module.teacher_id = ?;";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, Person.getId());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String moduleName = resultSet.getString("module_name");
+                System.out.println(moduleName);
+                modules.add(moduleName);
+            }
+
+            return modules;
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static int getSemesterFromModuleId(int modId) {
+        try {
+            String query = " SELECT Module.semester FROM `Module` WHERE Module.module_id = ?;";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, modId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+
+                return resultSet.getInt("semester");
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public static ArrayList<String> getCourses() {
+        try {
+            ArrayList<String> courses = new ArrayList<>();
+
+            String query = " SELECT Course.course_name FROM `Course`;";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                courses.add(resultSet.getString("course_name"));
+
+            }
+            return courses;
+
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
