@@ -147,10 +147,14 @@ public class Contents {
             tp.qsMod1.setText(data[0][2]);
             tp.qsDate1.setText(data[0][3]);
 
+            System.out.println("WHATS UPPPP");
+
             tp.qsPanel2.setVisible(false);
             tp.qsPanel3.setVisible(false);
 
         } else if (data[1][0] != null && data[2][0] == null) {
+
+            System.out.println("WHATS UPPPP 22222");
             tp.q1 = Integer.parseInt(data[0][0]);
             tp.q2 = Integer.parseInt(data[1][0]);
 
@@ -164,9 +168,14 @@ public class Contents {
             tp.qsMod2.setText(data[1][2]);
             tp.qsDate2.setText(data[1][3]);
 
+            tp.qsPanel2.setVisible(true);
             tp.qsPanel3.setVisible(false);
 
         } else {
+
+            tp.qsPanel2.setVisible(true);
+            tp.qsPanel3.setVisible(true);
+
             // Storing the question numbers in a variable for future use
             tp.q1 = Integer.parseInt(data[0][0]);
             tp.q2 = Integer.parseInt(data[1][0]);

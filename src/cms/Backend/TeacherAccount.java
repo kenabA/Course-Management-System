@@ -142,6 +142,13 @@ public class TeacherAccount {
                 questionDetails[i][2] = moduleName;
                 questionDetails[i][3] = time;
 
+                System.out.println("FOR " + i);
+                System.out.println(questionDetails[i][0]);
+                System.out.println(questionDetails[i][1]);
+                System.out.println(questionDetails[i][2]);
+                System.out.println(questionDetails[i][3]);
+                System.out.println("s");
+
                 i++;
 
             }

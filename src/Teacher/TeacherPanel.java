@@ -2424,7 +2424,14 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
         // TODO add your handling code here:
         this.questionDetails = TeacherAccount.getQuestions();
-        contents.setQuestionsDetails(questionDetails, this);
+        System.out.println("TESTING PHASE: ");
+        for (String[] q : questionDetails) {
+            for (String r : q) {
+                System.out.println(r);
+            }
+
+        }
+        contents.setQuestionsDetails(this.questionDetails, this);
     }//GEN-LAST:event_refreshBtnActionPerformed
 
     private void addAssignmentBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAssignmentBtnMouseClicked
