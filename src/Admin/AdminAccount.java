@@ -161,4 +161,33 @@ public class AdminAccount extends CreateConnection {
         }
         return 0;
     }
+
+    public static void studentsTable(DefaultTableModel model) {
+        try {
+            String query = """
+                                SELECT Student.id, Student.f_name, Student.l_name, Student.email, Student.course FROM Student;                                                                
+                                """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String studentId = String.valueOf(resultSet.getInt("id"));
+                String name = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
+                String email = resultSet.getString("email");
+                String cName = resultSet.getString("course");
+                String accCreationDate = StudentAccount.getAccountCreatedDate(studentId);
+                String sem = StudentAccount.getSemester(accCreationDate);
+                String row[] = {studentId, name, sem, cName, email};
+                model.addRow(row);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

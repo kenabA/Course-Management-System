@@ -8,8 +8,8 @@ import Teacher.Assignment;
 import Teacher.GradeStudent;
 import cms.Backend.Account;
 import cms.Backend.HelperMethods;
-import static cms.Backend.HelperMethods.showConfirmationDialog;
-import cms.Backend.TeacherAccount;
+import static cms.Backend.HelperMethods.alignTableContents;
+import static cms.Backend.HelperMethods.setTableAppearance;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.Contents;
@@ -24,7 +24,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -64,6 +63,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
     private DefaultTableModel model;
     private DefaultTableModel model2;
+    private DefaultTableModel model3;
     public int q1;
 
     public int q2;
@@ -75,15 +75,15 @@ public class AdminPanel extends javax.swing.JFrame {
 
     private void setValueChanged() {
 
-        gradeBtn.setVisible(false);
+        deleteCourseBtn.setVisible(false);
         coursesTable.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
                 if (coursesTable.getSelectedRow() != -1) {
 
-                    gradeBtn.setVisible(true);
+                    deleteCourseBtn.setVisible(true);
                 } else {
 
-                    gradeBtn.setVisible(false);
+                    deleteCourseBtn.setVisible(false);
                 }
             }
         });
@@ -104,8 +104,8 @@ public class AdminPanel extends javax.swing.JFrame {
         // Updating the activity table
         this.model = (DefaultTableModel) activityTable.getModel();
         AdminAccount.getActivityTableData(model);
-        HelperMethods.alignTableContents(activityTable);
-        HelperMethods.setTableAppearance(activityTable);
+        alignTableContents(activityTable);
+        setTableAppearance(activityTable);
 
         // Updating the Profile Panel
         profileUsername.setText(username);
@@ -117,8 +117,14 @@ public class AdminPanel extends javax.swing.JFrame {
         // Update the courses panel
         this.model2 = (DefaultTableModel) coursesTable.getModel();
         AdminAccount.getCoursesData(model2);
-        HelperMethods.alignTableContents(coursesTable);
-        HelperMethods.setTableAppearance(coursesTable);
+        alignTableContents(coursesTable);
+        setTableAppearance(coursesTable);
+
+        // Updating the students panel
+        this.model3 = (DefaultTableModel) studentsTable.getModel();
+        AdminAccount.studentsTable(model3);
+        alignTableContents(studentsTable);
+        setTableAppearance(studentsTable);
 
     }
 
@@ -214,7 +220,7 @@ public class AdminPanel extends javax.swing.JFrame {
         jPanel13 = new javax.swing.JPanel();
         searchCourses = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        gradeBtn = new javax.swing.JButton();
+        deleteCourseBtn = new javax.swing.JButton();
         gradeBtn1 = new javax.swing.JButton();
         addCourse = new javax.swing.JButton();
         courseReloadBtn = new javax.swing.JButton();
@@ -223,9 +229,12 @@ public class AdminPanel extends javax.swing.JFrame {
         tableScrollPanel2 = new javax.swing.JScrollPane();
         studentsTable = new javax.swing.JTable();
         jPanel25 = new javax.swing.JPanel();
-        searchCourses1 = new javax.swing.JTextField();
+        searchStudents = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        gradeBtn2 = new javax.swing.JButton();
+        addCourse1 = new javax.swing.JButton();
+        courseReloadBtn1 = new javax.swing.JButton();
+        gradeBtn3 = new javax.swing.JButton();
+        gradeBtn4 = new javax.swing.JButton();
         panelFourth = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         addAssignmentBtn = new javax.swing.JButton();
@@ -932,17 +941,17 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
-        gradeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/delete.png"))); // NOI18N
-        gradeBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
-        gradeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        gradeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        deleteCourseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/delete.png"))); // NOI18N
+        deleteCourseBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        deleteCourseBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        deleteCourseBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                gradeBtnMouseClicked(evt);
+                deleteCourseBtnMouseClicked(evt);
             }
         });
-        gradeBtn.addActionListener(new java.awt.event.ActionListener() {
+        deleteCourseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gradeBtnActionPerformed(evt);
+                deleteCourseBtnActionPerformed(evt);
             }
         });
 
@@ -1006,7 +1015,7 @@ public class AdminPanel extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(courseReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteCourseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(gradeBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
@@ -1018,7 +1027,7 @@ public class AdminPanel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteCourseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(gradeBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1092,32 +1101,32 @@ public class AdminPanel extends javax.swing.JFrame {
         jPanel25.setBackground(new java.awt.Color(255, 255, 255));
         jPanel25.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
 
-        searchCourses1.setForeground(new java.awt.Color(158, 160, 170));
-        searchCourses1.setText("Search student...");
-        searchCourses1.setBorder(null);
-        searchCourses1.setName(""); // NOI18N
-        searchCourses1.setPreferredSize(new java.awt.Dimension(64, 24));
-        searchCourses1.addFocusListener(new java.awt.event.FocusAdapter() {
+        searchStudents.setForeground(new java.awt.Color(158, 160, 170));
+        searchStudents.setText("Search student...");
+        searchStudents.setBorder(null);
+        searchStudents.setName(""); // NOI18N
+        searchStudents.setPreferredSize(new java.awt.Dimension(64, 24));
+        searchStudents.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                searchCourses1FocusGained(evt);
+                searchStudentsFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                searchCourses1FocusLost(evt);
+                searchStudentsFocusLost(evt);
             }
         });
-        searchCourses1.addMouseListener(new java.awt.event.MouseAdapter() {
+        searchStudents.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchCourses1MouseClicked(evt);
+                searchStudentsMouseClicked(evt);
             }
         });
-        searchCourses1.addActionListener(new java.awt.event.ActionListener() {
+        searchStudents.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchCourses1ActionPerformed(evt);
+                searchStudentsActionPerformed(evt);
             }
         });
-        searchCourses1.addKeyListener(new java.awt.event.KeyAdapter() {
+        searchStudents.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                searchCourses1KeyReleased(evt);
+                searchStudentsKeyReleased(evt);
             }
         });
 
@@ -1131,7 +1140,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchCourses1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel25Layout.setVerticalGroup(
@@ -1140,23 +1149,68 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
-                    .addComponent(searchCourses1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchStudents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
-        gradeBtn2.setBackground(new java.awt.Color(241, 240, 255));
-        gradeBtn2.setForeground(new java.awt.Color(108, 99, 255));
-        gradeBtn2.setText("Grade");
-        gradeBtn2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(108, 99, 255)));
-        gradeBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        gradeBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
+        addCourse1.setBackground(new java.awt.Color(250, 250, 250));
+        addCourse1.setForeground(new java.awt.Color(108, 99, 255));
+        addCourse1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/plus1.png"))); // NOI18N
+        addCourse1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        addCourse1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addCourse1.setIconTextGap(0);
+        addCourse1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                gradeBtn2MouseClicked(evt);
+                addCourse1MouseClicked(evt);
             }
         });
-        gradeBtn2.addActionListener(new java.awt.event.ActionListener() {
+        addCourse1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gradeBtn2ActionPerformed(evt);
+                addCourse1ActionPerformed(evt);
+            }
+        });
+
+        courseReloadBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/refresh.png"))); // NOI18N
+        courseReloadBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        courseReloadBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        courseReloadBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                courseReloadBtn1MouseClicked(evt);
+            }
+        });
+        courseReloadBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseReloadBtn1ActionPerformed(evt);
+            }
+        });
+
+        gradeBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/delete.png"))); // NOI18N
+        gradeBtn3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        gradeBtn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        gradeBtn3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gradeBtn3MouseClicked(evt);
+            }
+        });
+        gradeBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeBtn3ActionPerformed(evt);
+            }
+        });
+
+        gradeBtn4.setBackground(new java.awt.Color(250, 250, 250));
+        gradeBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/pencil.png"))); // NOI18N
+        gradeBtn4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        gradeBtn4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        gradeBtn4.setIconTextGap(8);
+        gradeBtn4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gradeBtn4MouseClicked(evt);
+            }
+        });
+        gradeBtn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeBtn4ActionPerformed(evt);
             }
         });
 
@@ -1171,7 +1225,13 @@ public class AdminPanel extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(gradeBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(courseReloadBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(gradeBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(gradeBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(addCourse1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -1179,7 +1239,10 @@ public class AdminPanel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(gradeBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addCourse1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gradeBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gradeBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(courseReloadBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(tableScrollPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2278,28 +2341,22 @@ public class AdminPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_activityTableMouseClicked
 
-    private void gradeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtnActionPerformed
+    private void deleteCourseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCourseBtnActionPerformed
 
-    }//GEN-LAST:event_gradeBtnActionPerformed
+    }//GEN-LAST:event_deleteCourseBtnActionPerformed
 
-    private void gradeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeBtnMouseClicked
+    private void deleteCourseBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteCourseBtnMouseClicked
         // TODO add your handling code here:
 
         int selectedRow = coursesTable.getSelectedRow();
 
         if (selectedRow != -1) {
 
-            // Getting the selected row
-            int id = Integer.parseInt((String) coursesTable.getValueAt(selectedRow, 0));
-            String name = (String) coursesTable.getValueAt(selectedRow, 1);
-            String semester = (String) coursesTable.getValueAt(selectedRow, 2);
-            String course = (String) coursesTable.getValueAt(selectedRow, 3);
-            String email = (String) coursesTable.getValueAt(selectedRow, 4);
-
-            gs = new GradeStudent(id, name, semester, course, email);
-            gs.setVisible(true);
+            return;
         }
-    }//GEN-LAST:event_gradeBtnMouseClicked
+        JOptionPane.showMessageDialog(null, "No Rows Selected", "Delete Course", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }//GEN-LAST:event_deleteCourseBtnMouseClicked
 
     private void gradeBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtn1ActionPerformed
         // TODO add your handling code here:
@@ -2335,64 +2392,73 @@ public class AdminPanel extends javax.swing.JFrame {
 
     }//GEN-LAST:event_studentsTableMouseClicked
 
-    private void searchCourses1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCourses1FocusGained
+    private void searchStudentsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchStudentsFocusGained
 
-        if (searchCourses.getText().equals("Search student...")) {
-            searchCourses.setText("");
-            searchCourses.setForeground(Color.BLACK);
+        if (searchStudents.getText().equals("Search student...")) {
+            searchStudents.setText("");
+            searchStudents.setForeground(Color.BLACK);
         }
-    }//GEN-LAST:event_searchCourses1FocusGained
+    }//GEN-LAST:event_searchStudentsFocusGained
 
-    private void searchCourses1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCourses1FocusLost
+    private void searchStudentsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchStudentsFocusLost
 
-        if (searchCourses.getText().isEmpty()) {
-            searchCourses.setText("Search student...");
-            searchCourses.setForeground(new Color(158, 160, 170));
+        if (searchStudents.getText().isEmpty()) {
+            searchStudents.setText("Search student...");
+            searchStudents.setForeground(new Color(158, 160, 170));
         }
-    }//GEN-LAST:event_searchCourses1FocusLost
+    }//GEN-LAST:event_searchStudentsFocusLost
 
-    private void searchCourses1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCourses1MouseClicked
+    private void searchStudentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchStudentsMouseClicked
 
-    }//GEN-LAST:event_searchCourses1MouseClicked
+    }//GEN-LAST:event_searchStudentsMouseClicked
 
-    private void searchCourses1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCourses1ActionPerformed
+    private void searchStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchStudentsActionPerformed
 
-    }//GEN-LAST:event_searchCourses1ActionPerformed
+    }//GEN-LAST:event_searchStudentsActionPerformed
 
-    private void searchCourses1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchCourses1KeyReleased
+    private void searchStudentsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchStudentsKeyReleased
 
-        TableRowSorter<DefaultTableModel> obj1 = new TableRowSorter<>(this.model);
+        TableRowSorter<DefaultTableModel> obj1 = new TableRowSorter<>(this.model3);
         studentsTable.setRowSorter(obj1);
-        RowFilter filterRow = RowFilter.regexFilter(searchCourses.getText());
+        RowFilter filterRow = RowFilter.regexFilter(searchStudents.getText());
         obj1.setRowFilter(filterRow);
-    }//GEN-LAST:event_searchCourses1KeyReleased
-
-    private void gradeBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeBtn2MouseClicked
-        // TODO add your handling code here:
-
-        int selectedRow = studentsTable.getSelectedRow();
-
-        if (selectedRow != -1) {
-
-            // Getting the selected row
-            int id = Integer.parseInt((String) studentsTable.getValueAt(selectedRow, 0));
-            String name = (String) studentsTable.getValueAt(selectedRow, 1);
-            String semester = (String) studentsTable.getValueAt(selectedRow, 2);
-            String course = (String) studentsTable.getValueAt(selectedRow, 3);
-            String email = (String) studentsTable.getValueAt(selectedRow, 4);
-
-            gs = new GradeStudent(id, name, semester, course, email);
-            gs.setVisible(true);
-        }
-    }//GEN-LAST:event_gradeBtn2MouseClicked
-
-    private void gradeBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtn2ActionPerformed
-
-    }//GEN-LAST:event_gradeBtn2ActionPerformed
+    }//GEN-LAST:event_searchStudentsKeyReleased
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
 
     }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void addCourse1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCourse1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addCourse1MouseClicked
+
+    private void addCourse1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCourse1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addCourse1ActionPerformed
+
+    private void courseReloadBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_courseReloadBtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_courseReloadBtn1MouseClicked
+
+    private void courseReloadBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseReloadBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_courseReloadBtn1ActionPerformed
+
+    private void gradeBtn3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeBtn3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gradeBtn3MouseClicked
+
+    private void gradeBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtn3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gradeBtn3ActionPerformed
+
+    private void gradeBtn4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeBtn4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gradeBtn4MouseClicked
+
+    private void gradeBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gradeBtn4ActionPerformed
 
     public static void main(String args[]) {
 
@@ -2407,13 +2473,16 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JTable activityTable;
     private javax.swing.JButton addAssignmentBtn;
     private javax.swing.JButton addCourse;
+    private javax.swing.JButton addCourse1;
     private javax.swing.JButton courseReloadBtn;
+    private javax.swing.JButton courseReloadBtn1;
     private javax.swing.JLabel coursesCount;
     private javax.swing.JTable coursesTable;
+    private javax.swing.JButton deleteCourseBtn;
     private javax.swing.JLabel directEmail;
-    private javax.swing.JButton gradeBtn;
     private javax.swing.JButton gradeBtn1;
-    private javax.swing.JButton gradeBtn2;
+    private javax.swing.JButton gradeBtn3;
+    private javax.swing.JButton gradeBtn4;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2505,7 +2574,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton refreshBtn;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchCourses;
-    private javax.swing.JTextField searchCourses1;
+    private javax.swing.JTextField searchStudents;
     private javax.swing.JLabel stdPanelName;
     private javax.swing.JLabel studentCount;
     private javax.swing.JTable studentsTable;
