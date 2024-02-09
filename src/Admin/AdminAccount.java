@@ -205,6 +205,24 @@ public class AdminAccount extends CreateConnection {
         }
     }
 
+    public static void deleteStudent(int id) {
+        try {
+            String query = "DELETE FROM Student WHERE Student.id = " + id + " ;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected == 1) {
+                JOptionPane.showMessageDialog(null, "Student's account successfully deleted", "Delete Student", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex, "Delete Student", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static int editCourse(String id, String courseName, String courseCode, int orgId) {
 
         try {
@@ -215,7 +233,7 @@ public class AdminAccount extends CreateConnection {
             preparedStatement.setInt(1, Integer.parseInt(id));
             preparedStatement.setString(2, courseCode);
             preparedStatement.setString(3, courseName);
-            preparedStatement.setString(3, courseName);
+
             preparedStatement.setInt(4, orgId);
 
             int rowsAffected = preparedStatement.executeUpdate();
@@ -228,6 +246,33 @@ public class AdminAccount extends CreateConnection {
         } catch (SQLException ex) {
 
             JOptionPane.showMessageDialog(null, ex, "Delete Course", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public static int editStudent(String fName, String lName, int id) {
+
+        try {
+
+            String query = "UPDATE `Student` SET `f_name` = ?, `l_name` = ? WHERE `Student`.`id` = ?;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            preparedStatement.setString(1, fName);
+            preparedStatement.setString(2, lName);
+            preparedStatement.setInt(3, id);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected == 1) {
+                JOptionPane.showMessageDialog(null, "Details successfully updated", "Edit Student", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            return 1;
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, ex, "Edit Student", JOptionPane.INFORMATION_MESSAGE);
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;

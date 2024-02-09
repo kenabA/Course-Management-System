@@ -439,4 +439,26 @@ public class Account extends CreateConnection {
         return null;
     }
 
+    public static String[] extractFLName(int id, String role) {
+        try {
+
+            String query = " SELECT f_name, l_name FROM `Student` where Student.id = " + id + " ;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            String names[] = new String[2];
+
+            while (resultSet.next()) {
+                names[0] = resultSet.getString("f_name");
+                names[1] = resultSet.getString("l_name");
+            }
+            return names;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
