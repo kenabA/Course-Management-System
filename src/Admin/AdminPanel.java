@@ -18,6 +18,7 @@ import cms.Frontend.EditProfile;
 import cms.Frontend.Login;
 import cms.Frontend.Person;
 import cms.Frontend.Student.Answer;
+import cms.Frontend.Student.StudentPanel;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.net.URL;
@@ -52,7 +53,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private String course;
     private static String date;
 
-    public final static String role = "Teacher";
+    public final static String role = "Admin";
 
     private int courseId;
     private int studentsCount;
@@ -2300,10 +2301,10 @@ public class AdminPanel extends javax.swing.JFrame {
 
             if (tempUsername.equals(username) && tempEmail.equals(email) && tempPassword.equals(password) && tempPhNum.equals(phNum)) {
 
-                JOptionPane.showMessageDialog(null, namingConvention("blankValue"), "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No values were updated", "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
-
+                System.out.println(role);
                 // Validating the details that the user wants to change
                 if (Validation.validateDetails(details, tempConfirmPassword, role)) {
 
@@ -2311,10 +2312,10 @@ public class AdminPanel extends javax.swing.JFrame {
                     Account.updateProfile(details, id);
 
                     // this.data gets initialized to the changed data
-                    username = tempUsername;
-                    email = tempEmail;
-                    password = tempPassword;
-                    phNum = tempPhNum;
+                    AdminPanel.username = tempUsername;
+                    AdminPanel.email = tempEmail;
+                    AdminPanel.password = tempPassword;
+                    AdminPanel.phNum = tempPhNum;
                 }
 
             }

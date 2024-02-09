@@ -14,6 +14,7 @@ import cms.Frontend.Login;
 import cms.Frontend.Person;
 import cms.Frontend.Student.Answer;
 import cms.Frontend.Student.Notification;
+import cms.Frontend.Student.StudentPanel;
 import cms.Frontend.StudentTeacher;
 
 import java.awt.Color;
@@ -2293,7 +2294,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
             if (tempUsername.equals(username) && tempEmail.equals(email) && tempPassword.equals(password) && tempPhNum.equals(phNum)) {
 
-                JOptionPane.showMessageDialog(null, namingConvention("blankValue"), "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No values were updated", "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
 
@@ -2303,11 +2304,12 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                     // UPDATING THE DATA INTO THE DATABASE
                     Account.updateProfile(details, id);
 
-                    // this.data gets initialized to the changed data
-                    username = tempUsername;
-                    email = tempEmail;
-                    password = tempPassword;
-                    phNum = tempPhNum;
+                    
+                      // this.data gets initialized to the changed data
+                    TeacherPanel.username = tempUsername;
+                    TeacherPanel.email = tempEmail;
+                    TeacherPanel.password = tempPassword;
+                    TeacherPanel.phNum = tempPhNum;
                 }
 
             }
