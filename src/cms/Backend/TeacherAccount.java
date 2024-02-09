@@ -97,7 +97,7 @@ public class TeacherAccount {
             // Inserts the assingments and inserts the status to 1.
             String query = "INSERT INTO `Question` (`question`, `semester`, `module_id`) VALUES (?,?,?);";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            System.out.println("SEMESTER FOR THE MODULE : "+Account.getSemesterFromModuleId(moduleId));
+            System.out.println("SEMESTER FOR THE MODULE : " + Account.getSemesterFromModuleId(moduleId));
             preparedStatement.setString(1, qs);
             preparedStatement.setInt(2, Account.getSemesterFromModuleId(moduleId));
             preparedStatement.setInt(3, moduleId);

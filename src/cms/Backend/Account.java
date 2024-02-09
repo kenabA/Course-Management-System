@@ -185,8 +185,7 @@ public class Account extends CreateConnection {
         }
         return 0;
     }
-    
-  
+
     // ------------- MODULE COUNT : USING COURSE ID -------------
     public static int getModuleId(String moduleName) {
         try {
@@ -233,13 +232,33 @@ public class Account extends CreateConnection {
     // ------------- UPDATE ACTIVITY -------------
     public static void updateActivity(String act) {
 
+        String activity;
+
+        switch (act) {
+
+            case "Login":
+                activity = usertype + " : " + Person.getName() + " has Logged in";
+
+                break;
+
+            case "Logout":
+                activity = usertype + " : " + Person.getName() + " has Logged out";
+
+                break;
+
+            default:
+                activity = usertype + " : " + Person.getName() + " has deleted a user";
+                break;
+        }
+
         try {
 
-            String query = "INSERT INTO `Activity` (`activity`, `role`, `role_id`, `time`) VALUES (?, ?, ?, ?);";
+            String query = "INSERT INTO `Activity` (`activity`, `role`, `role_id`,`activity_name` ,`time`) VALUES (?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            preparedStatement.setString(1, act);
+            preparedStatement.setString(1, activity);
             preparedStatement.setString(2, usertype);
             preparedStatement.setInt(3, id);
+            preparedStatement.setString(4, act);
 
             /*
                 Instead of passing the current_timestamp(), we pass our custom loginTime 
@@ -247,7 +266,7 @@ public class Account extends CreateConnection {
              */
             loginTime = HelperMethods.getCurrentTime();
 
-            preparedStatement.setString(4, loginTime);
+            preparedStatement.setString(5, loginTime);
 
             preparedStatement.executeUpdate();
 
@@ -255,15 +274,15 @@ public class Account extends CreateConnection {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     // ------------- GETTING THE LAST LOGGED OUT  -------------
+
     public static String getLastLoginTime() {
 
         try {
             String query = """
                                  SELECT MAX(time) as last_login_time
                                                             FROM Activity
-                                                            WHERE role = ? AND role_id = ? AND time < ? AND activity = 'Login';
+                                                            WHERE role = ? AND role_id = ? AND time < ? AND activity_name = 'Login';
                                                                 
                                 """;
 
@@ -278,6 +297,7 @@ public class Account extends CreateConnection {
             while (resultSet.next()) {
 
                 lastLoggedinTime = resultSet.getString("last_login_time");
+                System.out.println("LAST LOGGED IN TIME : " + lastLoggedinTime);
 
             }
             return lastLoggedinTime;

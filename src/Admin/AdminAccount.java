@@ -6,10 +6,15 @@ package Admin;
 
 import cms.Backend.Account;
 import cms.Backend.CreateConnection;
+import cms.Backend.StudentAccount;
+import cms.Frontend.Person;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -86,4 +91,31 @@ public class AdminAccount extends CreateConnection {
         return 0;
     }
 
+    public static void getActivityTableData(DefaultTableModel model) {
+        try {
+
+            String query = " SELECT act_id, activity, time FROM `Activity` ORDER BY time DESC; ";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String actId = String.valueOf(resultSet.getInt("act_id"));
+                String act = resultSet.getString("activity");
+                String time = resultSet.getString("time");
+
+                String row[] = {actId, act, time};
+                System.out.println("ACTIVITY : ");
+                System.out.println(actId);
+                System.out.println(act);
+                System.out.println(time);
+                model.addRow(row);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

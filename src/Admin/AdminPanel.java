@@ -7,8 +7,10 @@ package Admin;
 import Teacher.Assignment;
 import Teacher.GradeStudent;
 import cms.Backend.Account;
+import cms.Backend.HelperMethods;
 import cms.Backend.TeacherAccount;
 import cms.Frontend.Contents;
+import cms.Frontend.Login;
 import cms.Frontend.Person;
 import cms.Frontend.Student.Answer;
 import java.sql.ResultSet;
@@ -92,7 +94,6 @@ public class AdminPanel extends javax.swing.JFrame {
         coursesCount.setText(String.valueOf(this.courseCount));
         modulesCount.setText(String.valueOf(this.moduleCount));
 
-        //        courseName.setText(this.course);
         // Updating the Profile Panel
         profileUsername.setText(username);
         profileEmail.setText(email);
@@ -100,13 +101,11 @@ public class AdminPanel extends javax.swing.JFrame {
         profileConfirmPassword.setText(password);
         profilePhone.setText(phNum);
 
-//        setContents();
         // Updating the students panel
-//        this.model = (DefaultTableModel) studentsTable.getModel();
-//
-//        TeacherAccount.getTableData(courseId, model, "t3");
-//        alignTableContents(studentsTable);
-//        setTableAppearance(studentsTable);
+        this.model = (DefaultTableModel) activityTable.getModel();
+        AdminAccount.getActivityTableData(model);
+        HelperMethods.alignTableContents(activityTable);
+        HelperMethods.setTableAppearance(activityTable);
     }
 
 //    @Override
@@ -127,17 +126,12 @@ public class AdminPanel extends javax.swing.JFrame {
                 AdminPanel.phNum = result.getString("ph_num");
                 AdminPanel.password = result.getString("password");
                 AdminPanel.date = result.getString("date_created");
-                //            private int studentsCount;
-//    private int teachersCount;
-//    private int courseCount;
 
                 this.studentsCount = AdminAccount.getTotalStudentCount();
                 this.teachersCount = AdminAccount.getTotalTeacherCount();
                 this.moduleCount = AdminAccount.getModulesCount();
                 this.courseCount = AdminAccount.getCoursesCount();
 
-//                this.courseId = Account.getCourseId(course);
-//                this.announcement = TeacherAccount.getAnnouncementData(courseId);
                 this.p = new Person(this.fName, this.lName, id, this.course, role, this.courseId);
 
 //                this.questionDetails = TeacherAccount.getQuestions();
@@ -182,8 +176,6 @@ public class AdminPanel extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         directEmail = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        notificationBtn = new javax.swing.JLabel();
-        newText = new javax.swing.JLabel();
         mainBody = new javax.swing.JTabbedPane();
         panelFirst = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -199,24 +191,12 @@ public class AdminPanel extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         teacherCount = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        announcementPanel = new javax.swing.JPanel();
-        announcementTitle = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        msg1 = new javax.swing.JTextArea();
-        teacher1 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        date1 = new javax.swing.JLabel();
-        secondAnnouncementPanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        msg2 = new javax.swing.JTextArea();
-        teacher2 = new javax.swing.JLabel();
-        date2 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jPanel14 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         modulesCount = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        tableScrollPanel1 = new javax.swing.JScrollPane();
+        activityTable = new javax.swing.JTable();
         panelSecond = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         tableScrollPanel = new javax.swing.JScrollPane();
@@ -535,18 +515,6 @@ public class AdminPanel extends javax.swing.JFrame {
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        notificationBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/notification1.png"))); // NOI18N
-        notificationBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        notificationBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                notificationBtnMouseClicked(evt);
-            }
-        });
-
-        newText.setFont(new java.awt.Font("Helvetica Neue", 1, 8)); // NOI18N
-        newText.setForeground(new java.awt.Color(255, 51, 51));
-        newText.setText("NEW!");
-
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
@@ -554,11 +522,7 @@ public class AdminPanel extends javax.swing.JFrame {
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(tabName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 448, Short.MAX_VALUE)
-                .addComponent(newText)
-                .addGap(0, 0, 0)
-                .addComponent(notificationBtn)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 513, Short.MAX_VALUE)
                 .addComponent(directEmail)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -575,17 +539,14 @@ public class AdminPanel extends javax.swing.JFrame {
             .addComponent(tabName, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(newText)
-                    .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jSeparator4)
-                        .addComponent(directEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                            .addComponent(stdPanelName)
-                            .addGap(2, 2, 2)
-                            .addComponent(usertypeShow))
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(notificationBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator4)
+                    .addComponent(directEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                        .addComponent(stdPanelName)
+                        .addGap(2, 2, 2)
+                        .addComponent(usertypeShow))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         mainPanel.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 900, 70));
@@ -714,146 +675,6 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        announcementPanel.setBackground(new java.awt.Color(241, 240, 255));
-
-        announcementTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        announcementTitle.setText("Latest Announcements");
-
-        jPanel10.setBackground(new java.awt.Color(241, 240, 255));
-
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-        msg1.setEditable(false);
-        msg1.setBackground(new java.awt.Color(241, 240, 255));
-        msg1.setColumns(20);
-        msg1.setForeground(new java.awt.Color(103, 103, 103));
-        msg1.setLineWrap(true);
-        msg1.setRows(5);
-        msg1.setText("The deadline has been pushed to February 1st, and I want to let you know there won't be any more extensions for the final prototype. Unfortunately, we can't extend the final prototype submission because of the university deadline. The deadline has been pushed to February 1st, and I want to let you know there won't be any more extensions for the final prototype. Unfortunately, we can't extend the final prototype submission because of the university deadline. nfortunately, we can't ");
-        msg1.setWrapStyleWord(true);
-        msg1.setBorder(null);
-        msg1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(msg1);
-
-        teacher1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        teacher1.setForeground(new java.awt.Color(102, 102, 102));
-        teacher1.setText("-Ronit Shrestha");
-
-        date1.setForeground(new java.awt.Color(159, 160, 170));
-        date1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        date1.setText("2024-01-26 22:18:02");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
-                        .addComponent(teacher1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(date1))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(20, 20, 20))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(teacher1)
-                    .addComponent(date1))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6))
-        );
-
-        secondAnnouncementPanel.setBackground(new java.awt.Color(241, 240, 255));
-
-        jScrollPane2.setBorder(null);
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-        msg2.setEditable(false);
-        msg2.setBackground(new java.awt.Color(241, 240, 255));
-        msg2.setColumns(20);
-        msg2.setForeground(new java.awt.Color(103, 103, 103));
-        msg2.setLineWrap(true);
-        msg2.setRows(5);
-        msg2.setText("The deadline has been pushed to February 1st, and I want to let you know there won't be any more extensions for the final prototype. Unfortunately, we can't extend the final prototype submission because of the university deadline. The deadline has been pushed to February 1st, and I want to let you know there won't be any more extensions for the final prototype. Unfortunately, we can't extend the final prototype submission because of the university deadline. nfortunately, we can't ");
-        msg2.setWrapStyleWord(true);
-        msg2.setBorder(null);
-        msg2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane2.setViewportView(msg2);
-
-        teacher2.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        teacher2.setForeground(new java.awt.Color(102, 102, 102));
-        teacher2.setText("-Ronit Shrestha");
-
-        date2.setForeground(new java.awt.Color(159, 160, 170));
-        date2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        date2.setText("2024-01-26 22:18:02");
-
-        javax.swing.GroupLayout secondAnnouncementPanelLayout = new javax.swing.GroupLayout(secondAnnouncementPanel);
-        secondAnnouncementPanel.setLayout(secondAnnouncementPanelLayout);
-        secondAnnouncementPanelLayout.setHorizontalGroup(
-            secondAnnouncementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, secondAnnouncementPanelLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(secondAnnouncementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, secondAnnouncementPanelLayout.createSequentialGroup()
-                        .addComponent(teacher2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(date2))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(20, 20, 20))
-        );
-        secondAnnouncementPanelLayout.setVerticalGroup(
-            secondAnnouncementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(secondAnnouncementPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(secondAnnouncementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(teacher2)
-                    .addComponent(date2))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6))
-        );
-
-        javax.swing.GroupLayout announcementPanelLayout = new javax.swing.GroupLayout(announcementPanel);
-        announcementPanel.setLayout(announcementPanelLayout);
-        announcementPanelLayout.setHorizontalGroup(
-            announcementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(announcementPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(announcementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(announcementPanelLayout.createSequentialGroup()
-                        .addComponent(announcementTitle)
-                        .addGap(618, 618, 618))
-                    .addComponent(secondAnnouncementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        announcementPanelLayout.setVerticalGroup(
-            announcementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(announcementPanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(announcementTitle)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(secondAnnouncementPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
-        );
-
         jPanel14.setBackground(new java.awt.Color(241, 240, 255));
 
         jLabel8.setForeground(new java.awt.Color(158, 160, 170));
@@ -894,23 +715,73 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tableScrollPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
+        tableScrollPanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        activityTable.setForeground(new java.awt.Color(51, 51, 51));
+        activityTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Activity", "Time"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        activityTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        activityTable.setGridColor(new java.awt.Color(238, 238, 238));
+        activityTable.setIgnoreRepaint(true);
+        activityTable.getTableHeader().setReorderingAllowed(false);
+        activityTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                activityTableMouseClicked(evt);
+            }
+        });
+        tableScrollPanel1.setViewportView(activityTable);
+        if (activityTable.getColumnModel().getColumnCount() > 0) {
+            activityTable.getColumnModel().getColumn(0).setMinWidth(50);
+            activityTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            activityTable.getColumnModel().getColumn(0).setMaxWidth(100);
+            activityTable.getColumnModel().getColumn(1).setResizable(false);
+            activityTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+            activityTable.getColumnModel().getColumn(2).setMinWidth(100);
+            activityTable.getColumnModel().getColumn(2).setPreferredWidth(200);
+            activityTable.getColumnModel().getColumn(2).setMaxWidth(200);
+        }
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(announcementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(tableScrollPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -921,8 +792,9 @@ public class AdminPanel extends javax.swing.JFrame {
                     .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(32, 32, 32)
-                .addComponent(announcementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(tableScrollPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout panelFirstLayout = new javax.swing.GroupLayout(panelFirst);
@@ -2150,19 +2022,6 @@ public class AdminPanel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_directEmailMouseClicked
 
-    private void notificationBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notificationBtnMouseClicked
-        // TODO add your handling code here:
-
-        if (newText.isShowing()) {
-            Notification n1 = new Notification();
-            n1.setVisible(true);
-            newText.setVisible(false);
-
-        } else {
-            JOptionPane.showMessageDialog(null, "No new announcements yet.", "No Announcements", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_notificationBtnMouseClicked
-
     private void studentsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentsTableMouseClicked
 
     }//GEN-LAST:event_studentsTableMouseClicked
@@ -2373,6 +2232,10 @@ public class AdminPanel extends javax.swing.JFrame {
 
     }//GEN-LAST:event_profileConfirmPasswordActionPerformed
 
+    private void activityTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activityTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_activityTableMouseClicked
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -2383,14 +2246,11 @@ public class AdminPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable activityTable;
     private javax.swing.JLabel addAnnouncementText;
     private javax.swing.JButton addAssignmentBtn;
-    private javax.swing.JPanel announcementPanel;
-    private javax.swing.JLabel announcementTitle;
     private javax.swing.JLabel assignmentSubText;
     private javax.swing.JLabel coursesCount;
-    public javax.swing.JLabel date1;
-    public javax.swing.JLabel date2;
     private javax.swing.JLabel directEmail;
     private javax.swing.JTextArea fullMessage;
     private javax.swing.JButton gradeBtn;
@@ -2424,7 +2284,6 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -2445,13 +2304,9 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -2462,10 +2317,6 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel modulesCount;
-    public javax.swing.JTextArea msg1;
-    public javax.swing.JTextArea msg2;
-    private javax.swing.JLabel newText;
-    private javax.swing.JLabel notificationBtn;
     private javax.swing.JPanel panelFifth;
     private javax.swing.JPanel panelFirst;
     private javax.swing.JPanel panelFourth;
@@ -2498,7 +2349,6 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton refreshBtn;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchCourses;
-    private javax.swing.JPanel secondAnnouncementPanel;
     private javax.swing.JSlider semesterCount;
     private javax.swing.JLabel stdPanelName;
     private javax.swing.JLabel studentCount;
@@ -2515,8 +2365,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JLabel tabBtn5;
     private javax.swing.JLabel tabName;
     private javax.swing.JScrollPane tableScrollPanel;
-    public javax.swing.JLabel teacher1;
-    public javax.swing.JLabel teacher2;
+    private javax.swing.JScrollPane tableScrollPanel1;
     private javax.swing.JLabel teacherCount;
     private javax.swing.JButton uploadAnnouncementBtn;
     private javax.swing.JLabel usertypeShow;

@@ -79,11 +79,13 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
         // Upating the activity when we log in
         Account.updateActivity("Login");
         boolean newNotifications = StudentAccount.checkNotifications();
-
+        System.out.println(newNotifications);
+        System.out.println("chck1");
         if (newNotifications) {
-
+            System.out.println("YO SUPPP!");
             newText.setVisible(true);
         }
+        System.out.println("chck2");
 
         // Updating the dashboard panel
         stdPanelName.setText(Person.getName());
