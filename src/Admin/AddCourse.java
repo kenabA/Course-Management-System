@@ -194,6 +194,10 @@ public class AddCourse extends javax.swing.JFrame {
                 if (uploaded <= 0) {
                     return;
                 }
+                inputCourseID.setText("");
+                inputCourseTitle.setText("");
+                inputCourseCode.setText("");
+
                 JOptionPane.showMessageDialog(null, "Successfully added the course.", "Add Course", JOptionPane.INFORMATION_MESSAGE);
 
             }
