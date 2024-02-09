@@ -13,25 +13,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Teacher/TeacherPanel.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/Contents.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/Cms.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/Login.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/CellRenderer/GradeCellRenderer.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/EditProfile.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/Student/StudentPanel.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Backend/StudentAccount.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/Student/Notification.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/StudentTeacher.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Backend/HelperMethods.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/Student/Answer.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Teacher/Assignment.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Backend/Account.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Backend/Validation.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/Person.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Teacher/GradeStudent.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Backend/TeacherAccount.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/Student/Notification.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/Registration.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/cms/Frontend/AdminPanel.java</file>
         </group>
     </open-files>
 </project-private>

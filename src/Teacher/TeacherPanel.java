@@ -557,7 +557,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        notificationBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/notification.png"))); // NOI18N
+        notificationBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/notification1.png"))); // NOI18N
         notificationBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         notificationBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -576,11 +576,11 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(tabName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 448, Short.MAX_VALUE)
                 .addComponent(newText)
                 .addGap(0, 0, 0)
                 .addComponent(notificationBtn)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(directEmail)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
