@@ -4,6 +4,7 @@
  */
 package Admin;
 
+import static Admin.AdminAccount.ec;
 import Teacher.Assignment;
 import Teacher.GradeStudent;
 import cms.Backend.Account;
@@ -13,6 +14,7 @@ import static cms.Backend.HelperMethods.setTableAppearance;
 import cms.Backend.Validation;
 import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.Contents;
+import cms.Frontend.EditProfile;
 import cms.Frontend.Login;
 import cms.Frontend.Person;
 import cms.Frontend.Student.Answer;
@@ -31,6 +33,7 @@ import javax.swing.table.TableRowSorter;
 
 public class AdminPanel extends javax.swing.JFrame {
 
+    EditProfile ep;
     AddCourse ac = new AddCourse();
     private Admin ad;
     private Answer a;
@@ -221,7 +224,7 @@ public class AdminPanel extends javax.swing.JFrame {
         searchCourses = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         deleteCourseBtn = new javax.swing.JButton();
-        gradeBtn1 = new javax.swing.JButton();
+        editCourseButton = new javax.swing.JButton();
         addCourse = new javax.swing.JButton();
         courseReloadBtn = new javax.swing.JButton();
         panelThird = new javax.swing.JPanel();
@@ -955,19 +958,19 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
-        gradeBtn1.setBackground(new java.awt.Color(250, 250, 250));
-        gradeBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/pencil.png"))); // NOI18N
-        gradeBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
-        gradeBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        gradeBtn1.setIconTextGap(8);
-        gradeBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+        editCourseButton.setBackground(new java.awt.Color(250, 250, 250));
+        editCourseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/pencil.png"))); // NOI18N
+        editCourseButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        editCourseButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editCourseButton.setIconTextGap(8);
+        editCourseButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                gradeBtn1MouseClicked(evt);
+                editCourseButtonMouseClicked(evt);
             }
         });
-        gradeBtn1.addActionListener(new java.awt.event.ActionListener() {
+        editCourseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gradeBtn1ActionPerformed(evt);
+                editCourseButtonActionPerformed(evt);
             }
         });
 
@@ -1017,7 +1020,7 @@ public class AdminPanel extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(deleteCourseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(gradeBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(editCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(addCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
@@ -1029,7 +1032,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(deleteCourseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gradeBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(courseReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
@@ -2346,8 +2349,8 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteCourseBtnActionPerformed
 
     private void deleteCourseBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteCourseBtnMouseClicked
-        // TODO add your handling code here:
 
+        System.out.println("asdasdasd");
         int selectedRow = coursesTable.getSelectedRow();
 
         if (selectedRow != -1) {
@@ -2362,13 +2365,29 @@ public class AdminPanel extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "No Rows Selected", "Delete Course", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_deleteCourseBtnMouseClicked
 
-    private void gradeBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtn1ActionPerformed
+    private void editCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCourseButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_gradeBtn1ActionPerformed
+    }//GEN-LAST:event_editCourseButtonActionPerformed
 
-    private void gradeBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeBtn1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_gradeBtn1MouseClicked
+    private void editCourseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editCourseButtonMouseClicked
+        int selectedRow = coursesTable.getSelectedRow();
+
+        if (selectedRow != -1) {
+
+            // Getting the selected row's details
+            String id = (String) coursesTable.getValueAt(selectedRow, 0);
+            String courseTitle = (String) coursesTable.getValueAt(selectedRow, 1);
+            String courseCode = (String) coursesTable.getValueAt(selectedRow, 2);
+
+            String courseDetails[] = {id, courseTitle, courseCode};
+
+            ec = new EditCourse(courseDetails);
+            ec.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No Rows Selected", "Edit Course", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_editCourseButtonMouseClicked
 
     private void addCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCourseActionPerformed
         // TODO add your handling code here:
@@ -2484,7 +2503,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JTable coursesTable;
     private javax.swing.JButton deleteCourseBtn;
     private javax.swing.JLabel directEmail;
-    private javax.swing.JButton gradeBtn1;
+    private javax.swing.JButton editCourseButton;
     private javax.swing.JButton gradeBtn3;
     private javax.swing.JButton gradeBtn4;
     private javax.swing.JPanel header;

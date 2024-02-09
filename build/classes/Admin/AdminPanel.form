@@ -968,7 +968,7 @@
                                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       <Component id="deleteCourseBtn" min="-2" pref="36" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="gradeBtn1" min="-2" pref="36" max="-2" attributes="0"/>
+                                      <Component id="editCourseButton" min="-2" pref="36" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       <Component id="addCourse" min="-2" pref="36" max="-2" attributes="0"/>
                                   </Group>
@@ -984,7 +984,7 @@
                               <Group type="103" groupAlignment="2" attributes="0">
                                   <Component id="deleteCourseBtn" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="jPanel13" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="gradeBtn1" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="editCourseButton" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="addCourse" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="courseReloadBtn" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
@@ -1162,7 +1162,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteCourseBtnActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="gradeBtn1">
+                    <Component class="javax.swing.JButton" name="editCourseButton">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="fa" green="fa" red="fa" type="rgb"/>
@@ -1183,8 +1183,8 @@
                         <Property name="iconTextGap" type="int" value="8"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="gradeBtn1MouseClicked"/>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gradeBtn1ActionPerformed"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="editCourseButtonMouseClicked"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editCourseButtonActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="addCourse">

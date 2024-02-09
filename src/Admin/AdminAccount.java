@@ -1,27 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ *
+ * @author kenabkc
  */
 package Admin;
 
 import cms.Backend.Account;
 import cms.Backend.CreateConnection;
 import cms.Backend.StudentAccount;
-import cms.Frontend.Person;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author kenabkc
- */
 public class AdminAccount extends CreateConnection {
+
+    static EditCourse ec;
 
     // ------------- STUDENT COUNT : USING COURSE -------------
     public static int getTotalStudentCount() {
@@ -207,6 +203,34 @@ public class AdminAccount extends CreateConnection {
             JOptionPane.showMessageDialog(null, ex, "Delete Course", JOptionPane.INFORMATION_MESSAGE);
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static int editCourse(String id, String courseName, String courseCode, int orgId) {
+
+        try {
+
+            String query = "UPDATE `Course` SET `course_id` = ?, `course_name` = ?, `course_title` = ?, `date_created` = current_timestamp() WHERE `Course`.`course_id` = ?;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, Integer.parseInt(id));
+            preparedStatement.setString(2, courseCode);
+            preparedStatement.setString(3, courseName);
+            preparedStatement.setString(3, courseName);
+            preparedStatement.setInt(4, orgId);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected == 1) {
+                JOptionPane.showMessageDialog(null, "Course successfully updated", "Edit Course", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            return 1;
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, ex, "Delete Course", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
 }
