@@ -3,8 +3,9 @@
  */
 package cms.Backend;
 
+import Admin.AdminPanel;
 import Teacher.TeacherPanel;
-import cms.Frontend.AdminPanel;
+
 import cms.Frontend.Person;
 import cms.Frontend.Student.StudentPanel;
 import java.awt.List;
@@ -25,6 +26,7 @@ public class Account extends CreateConnection {
     // Declaring the necessary assets
     StudentPanel sp;
     TeacherPanel tp;
+    AdminPanel ap;
 
     private static String usertype;
     private static int id;
@@ -139,7 +141,11 @@ public class Account extends CreateConnection {
                     tp.updateDetails();
                     tp.setVisible(true);
                 } else {
-                    new AdminPanel().setVisible(true);
+                    ap = new AdminPanel();
+                    ap.setName(username);
+                    ap.updateDetails();
+                    ap.setVisible(true);
+
                 }
 
             } else {
@@ -179,7 +185,8 @@ public class Account extends CreateConnection {
         }
         return 0;
     }
-
+    
+  
     // ------------- MODULE COUNT : USING COURSE ID -------------
     public static int getModuleId(String moduleName) {
         try {
