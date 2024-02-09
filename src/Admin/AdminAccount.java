@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -148,15 +149,15 @@ public class AdminAccount extends CreateConnection {
             String query = "INSERT INTO `Course` (`course_id`, `course_name`, `course_title`,  `date_created`) VALUES (?,?,?, current_timestamp());";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setInt(1, courseId);
-            preparedStatement.setString(2, courseName);
-            preparedStatement.setString(3, courseCode);
+            preparedStatement.setString(2, courseCode);
+            preparedStatement.setString(3, courseName);
 
             int rows = preparedStatement.executeUpdate();
 
             return rows;
 
         } catch (Exception e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, e, "Add Course", JOptionPane.INFORMATION_MESSAGE);
         }
         return 0;
     }
