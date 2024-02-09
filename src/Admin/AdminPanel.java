@@ -8,26 +8,37 @@ import Teacher.Assignment;
 import Teacher.GradeStudent;
 import cms.Backend.Account;
 import cms.Backend.HelperMethods;
+import static cms.Backend.HelperMethods.showConfirmationDialog;
 import cms.Backend.TeacherAccount;
+import cms.Backend.Validation;
+import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.Contents;
 import cms.Frontend.Login;
 import cms.Frontend.Person;
 import cms.Frontend.Student.Answer;
+import java.awt.Color;
+import java.awt.Desktop;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class AdminPanel extends javax.swing.JFrame {
-
+    
+    AddCourse ac = new AddCourse();
+    private Admin ad;
     private Answer a;
     private final Contents contents = new Contents();
     private Assignment assignment;
     GradeStudent gs;
     Person p;
-
+    
     private static String username;
     private static int id;
     private static String password;
@@ -37,62 +48,63 @@ public class AdminPanel extends javax.swing.JFrame {
     private static String phNum;
     private String course;
     private static String date;
-
+    
     public final static String role = "Teacher";
-
+    
     private int courseId;
     private int studentsCount;
     private int moduleCount;
     private int teachersCount;
     private int courseCount;
     private String semester;
-
+    
     private String announcement[][];
     private String questionDetails[][];
-
+    
     private DefaultTableModel model;
     private DefaultTableModel model2;
     public int q1;
-
+    
     public int q2;
     public int q3;
-
+    
     public AdminPanel() {
         initComponents();
     }
-
+    
     private void setValueChanged() {
-
+        
         gradeBtn.setVisible(false);
-        studentsTable.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+        coursesTable.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
-                if (studentsTable.getSelectedRow() != -1) {
-
+                if (coursesTable.getSelectedRow() != -1) {
+                    
                     gradeBtn.setVisible(true);
                 } else {
-
+                    
                     gradeBtn.setVisible(false);
                 }
             }
         });
     }
-
+    
     public void updateDetails() {
 
         // Upating the activity when we log in
         Account.updateActivity("Login");
 
-//        boolean newNotifications = TeacherAccount.checkNotifications();
-        // Checking if any new notifications is present
-//        if (newNotifications) {
-//            newText.setVisible(true);
-//        }
         // Updating the dashboard panel
         stdPanelName.setText(Person.getName());
         studentCount.setText(String.valueOf(this.studentsCount));
         teacherCount.setText(String.valueOf(this.teachersCount));
         coursesCount.setText(String.valueOf(this.courseCount));
         modulesCount.setText(String.valueOf(this.moduleCount));
+
+        // Updating the activity table
+        this.model = (DefaultTableModel) activityTable.getModel();
+        AdminAccount.getActivityTableData(model);
+        HelperMethods.alignTableContents(activityTable);
+        HelperMethods.setTableAppearance(activityTable);
 
         // Updating the Profile Panel
         profileUsername.setText(username);
@@ -101,11 +113,12 @@ public class AdminPanel extends javax.swing.JFrame {
         profileConfirmPassword.setText(password);
         profilePhone.setText(phNum);
 
-        // Updating the students panel
-        this.model = (DefaultTableModel) activityTable.getModel();
-        AdminAccount.getActivityTableData(model);
-        HelperMethods.alignTableContents(activityTable);
-        HelperMethods.setTableAppearance(activityTable);
+        // Update the courses panel
+        this.model2 = (DefaultTableModel) coursesTable.getModel();
+        AdminAccount.getCoursesData(model2);
+        HelperMethods.alignTableContents(coursesTable);
+        HelperMethods.setTableAppearance(coursesTable);
+        
     }
 
 //    @Override
@@ -118,7 +131,7 @@ public class AdminPanel extends javax.swing.JFrame {
         try {
             ResultSet result = Account.getUserData(AdminPanel.username);
             if (result.next()) {
-
+                
                 AdminPanel.id = result.getInt("id");
                 fName = result.getString("f_name");
                 lName = result.getString("l_name");
@@ -126,31 +139,27 @@ public class AdminPanel extends javax.swing.JFrame {
                 AdminPanel.phNum = result.getString("ph_num");
                 AdminPanel.password = result.getString("password");
                 AdminPanel.date = result.getString("date_created");
-
+                
                 this.studentsCount = AdminAccount.getTotalStudentCount();
                 this.teachersCount = AdminAccount.getTotalTeacherCount();
                 this.moduleCount = AdminAccount.getModulesCount();
                 this.courseCount = AdminAccount.getCoursesCount();
-
+                
                 this.p = new Person(this.fName, this.lName, id, this.course, role, this.courseId);
-
-//                this.questionDetails = TeacherAccount.getQuestions();
+                
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(AdminPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    /*
-     * @param username
-     */
+    
     @Override
     public void setName(String username) {
         AdminPanel.username = username;
         extractDetails();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -200,11 +209,14 @@ public class AdminPanel extends javax.swing.JFrame {
         panelSecond = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         tableScrollPanel = new javax.swing.JScrollPane();
-        studentsTable = new javax.swing.JTable();
+        coursesTable = new javax.swing.JTable();
         jPanel13 = new javax.swing.JPanel();
         searchCourses = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         gradeBtn = new javax.swing.JButton();
+        gradeBtn1 = new javax.swing.JButton();
+        addCourse = new javax.swing.JButton();
+        gradeBtn3 = new javax.swing.JButton();
         panelThird = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -332,7 +344,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
         tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        tabBtn2.setText("Students");
+        tabBtn2.setText("Courses");
 
         javax.swing.GroupLayout tab2Layout = new javax.swing.GroupLayout(tab2);
         tab2.setLayout(tab2Layout);
@@ -824,21 +836,21 @@ public class AdminPanel extends javax.swing.JFrame {
         tableScrollPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
         tableScrollPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        studentsTable.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        studentsTable.setForeground(new java.awt.Color(51, 51, 51));
-        studentsTable.setModel(new javax.swing.table.DefaultTableModel(
+        coursesTable.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        coursesTable.setForeground(new java.awt.Color(51, 51, 51));
+        coursesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Student ID", "Student Name", "Semester", "Course", "Email"
+                "Course ID", "Course Title", "Course Code", "Date Created"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -849,22 +861,31 @@ public class AdminPanel extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        studentsTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        studentsTable.setGridColor(new java.awt.Color(238, 238, 238));
-        studentsTable.setIgnoreRepaint(true);
-        studentsTable.getTableHeader().setReorderingAllowed(false);
-        studentsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        coursesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        coursesTable.setGridColor(new java.awt.Color(238, 238, 238));
+        coursesTable.setIgnoreRepaint(true);
+        coursesTable.getTableHeader().setReorderingAllowed(false);
+        coursesTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                studentsTableMouseClicked(evt);
+                coursesTableMouseClicked(evt);
             }
         });
-        tableScrollPanel.setViewportView(studentsTable);
+        tableScrollPanel.setViewportView(coursesTable);
+        if (coursesTable.getColumnModel().getColumnCount() > 0) {
+            coursesTable.getColumnModel().getColumn(0).setMinWidth(100);
+            coursesTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            coursesTable.getColumnModel().getColumn(0).setMaxWidth(100);
+            coursesTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+            coursesTable.getColumnModel().getColumn(2).setMinWidth(150);
+            coursesTable.getColumnModel().getColumn(2).setPreferredWidth(150);
+            coursesTable.getColumnModel().getColumn(2).setMaxWidth(200);
+        }
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
         jPanel13.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
 
         searchCourses.setForeground(new java.awt.Color(158, 160, 170));
-        searchCourses.setText("Search student...");
+        searchCourses.setText("Search courses...");
         searchCourses.setBorder(null);
         searchCourses.setName(""); // NOI18N
         searchCourses.setPreferredSize(new java.awt.Dimension(64, 24));
@@ -902,8 +923,8 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addComponent(searchCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -915,10 +936,8 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
-        gradeBtn.setBackground(new java.awt.Color(241, 240, 255));
-        gradeBtn.setForeground(new java.awt.Color(108, 99, 255));
-        gradeBtn.setText("Grade");
-        gradeBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(108, 99, 255)));
+        gradeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/delete.png"))); // NOI18N
+        gradeBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
         gradeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         gradeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -928,6 +947,53 @@ public class AdminPanel extends javax.swing.JFrame {
         gradeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gradeBtnActionPerformed(evt);
+            }
+        });
+
+        gradeBtn1.setBackground(new java.awt.Color(250, 250, 250));
+        gradeBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/pencil.png"))); // NOI18N
+        gradeBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        gradeBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        gradeBtn1.setIconTextGap(8);
+        gradeBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gradeBtn1MouseClicked(evt);
+            }
+        });
+        gradeBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeBtn1ActionPerformed(evt);
+            }
+        });
+
+        addCourse.setBackground(new java.awt.Color(250, 250, 250));
+        addCourse.setForeground(new java.awt.Color(108, 99, 255));
+        addCourse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/plus1.png"))); // NOI18N
+        addCourse.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        addCourse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addCourse.setIconTextGap(0);
+        addCourse.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addCourseMouseClicked(evt);
+            }
+        });
+        addCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCourseActionPerformed(evt);
+            }
+        });
+
+        gradeBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/refresh.png"))); // NOI18N
+        gradeBtn3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        gradeBtn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        gradeBtn3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gradeBtn3MouseClicked(evt);
+            }
+        });
+        gradeBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeBtn3ActionPerformed(evt);
             }
         });
 
@@ -942,7 +1008,13 @@ public class AdminPanel extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(gradeBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(gradeBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(addCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -951,7 +1023,10 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(gradeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gradeBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gradeBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(tableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
@@ -1871,24 +1946,24 @@ public class AdminPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
-
+        
         mainBody.setSelectedIndex(0);
-
+        
         tabBtn1.setForeground(new java.awt.Color(255, 255, 255));
         tabBtn1.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
-
+        
         tabName.setText(tabBtn1.getText());
-
+        
         tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn5.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn4.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn2.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
-
+        
         tabBtn3.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn5.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
-
+        
         tab1.setBackground(new java.awt.Color(102, 102, 255));
         tab2.setBackground(new java.awt.Color(255, 255, 255));
         tab5.setBackground(new java.awt.Color(255, 255, 255));
@@ -1897,24 +1972,24 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_tab1MouseClicked
 
     private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked
-
+        
         mainBody.setSelectedIndex(1);
-
+        
         tabBtn2.setForeground(new java.awt.Color(255, 255, 255));
         tabBtn2.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
-
+        
         tabName.setText(tabBtn2.getText());
-
+        
         tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn5.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn4.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn1.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
-
+        
         tabBtn3.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn5.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn1.setForeground(new java.awt.Color(158, 160, 170));
-
+        
         tab2.setBackground(new java.awt.Color(102, 102, 255));
         tab1.setBackground(new java.awt.Color(255, 255, 255));
         tab5.setBackground(new java.awt.Color(255, 255, 255));
@@ -1923,24 +1998,24 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_tab2MouseClicked
 
     private void tab3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab3MouseClicked
-
+        
         mainBody.setSelectedIndex(2);
-
+        
         tabBtn3.setForeground(new java.awt.Color(255, 255, 255));
         tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
-
+        
         tabName.setText(tabBtn3.getText());
-
+        
         tabBtn2.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn5.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn4.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn1.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
-
+        
         tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn5.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn1.setForeground(new java.awt.Color(158, 160, 170));
-
+        
         tab3.setBackground(new java.awt.Color(102, 102, 255));
         tab1.setBackground(new java.awt.Color(255, 255, 255));
         tab5.setBackground(new java.awt.Color(255, 255, 255));
@@ -1949,24 +2024,24 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_tab3MouseClicked
 
     private void tab4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab4MouseClicked
-
+        
         mainBody.setSelectedIndex(3);
-
+        
         tabBtn4.setForeground(new java.awt.Color(255, 255, 255));
         tabBtn4.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
-
+        
         tabName.setText(tabBtn4.getText());
-
+        
         tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn5.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn1.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn2.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
-
+        
         tabBtn3.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn5.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn1.setForeground(new java.awt.Color(158, 160, 170));
-
+        
         tab4.setBackground(new java.awt.Color(102, 102, 255));
         tab1.setBackground(new java.awt.Color(255, 255, 255));
         tab3.setBackground(new java.awt.Color(255, 255, 255));
@@ -1988,24 +2063,24 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void tab5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab5MouseClicked
-
+        
         mainBody.setSelectedIndex(4);
-
+        
         tabBtn5.setForeground(new java.awt.Color(255, 255, 255));
         tabBtn5.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
-
+        
         tabName.setText(tabBtn5.getText());
-
+        
         tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn2.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn4.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn1.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
-
+        
         tabBtn3.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn1.setForeground(new java.awt.Color(158, 160, 170));
-
+        
         tab5.setBackground(new java.awt.Color(102, 102, 255));
         tab2.setBackground(new java.awt.Color(255, 255, 255));
         tab1.setBackground(new java.awt.Color(255, 255, 255));
@@ -2014,7 +2089,7 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_tab5MouseClicked
 
     private void directEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_directEmailMouseClicked
-
+        
         try {
             Desktop.getDesktop().browse(new URL("https://mail.google.com/mail/u/0/#inbox").toURI());
         } catch (Exception e) {
@@ -2022,22 +2097,22 @@ public class AdminPanel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_directEmailMouseClicked
 
-    private void studentsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentsTableMouseClicked
+    private void coursesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coursesTableMouseClicked
 
-    }//GEN-LAST:event_studentsTableMouseClicked
+    }//GEN-LAST:event_coursesTableMouseClicked
 
     private void searchCoursesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCoursesFocusGained
-
-        if (searchCourses.getText().equals("Search student...")) {
+        
+        if (searchCourses.getText().equals("Search courses...")) {
             searchCourses.setText("");
             searchCourses.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_searchCoursesFocusGained
 
     private void searchCoursesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchCoursesFocusLost
-
+        
         if (searchCourses.getText().isEmpty()) {
-            searchCourses.setText("Search student...");
+            searchCourses.setText("Search courses...");
             searchCourses.setForeground(new Color(158, 160, 170));
         }
     }//GEN-LAST:event_searchCoursesFocusLost
@@ -2051,59 +2126,36 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_searchCoursesActionPerformed
 
     private void searchCoursesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchCoursesKeyReleased
-
-        TableRowSorter<DefaultTableModel> obj1 = new TableRowSorter<>(this.model);
-        studentsTable.setRowSorter(obj1);
+        
+        TableRowSorter<DefaultTableModel> obj1 = new TableRowSorter<>(this.model2);
+        coursesTable.setRowSorter(obj1);
         RowFilter filterRow = RowFilter.regexFilter(searchCourses.getText());
         obj1.setRowFilter(filterRow);
     }//GEN-LAST:event_searchCoursesKeyReleased
-
-    private void gradeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeBtnMouseClicked
-        // TODO add your handling code here:
-
-        int selectedRow = studentsTable.getSelectedRow();
-
-        if (selectedRow != -1) {
-
-            // Getting the selected row
-            int id = Integer.parseInt((String) studentsTable.getValueAt(selectedRow, 0));
-            String name = (String) studentsTable.getValueAt(selectedRow, 1);
-            String semester = (String) studentsTable.getValueAt(selectedRow, 2);
-            String course = (String) studentsTable.getValueAt(selectedRow, 3);
-            String email = (String) studentsTable.getValueAt(selectedRow, 4);
-
-            gs = new GradeStudent(id, name, semester, course, email);
-            gs.setVisible(true);
-        }
-    }//GEN-LAST:event_gradeBtnMouseClicked
-
-    private void gradeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtnActionPerformed
-
-    }//GEN-LAST:event_gradeBtnActionPerformed
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
 
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void uploadAnnouncementBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadAnnouncementBtnMouseClicked
-
+        
         if (showConfirmationDialog("Do you want to upload the announcement? ")) {
-
+            
             if (Validation.validateQuestionField(fullMessage.getText())) {
-
+                
                 String qs = fullMessage.getText();
                 int semester = semesterCount.getValue();
-
+                
                 int uploaded = TeacherAccount.uploadAnnouncement(qs, semester);
-
+                
                 if (uploaded <= 0) {
                     JOptionPane.showMessageDialog(null, "Error uploading announcement.", "Add Announcement", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 JOptionPane.showMessageDialog(null, "Successfully updated the Announcement.", "Add Announcement", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         }
     }//GEN-LAST:event_uploadAnnouncementBtnMouseClicked
 
@@ -2123,17 +2175,16 @@ public class AdminPanel extends javax.swing.JFrame {
 
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
         // TODO add your handling code here:
-        this.questionDetails = TeacherAccount.getQuestions();
-        contents.setQuestionsDetails(this.questionDetails, this);
+
     }//GEN-LAST:event_refreshBtnActionPerformed
 
     private void profileUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusGained
-
+        
         HelperMethods.handleFocusGainedLost(profileUsername, username, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileUsernameFocusGained
 
     private void profileUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusLost
-
+        
         HelperMethods.handleFocusGainedLost(profileUsername, username, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileUsernameFocusLost
 
@@ -2142,12 +2193,12 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_profileUsernameActionPerformed
 
     private void profilePasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusGained
-
+        
         HelperMethods.handleFocusGainedLost(profilePassword, password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusGained
 
     private void profilePasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePasswordFocusLost
-
+        
         HelperMethods.handleFocusGainedLost(profilePassword, password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePasswordFocusLost
 
@@ -2156,7 +2207,7 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_profilePasswordActionPerformed
 
     private void profilePhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profilePhoneFocusGained
-
+        
         HelperMethods.handleFocusGainedLost(profilePhone, phNum, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profilePhoneFocusGained
 
@@ -2165,12 +2216,12 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_profilePhoneFocusLost
 
     private void profileEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusGained
-
+        
         HelperMethods.handleFocusGainedLost(profileEmail, email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusGained
 
     private void profileEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileEmailFocusLost
-
+        
         HelperMethods.handleFocusGainedLost(profileEmail, email, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileEmailFocusLost
 
@@ -2179,21 +2230,21 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_profileEmailActionPerformed
 
     private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
-
+        
         if (HelperMethods.showConfirmationDialog("Do you want to make changes to your profile? ")) {
-
+            
             String tempUsername = profileUsername.getText();
             String tempEmail = profileEmail.getText();
             String tempPassword = profilePassword.getText();
             String tempPhNum = profilePhone.getText();
             String tempConfirmPassword = profileConfirmPassword.getText();
-
+            
             String details[] = {tempUsername, tempEmail, tempPassword, tempPhNum};
-
+            
             if (tempUsername.equals(username) && tempEmail.equals(email) && tempPassword.equals(password) && tempPhNum.equals(phNum)) {
-
+                
                 JOptionPane.showMessageDialog(null, namingConvention("blankValue"), "Profile Update Error", JOptionPane.INFORMATION_MESSAGE);
-
+                
             } else {
 
                 // Validating the details that the user wants to change
@@ -2208,9 +2259,9 @@ public class AdminPanel extends javax.swing.JFrame {
                     password = tempPassword;
                     phNum = tempPhNum;
                 }
-
+                
             }
-
+            
         }
     }//GEN-LAST:event_saveBtnMouseClicked
 
@@ -2219,12 +2270,12 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void profileConfirmPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusGained
-
+        
         HelperMethods.handleFocusGainedLost(profileConfirmPassword, password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusGained
 
     private void profileConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileConfirmPasswordFocusLost
-
+        
         HelperMethods.handleFocusGainedLost(profileConfirmPassword, password, new Color(158, 160, 170), evt);
     }//GEN-LAST:event_profileConfirmPasswordFocusLost
 
@@ -2236,8 +2287,58 @@ public class AdminPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_activityTableMouseClicked
 
-    public static void main(String args[]) {
+    private void gradeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtnActionPerformed
 
+    }//GEN-LAST:event_gradeBtnActionPerformed
+
+    private void gradeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeBtnMouseClicked
+        // TODO add your handling code here:
+
+        int selectedRow = coursesTable.getSelectedRow();
+        
+        if (selectedRow != -1) {
+
+            // Getting the selected row
+            int id = Integer.parseInt((String) coursesTable.getValueAt(selectedRow, 0));
+            String name = (String) coursesTable.getValueAt(selectedRow, 1);
+            String semester = (String) coursesTable.getValueAt(selectedRow, 2);
+            String course = (String) coursesTable.getValueAt(selectedRow, 3);
+            String email = (String) coursesTable.getValueAt(selectedRow, 4);
+            
+            gs = new GradeStudent(id, name, semester, course, email);
+            gs.setVisible(true);
+        }
+    }//GEN-LAST:event_gradeBtnMouseClicked
+
+    private void gradeBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gradeBtn1ActionPerformed
+
+    private void gradeBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeBtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gradeBtn1MouseClicked
+
+    private void addCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCourseActionPerformed
+        // TODO add your handling code here:
+        ac.setVisible(true);
+    }//GEN-LAST:event_addCourseActionPerformed
+
+    private void addCourseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCourseMouseClicked
+        // TODO add your handling code here:
+
+        ac.setVisible(true);
+    }//GEN-LAST:event_addCourseMouseClicked
+
+    private void gradeBtn3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeBtn3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gradeBtn3MouseClicked
+
+    private void gradeBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtn3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gradeBtn3ActionPerformed
+    
+    public static void main(String args[]) {
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AdminPanel().setVisible(true);
@@ -2249,11 +2350,15 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JTable activityTable;
     private javax.swing.JLabel addAnnouncementText;
     private javax.swing.JButton addAssignmentBtn;
+    private javax.swing.JButton addCourse;
     private javax.swing.JLabel assignmentSubText;
     private javax.swing.JLabel coursesCount;
+    private javax.swing.JTable coursesTable;
     private javax.swing.JLabel directEmail;
     private javax.swing.JTextArea fullMessage;
     private javax.swing.JButton gradeBtn;
+    private javax.swing.JButton gradeBtn1;
+    private javax.swing.JButton gradeBtn3;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2352,7 +2457,6 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JSlider semesterCount;
     private javax.swing.JLabel stdPanelName;
     private javax.swing.JLabel studentCount;
-    private javax.swing.JTable studentsTable;
     private javax.swing.JPanel tab1;
     private javax.swing.JPanel tab2;
     private javax.swing.JPanel tab3;

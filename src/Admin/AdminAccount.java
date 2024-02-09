@@ -107,15 +107,57 @@ public class AdminAccount extends CreateConnection {
                 String time = resultSet.getString("time");
 
                 String row[] = {actId, act, time};
-                System.out.println("ACTIVITY : ");
-                System.out.println(actId);
-                System.out.println(act);
-                System.out.println(time);
+
                 model.addRow(row);
 
             }
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void getCoursesData(DefaultTableModel model) {
+        try {
+
+            String query = "  SELECT * FROM Course ORDER BY course_id ; ";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String courseId = String.valueOf(resultSet.getInt("course_id"));
+                String courseName = resultSet.getString("course_name");
+                String title = resultSet.getString("course_title");
+                String time = resultSet.getString("date_created");
+
+                String row[] = {courseId, title, courseName, time};
+
+                model.addRow(row);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static int addCourse(int courseId, String courseName, String courseCode) {
+        try {
+
+            String query = "INSERT INTO `Course` (`course_id`, `course_name`, `course_title`,  `date_created`) VALUES (?,?,?, current_timestamp());";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, courseId);
+            preparedStatement.setString(2, courseName);
+            preparedStatement.setString(3, courseCode);
+
+            int rows = preparedStatement.executeUpdate();
+
+            return rows;
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
     }
 }

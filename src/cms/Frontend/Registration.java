@@ -31,7 +31,7 @@ public class Registration extends javax.swing.JFrame {
             courseType.removeAllItems();
 
             for (String mods : coursesList) {
-                System.out.println(coursesList);
+
                 courseType.addItem(mods);
             }
         }

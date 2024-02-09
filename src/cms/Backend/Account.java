@@ -297,7 +297,6 @@ public class Account extends CreateConnection {
             while (resultSet.next()) {
 
                 lastLoggedinTime = resultSet.getString("last_login_time");
-                System.out.println("LAST LOGGED IN TIME : " + lastLoggedinTime);
 
             }
             return lastLoggedinTime;
@@ -363,7 +362,7 @@ public class Account extends CreateConnection {
 
             while (resultSet.next()) {
                 String moduleName = resultSet.getString("module_name");
-                System.out.println(moduleName);
+
                 modules.add(moduleName);
             }
 
@@ -387,7 +386,7 @@ public class Account extends CreateConnection {
 
             while (resultSet.next()) {
                 String moduleName = resultSet.getString("module_name");
-                System.out.println(moduleName);
+
                 modules.add(moduleName);
             }
 

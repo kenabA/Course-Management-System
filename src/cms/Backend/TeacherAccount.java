@@ -97,7 +97,6 @@ public class TeacherAccount {
             // Inserts the assingments and inserts the status to 1.
             String query = "INSERT INTO `Question` (`question`, `semester`, `module_id`) VALUES (?,?,?);";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
-            System.out.println("SEMESTER FOR THE MODULE : " + Account.getSemesterFromModuleId(moduleId));
             preparedStatement.setString(1, qs);
             preparedStatement.setInt(2, Account.getSemesterFromModuleId(moduleId));
             preparedStatement.setInt(3, moduleId);
@@ -122,7 +121,6 @@ public class TeacherAccount {
             preparedStatement.setInt(2, semester);
             preparedStatement.setInt(3, Person.getCourseId());
             preparedStatement.setInt(4, Person.getId());
-            System.out.println(Person.getCourseId());
 
             int rows = preparedStatement.executeUpdate();
 
@@ -234,7 +232,6 @@ public class TeacherAccount {
 
         try {
             String query = " SELECT message FROM Message WHERE date_posted > '" + lastLoggedInTime + "' AND course_id = ?  ;";
-            System.out.println("THE LAST LOGGED IN TIME: " + lastLoggedInTime);
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setInt(1, Person.getCourseId());
 

@@ -280,7 +280,6 @@ public class StudentAccount extends CreateConnection {
                 int percentageCount = resultSet.getInt("grade");
                 String grade = HelperMethods.getGrades(percentageCount);
                 int overall = resultSet.getInt("overall");
-                System.out.println(overall);
 
                 String row[] = {moduleId, name, sem, percentage, grade};
 
