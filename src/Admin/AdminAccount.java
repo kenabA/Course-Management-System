@@ -187,6 +187,25 @@ public class AdminAccount extends CreateConnection {
 
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public static void deleteCourse(int id) {
+        try {
+            String query = "DELETE FROM Course WHERE Course.course_id = " + id + " ;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected == 1) {
+                JOptionPane.showMessageDialog(null, "Course successfully deleted", "Delete Course", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex, "Delete Course", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

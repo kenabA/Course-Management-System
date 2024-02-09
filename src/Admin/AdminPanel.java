@@ -2351,11 +2351,15 @@ public class AdminPanel extends javax.swing.JFrame {
         int selectedRow = coursesTable.getSelectedRow();
 
         if (selectedRow != -1) {
-
-            return;
+            if (HelperMethods.showConfirmationDialog("Do you really want to delete this course? ")) {
+                // Getting the selected row
+                String id = (String) coursesTable.getValueAt(selectedRow, 0);
+                System.out.println("THE COURSE ID IS " + id);
+                AdminAccount.deleteCourse(Integer.parseInt(id));
+                return;
+            }
         }
         JOptionPane.showMessageDialog(null, "No Rows Selected", "Delete Course", JOptionPane.INFORMATION_MESSAGE);
-        return;
     }//GEN-LAST:event_deleteCourseBtnMouseClicked
 
     private void gradeBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeBtn1ActionPerformed
