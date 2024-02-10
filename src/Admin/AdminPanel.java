@@ -2452,9 +2452,10 @@ public class AdminPanel extends javax.swing.JFrame {
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
 
     }//GEN-LAST:event_jPanel5MouseClicked
-
+    AddStudent as = new AddStudent();
     private void studentAddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentAddBtnMouseClicked
-        // TODO add your handling code here:
+
+        as.setVisible(true);
     }//GEN-LAST:event_studentAddBtnMouseClicked
 
     private void studentAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentAddBtnActionPerformed
