@@ -67,6 +67,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private DefaultTableModel model2;
     private DefaultTableModel model3;
     private DefaultTableModel model4;
+    private DefaultTableModel model5;
     public int q1;
 
     public int q2;
@@ -129,20 +130,20 @@ public class AdminPanel extends javax.swing.JFrame {
         alignTableContents(studentsTable);
         setTableAppearance(studentsTable);
 
-        // Updating the teachers pane;
+        // Updating the teachers panel
         this.model4 = (DefaultTableModel) teachersTable.getModel();
         AdminAccount.teachersTable(model4);
         alignTableContents(teachersTable);
         setTableAppearance(teachersTable);
 
+        // Updating the amdin panel
+        this.model5 = (DefaultTableModel) modulesTable.getModel();
+        AdminAccount.teachersTable(model5);
+        alignTableContents(modulesTable);
+        setTableAppearance(modulesTable);
+
     }
 
-//    @Override
-//    public void setContents() {
-//        contents.setAnnouncement(announcement, this);
-//        contents.setQuestionsDetails(questionDetails, this);
-//
-//    }
     public void extractDetails() {
         try {
             ResultSet result = Account.getUserData(AdminPanel.username);
@@ -194,6 +195,8 @@ public class AdminPanel extends javax.swing.JFrame {
         logoutBtn = new javax.swing.JButton();
         tab5 = new javax.swing.JPanel();
         tabBtn5 = new javax.swing.JLabel();
+        tab6 = new javax.swing.JPanel();
+        tabBtn6 = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         stdPanelName = new javax.swing.JLabel();
         usertypeShow = new javax.swing.JLabel();
@@ -287,6 +290,17 @@ public class AdminPanel extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         profileConfirmPassword = new javax.swing.JPasswordField();
         jSeparator3 = new javax.swing.JSeparator();
+        panelSixth = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        tableScrollPanel4 = new javax.swing.JScrollPane();
+        modulesTable = new javax.swing.JTable();
+        jPanel28 = new javax.swing.JPanel();
+        searchModules = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        teacherAddBtn1 = new javax.swing.JButton();
+        teacherReloadBtn1 = new javax.swing.JButton();
+        teacherDeleteBtn1 = new javax.swing.JButton();
+        teacherEditBtn1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(108, 99, 255));
@@ -404,7 +418,7 @@ public class AdminPanel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(tabBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         tab4Layout.setVerticalGroup(
             tab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,11 +464,36 @@ public class AdminPanel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab5Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(tabBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         tab5Layout.setVerticalGroup(
             tab5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabBtn5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addComponent(tabBtn5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+        );
+
+        tab6.setBackground(new java.awt.Color(255, 255, 255));
+        tab6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tab6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab6MouseClicked(evt);
+            }
+        });
+
+        tabBtn6.setForeground(new java.awt.Color(158, 160, 170));
+        tabBtn6.setText("Modules");
+
+        javax.swing.GroupLayout tab6Layout = new javax.swing.GroupLayout(tab6);
+        tab6.setLayout(tab6Layout);
+        tab6Layout.setHorizontalGroup(
+            tab6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab6Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(tabBtn6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        tab6Layout.setVerticalGroup(
+            tab6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabBtn6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
@@ -462,7 +501,7 @@ public class AdminPanel extends javax.swing.JFrame {
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(32, 34, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
             .addGroup(menuLayout.createSequentialGroup()
@@ -478,6 +517,9 @@ public class AdminPanel extends javax.swing.JFrame {
                         .addComponent(tab5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tab4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
+                .addComponent(tab6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,8 +534,10 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(tab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(tab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(tab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
@@ -1894,6 +1938,218 @@ public class AdminPanel extends javax.swing.JFrame {
 
         mainBody.addTab("tab5", panelFifth);
 
+        jPanel18.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel18MouseClicked(evt);
+            }
+        });
+
+        tableScrollPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
+        tableScrollPanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        modulesTable.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        modulesTable.setForeground(new java.awt.Color(51, 51, 51));
+        modulesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Teacher ID", "Teacher Name", "Course", "Modules Involved", "Email"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        modulesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        modulesTable.setGridColor(new java.awt.Color(238, 238, 238));
+        modulesTable.setIgnoreRepaint(true);
+        modulesTable.getTableHeader().setReorderingAllowed(false);
+        modulesTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modulesTableMouseClicked(evt);
+            }
+        });
+        tableScrollPanel4.setViewportView(modulesTable);
+
+        jPanel28.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel28.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
+
+        searchModules.setForeground(new java.awt.Color(158, 160, 170));
+        searchModules.setText("Search module...");
+        searchModules.setBorder(null);
+        searchModules.setName(""); // NOI18N
+        searchModules.setPreferredSize(new java.awt.Dimension(64, 24));
+        searchModules.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchModulesFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchModulesFocusLost(evt);
+            }
+        });
+        searchModules.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchModulesMouseClicked(evt);
+            }
+        });
+        searchModules.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchModulesActionPerformed(evt);
+            }
+        });
+        searchModules.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchModulesKeyReleased(evt);
+            }
+        });
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/search.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
+        jPanel28.setLayout(jPanel28Layout);
+        jPanel28Layout.setHorizontalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel28Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchModules, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+        jPanel28Layout.setVerticalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel28Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel15)
+                    .addComponent(searchModules, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
+        );
+
+        teacherAddBtn1.setBackground(new java.awt.Color(250, 250, 250));
+        teacherAddBtn1.setForeground(new java.awt.Color(108, 99, 255));
+        teacherAddBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/plus1.png"))); // NOI18N
+        teacherAddBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        teacherAddBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        teacherAddBtn1.setIconTextGap(0);
+        teacherAddBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                teacherAddBtn1MouseClicked(evt);
+            }
+        });
+        teacherAddBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherAddBtn1ActionPerformed(evt);
+            }
+        });
+
+        teacherReloadBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/refresh.png"))); // NOI18N
+        teacherReloadBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        teacherReloadBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        teacherReloadBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                teacherReloadBtn1MouseClicked(evt);
+            }
+        });
+        teacherReloadBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherReloadBtn1ActionPerformed(evt);
+            }
+        });
+
+        teacherDeleteBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/delete.png"))); // NOI18N
+        teacherDeleteBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        teacherDeleteBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        teacherDeleteBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                teacherDeleteBtn1MouseClicked(evt);
+            }
+        });
+        teacherDeleteBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherDeleteBtn1ActionPerformed(evt);
+            }
+        });
+
+        teacherEditBtn1.setBackground(new java.awt.Color(250, 250, 250));
+        teacherEditBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/pencil.png"))); // NOI18N
+        teacherEditBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        teacherEditBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        teacherEditBtn1.setIconTextGap(8);
+        teacherEditBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                teacherEditBtn1MouseClicked(evt);
+            }
+        });
+        teacherEditBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherEditBtn1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tableScrollPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(teacherReloadBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(teacherDeleteBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(teacherEditBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(teacherAddBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(teacherAddBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(teacherEditBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(teacherDeleteBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(teacherReloadBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(tableScrollPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+
+        javax.swing.GroupLayout panelSixthLayout = new javax.swing.GroupLayout(panelSixth);
+        panelSixth.setLayout(panelSixthLayout);
+        panelSixthLayout.setHorizontalGroup(
+            panelSixthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelSixthLayout.setVerticalGroup(
+            panelSixthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSixthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        mainBody.addTab("tab6", panelSixth);
+
         mainPanel.add(mainBody, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 900, 660));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1920,17 +2176,20 @@ public class AdminPanel extends javax.swing.JFrame {
 
         tabName.setText(tabBtn1.getText());
 
+        tabBtn6.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn5.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn4.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn2.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
 
+        tabBtn6.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn3.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn5.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
 
         tab1.setBackground(new java.awt.Color(102, 102, 255));
+        tab6.setBackground(new java.awt.Color(255, 255, 255));
         tab2.setBackground(new java.awt.Color(255, 255, 255));
         tab5.setBackground(new java.awt.Color(255, 255, 255));
         tab3.setBackground(new java.awt.Color(255, 255, 255));
@@ -1946,17 +2205,20 @@ public class AdminPanel extends javax.swing.JFrame {
 
         tabName.setText(tabBtn2.getText());
 
+        tabBtn6.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn5.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn4.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn1.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
 
+        tabBtn6.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn3.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn5.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn1.setForeground(new java.awt.Color(158, 160, 170));
 
         tab2.setBackground(new java.awt.Color(102, 102, 255));
+        tab6.setBackground(new java.awt.Color(255, 255, 255));
         tab1.setBackground(new java.awt.Color(255, 255, 255));
         tab5.setBackground(new java.awt.Color(255, 255, 255));
         tab3.setBackground(new java.awt.Color(255, 255, 255));
@@ -1971,18 +2233,20 @@ public class AdminPanel extends javax.swing.JFrame {
         tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
 
         tabName.setText(tabBtn3.getText());
-
+        tabBtn6.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn2.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn5.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn4.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn1.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
 
+        tabBtn6.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn5.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn1.setForeground(new java.awt.Color(158, 160, 170));
 
         tab3.setBackground(new java.awt.Color(102, 102, 255));
+        tab6.setBackground(new java.awt.Color(255, 255, 255));
         tab1.setBackground(new java.awt.Color(255, 255, 255));
         tab5.setBackground(new java.awt.Color(255, 255, 255));
         tab2.setBackground(new java.awt.Color(255, 255, 255));
@@ -1998,17 +2262,20 @@ public class AdminPanel extends javax.swing.JFrame {
 
         tabName.setText(tabBtn4.getText());
 
+        tabBtn6.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn5.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn1.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn2.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
 
+        tabBtn6.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn3.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn5.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn1.setForeground(new java.awt.Color(158, 160, 170));
 
         tab4.setBackground(new java.awt.Color(102, 102, 255));
+        tab6.setBackground(new java.awt.Color(255, 255, 255));
         tab1.setBackground(new java.awt.Color(255, 255, 255));
         tab3.setBackground(new java.awt.Color(255, 255, 255));
         tab5.setBackground(new java.awt.Color(255, 255, 255));
@@ -2037,17 +2304,20 @@ public class AdminPanel extends javax.swing.JFrame {
 
         tabName.setText(tabBtn5.getText());
 
+        tab6.setBackground(new java.awt.Color(255, 255, 255));
         tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn2.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn4.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
         tabBtn1.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
 
         tabBtn3.setForeground(new java.awt.Color(158, 160, 170));
+        tabBtn6.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn1.setForeground(new java.awt.Color(158, 160, 170));
 
         tab5.setBackground(new java.awt.Color(102, 102, 255));
+        tab6.setBackground(new java.awt.Color(255, 255, 255));
         tab2.setBackground(new java.awt.Color(255, 255, 255));
         tab1.setBackground(new java.awt.Color(255, 255, 255));
         tab3.setBackground(new java.awt.Color(255, 255, 255));
@@ -2445,7 +2715,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 // Getting the selected row
                 String id = (String) teachersTable.getValueAt(selectedRow, 0);
                 AdminAccount.deleteTeacher(Integer.parseInt(id));
-                return;
+
             }
         } else {
             JOptionPane.showMessageDialog(null, "No Rows Selected", "Delete Teacher", JOptionPane.INFORMATION_MESSAGE);
@@ -2487,6 +2757,105 @@ public class AdminPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel10MouseClicked
 
+    private void tab6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab6MouseClicked
+        // TODO add your handling code here:
+
+        mainBody.setSelectedIndex(5);
+
+        tabBtn6.setForeground(new java.awt.Color(255, 255, 255));
+        tabBtn6.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
+
+        tabName.setText(tabBtn6.getText());
+
+        tabBtn5.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
+        tabBtn3.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
+        tabBtn2.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
+        tabBtn4.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
+        tabBtn1.setFont(new java.awt.Font("Helvetica Neue", 0, 13));
+
+        tabBtn5.setForeground(new java.awt.Color(158, 160, 170));
+        tabBtn3.setForeground(new java.awt.Color(158, 160, 170));
+        tabBtn2.setForeground(new java.awt.Color(158, 160, 170));
+        tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
+        tabBtn1.setForeground(new java.awt.Color(158, 160, 170));
+
+        tab6.setBackground(new java.awt.Color(102, 102, 255));
+        tab5.setBackground(new java.awt.Color(255, 255, 255));
+        tab2.setBackground(new java.awt.Color(255, 255, 255));
+        tab1.setBackground(new java.awt.Color(255, 255, 255));
+        tab3.setBackground(new java.awt.Color(255, 255, 255));
+        tab4.setBackground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_tab6MouseClicked
+
+    private void modulesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modulesTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modulesTableMouseClicked
+
+    private void searchModulesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchModulesFocusGained
+        if (searchModules.getText().equals("Search module...")) {
+            searchModules.setText("");
+            searchModules.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_searchModulesFocusGained
+
+    private void searchModulesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchModulesFocusLost
+        if (searchModules.getText().isEmpty()) {
+            searchModules.setText("Search module...");
+            searchModules.setForeground(new Color(158, 160, 170));
+        }
+    }//GEN-LAST:event_searchModulesFocusLost
+
+    private void searchModulesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchModulesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchModulesMouseClicked
+
+    private void searchModulesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchModulesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchModulesActionPerformed
+
+    private void searchModulesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchModulesKeyReleased
+        TableRowSorter<DefaultTableModel> obj1 = new TableRowSorter<>(this.model5);
+        modulesTable.setRowSorter(obj1);
+        RowFilter filterRow = RowFilter.regexFilter(searchModules.getText());
+        obj1.setRowFilter(filterRow);
+    }//GEN-LAST:event_searchModulesKeyReleased
+
+    private void teacherAddBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherAddBtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherAddBtn1MouseClicked
+
+    private void teacherAddBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherAddBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherAddBtn1ActionPerformed
+
+    private void teacherReloadBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherReloadBtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherReloadBtn1MouseClicked
+
+    private void teacherReloadBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherReloadBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherReloadBtn1ActionPerformed
+
+    private void teacherDeleteBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherDeleteBtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherDeleteBtn1MouseClicked
+
+    private void teacherDeleteBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherDeleteBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherDeleteBtn1ActionPerformed
+
+    private void teacherEditBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherEditBtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherEditBtn1MouseClicked
+
+    private void teacherEditBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherEditBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherEditBtn1ActionPerformed
+
+    private void jPanel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel18MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable activityTable;
@@ -2504,6 +2873,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -2533,6 +2903,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
@@ -2541,6 +2912,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel27;
+    private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
@@ -2553,9 +2925,11 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel modulesCount;
+    private javax.swing.JTable modulesTable;
     private javax.swing.JPanel panelFifth;
     private javax.swing.JPanel panelFirst;
     private javax.swing.JPanel panelSecond;
+    private javax.swing.JPanel panelSixth;
     private javax.swing.JPanel panelThird;
     private javax.swing.JPasswordField profileConfirmPassword;
     private javax.swing.JTextField profileEmail;
@@ -2564,6 +2938,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JTextField profileUsername;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchCourses;
+    private javax.swing.JTextField searchModules;
     private javax.swing.JTextField searchStudents;
     private javax.swing.JTextField searchTeachers;
     private javax.swing.JLabel stdPanelName;
@@ -2578,21 +2953,28 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JPanel tab3;
     private javax.swing.JPanel tab4;
     private javax.swing.JPanel tab5;
+    private javax.swing.JPanel tab6;
     private javax.swing.JLabel tabBtn1;
     private javax.swing.JLabel tabBtn2;
     private javax.swing.JLabel tabBtn3;
     private javax.swing.JLabel tabBtn4;
     private javax.swing.JLabel tabBtn5;
+    private javax.swing.JLabel tabBtn6;
     private javax.swing.JLabel tabName;
     private javax.swing.JScrollPane tableScrollPanel;
     private javax.swing.JScrollPane tableScrollPanel1;
     private javax.swing.JScrollPane tableScrollPanel2;
     private javax.swing.JScrollPane tableScrollPanel3;
+    private javax.swing.JScrollPane tableScrollPanel4;
     private javax.swing.JButton teacherAddBtn;
+    private javax.swing.JButton teacherAddBtn1;
     private javax.swing.JLabel teacherCount;
     private javax.swing.JButton teacherDeleteBtn;
+    private javax.swing.JButton teacherDeleteBtn1;
     private javax.swing.JButton teacherEditBtn;
+    private javax.swing.JButton teacherEditBtn1;
     private javax.swing.JButton teacherReloadBtn;
+    private javax.swing.JButton teacherReloadBtn1;
     private javax.swing.JTable teachersTable;
     private javax.swing.JPanel teachersTablePanel;
     private javax.swing.JLabel usertypeShow;
