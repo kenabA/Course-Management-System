@@ -1040,7 +1040,7 @@ public class AdminPanel extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(deleteCourseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2588,9 +2588,9 @@ public class AdminPanel extends javax.swing.JFrame {
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
 
     }//GEN-LAST:event_jPanel5MouseClicked
-    AddStudent as = new AddStudent();
-    private void studentAddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentAddBtnMouseClicked
 
+    private void studentAddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentAddBtnMouseClicked
+        AddStudent as = new AddStudent();
         as.setVisible(true);
     }//GEN-LAST:event_studentAddBtnMouseClicked
 
