@@ -201,12 +201,13 @@ public class AdminAccount extends CreateConnection {
 
             while (resultSet.next()) {
 
-                String teacherID = String.valueOf(resultSet.getInt("id"));
+                int teacherNumID = resultSet.getInt("id");
+                String teacherID = String.valueOf(teacherNumID);
                 String name = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
                 String email = resultSet.getString("email");
                 String cName = resultSet.getString("course");
-                String modulesInvolved = "4";
-                String row[] = {teacherID, name, cName, modulesInvolved, email};
+                int moduleCount = modulesPerTeacherCount(teacherNumID);
+                String row[] = {teacherID, name, cName, String.valueOf(moduleCount), email};
                 model.addRow(row);
 
             }
@@ -214,6 +215,49 @@ public class AdminAccount extends CreateConnection {
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    private static int modulesPerTeacherCount(int id) {
+        try {
+            String query = "SELECT COUNT(Teacher.id) AS module_count FROM `Module` JOIN Teacher ON Teacher.id = Module.teacher_id where Teacher.id = " + id + " ;";
+            PreparedStatement st = c.connection.prepareStatement(query);
+            ResultSet resultSet = st.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt("module_count");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return 0;
+    }
+
+    public static void modulesTable(DefaultTableModel model, int id) {
+        try {
+            String query = "SELECT Module.module_id, Course.course_name, Module.module_name, Module.semester FROM Module JOIN Teacher ON Teacher.id = Module.teacher_id JOIN Course ON Course.course_id = Module.course_id WHERE Teacher.id = ?;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String moduleId = String.valueOf(resultSet.getInt("module_id"));
+                String cName = resultSet.getString("course_name");
+                String name = resultSet.getString("module_name");
+                String sem = String.valueOf(resultSet.getInt("semester"));
+
+                String row[] = {moduleId, cName, name, sem};
+                model.addRow(row);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

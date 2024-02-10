@@ -127,6 +127,11 @@ public class EditTeacher extends javax.swing.JFrame {
         viewModulesBtn.setForeground(new java.awt.Color(108, 99, 255));
         viewModulesBtn.setText("View Modules");
         viewModulesBtn.setBorder(null);
+        viewModulesBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewModulesBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -252,10 +257,6 @@ public class EditTeacher extends javax.swing.JFrame {
 
                 int uploaded = AdminAccount.editTeacher(fName, lName, Integer.parseInt(teacherId));
 
-                if (uploaded <= 0) {
-                    return;
-                }
-
             }
         }
     }//GEN-LAST:event_updateDetailsBtnMouseClicked
@@ -263,6 +264,11 @@ public class EditTeacher extends javax.swing.JFrame {
     private void updateDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDetailsBtnActionPerformed
 
     }//GEN-LAST:event_updateDetailsBtnActionPerformed
+    ViewModules vm;
+    private void viewModulesBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewModulesBtnMouseClicked
+        vm = new ViewModules(Integer.parseInt(teacherId));
+        vm.setVisible(true);
+    }//GEN-LAST:event_viewModulesBtnMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

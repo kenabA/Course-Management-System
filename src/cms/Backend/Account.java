@@ -69,7 +69,7 @@ public class Account extends CreateConnection {
     public static boolean checkDuplicate(String username, String email, String usertype) {
 
         try {
-            System.out.println(usertype);
+
             String getUsername = "select * from " + usertype + " where binary username = '" + username + "' and not id = " + id + " ";
 
             ResultSet userName = c.statement.executeQuery(getUsername);

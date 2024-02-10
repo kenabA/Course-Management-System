@@ -1589,7 +1589,7 @@
                                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       <Component id="teacherEditBtn" min="-2" pref="36" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                      <Component id="studentAddBtn1" min="-2" pref="36" max="-2" attributes="0"/>
+                                      <Component id="teacherAddBtn" min="-2" pref="36" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace pref="36" max="32767" attributes="0"/>
@@ -1601,7 +1601,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="2" attributes="0">
-                                  <Component id="studentAddBtn1" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="teacherAddBtn" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="teacherEditBtn" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="teacherDeleteBtn" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="teacherReloadBtn" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
@@ -1766,7 +1766,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="studentAddBtn1">
+                    <Component class="javax.swing.JButton" name="teacherAddBtn">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="fa" green="fa" red="fa" type="rgb"/>
@@ -1790,8 +1790,8 @@
                         <Property name="iconTextGap" type="int" value="0"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="studentAddBtn1MouseClicked"/>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="studentAddBtn1ActionPerformed"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="teacherAddBtnMouseClicked"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="teacherAddBtnActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="teacherReloadBtn">

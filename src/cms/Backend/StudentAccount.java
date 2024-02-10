@@ -289,8 +289,11 @@ public class StudentAccount extends CreateConnection {
                 count++;
 
             }
-
-            Person.setOverallPerformance(totalPerformance / count);
+            if (count != 0) {
+                Person.setOverallPerformance(totalPerformance / count);
+                return;
+            }
+            Person.setOverallPerformance(0);
 
         } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
