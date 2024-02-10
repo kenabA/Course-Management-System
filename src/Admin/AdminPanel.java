@@ -12,13 +12,11 @@ import cms.Backend.HelperMethods;
 import static cms.Backend.HelperMethods.alignTableContents;
 import static cms.Backend.HelperMethods.setTableAppearance;
 import cms.Backend.Validation;
-import static cms.Backend.Validation.namingConvention;
 import cms.Frontend.Contents;
 import cms.Frontend.EditProfile;
 import cms.Frontend.Login;
 import cms.Frontend.Person;
 import cms.Frontend.Student.Answer;
-import cms.Frontend.Student.StudentPanel;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.net.URL;
@@ -68,6 +66,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private DefaultTableModel model;
     private DefaultTableModel model2;
     private DefaultTableModel model3;
+    private DefaultTableModel model4;
     public int q1;
 
     public int q2;
@@ -129,6 +128,12 @@ public class AdminPanel extends javax.swing.JFrame {
         AdminAccount.studentsTable(model3);
         alignTableContents(studentsTable);
         setTableAppearance(studentsTable);
+
+        // Updating the teachers pane;
+        this.model4 = (DefaultTableModel) teachersTable.getModel();
+        AdminAccount.teachersTable(model4);
+        alignTableContents(teachersTable);
+        setTableAppearance(teachersTable);
 
     }
 
@@ -239,34 +244,17 @@ public class AdminPanel extends javax.swing.JFrame {
         studentReloadBtn = new javax.swing.JButton();
         studentDeleteBtn = new javax.swing.JButton();
         studentEditBtn = new javax.swing.JButton();
-        panelFourth = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        addAssignmentBtn = new javax.swing.JButton();
-        refreshBtn = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        questionsPanel = new javax.swing.JPanel();
-        jPanel26 = new javax.swing.JPanel();
-        qsPanel2 = new javax.swing.JPanel();
-        qsMod2 = new javax.swing.JLabel();
-        jSeparator8 = new javax.swing.JSeparator();
-        qsDate2 = new javax.swing.JLabel();
-        qsNo2 = new javax.swing.JLabel();
-        qsLabel2 = new javax.swing.JLabel();
-        qsLabel5 = new javax.swing.JLabel();
-        qsPanel1 = new javax.swing.JPanel();
-        qsMod1 = new javax.swing.JLabel();
-        jSeparator9 = new javax.swing.JSeparator();
-        qsDate1 = new javax.swing.JLabel();
-        qsNo1 = new javax.swing.JLabel();
-        qsLabel1 = new javax.swing.JLabel();
-        qsLabel4 = new javax.swing.JLabel();
-        qsPanel3 = new javax.swing.JPanel();
-        qsMod3 = new javax.swing.JLabel();
-        jSeparator10 = new javax.swing.JSeparator();
-        qsDate3 = new javax.swing.JLabel();
-        qsNo3 = new javax.swing.JLabel();
-        qsLabel3 = new javax.swing.JLabel();
-        qsLabel6 = new javax.swing.JLabel();
+        teachersTablePanel = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        tableScrollPanel3 = new javax.swing.JScrollPane();
+        teachersTable = new javax.swing.JTable();
+        jPanel27 = new javax.swing.JPanel();
+        searchTeachers = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        studentAddBtn1 = new javax.swing.JButton();
+        teacherReloadBtn = new javax.swing.JButton();
+        teacherDeleteBtn = new javax.swing.JButton();
+        teacherEditBtn = new javax.swing.JButton();
         panelFifth = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -407,7 +395,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
         tabBtn4.setForeground(new java.awt.Color(158, 160, 170));
         tabBtn4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        tabBtn4.setText("Modules");
+        tabBtn4.setText("Teachers");
 
         javax.swing.GroupLayout tab4Layout = new javax.swing.GroupLayout(tab4);
         tab4.setLayout(tab4Layout);
@@ -1268,323 +1256,217 @@ public class AdminPanel extends javax.swing.JFrame {
 
         mainBody.addTab("tab3", panelThird);
 
-        jPanel6.setBackground(new java.awt.Color(250, 250, 250));
-
-        addAssignmentBtn.setBackground(new java.awt.Color(108, 99, 255));
-        addAssignmentBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        addAssignmentBtn.setForeground(new java.awt.Color(241, 240, 255));
-        addAssignmentBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/plus.png"))); // NOI18N
-        addAssignmentBtn.setMnemonic('[');
-        addAssignmentBtn.setText("Add Assignment");
-        addAssignmentBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 99, 255), 1, true));
-        addAssignmentBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addAssignmentBtn.setIconTextGap(8);
-        addAssignmentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel10.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addAssignmentBtnMouseClicked(evt);
+                jPanel10MouseClicked(evt);
             }
         });
-        addAssignmentBtn.addActionListener(new java.awt.event.ActionListener() {
+
+        tableScrollPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
+        tableScrollPanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        teachersTable.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        teachersTable.setForeground(new java.awt.Color(51, 51, 51));
+        teachersTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Teacher ID", "Teacher Name", "Course", "Modules Involved", "Email"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        teachersTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        teachersTable.setGridColor(new java.awt.Color(238, 238, 238));
+        teachersTable.setIgnoreRepaint(true);
+        teachersTable.getTableHeader().setReorderingAllowed(false);
+        teachersTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                teachersTableMouseClicked(evt);
+            }
+        });
+        tableScrollPanel3.setViewportView(teachersTable);
+
+        jPanel27.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel27.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
+
+        searchTeachers.setForeground(new java.awt.Color(158, 160, 170));
+        searchTeachers.setText("Search teacher...");
+        searchTeachers.setBorder(null);
+        searchTeachers.setName(""); // NOI18N
+        searchTeachers.setPreferredSize(new java.awt.Dimension(64, 24));
+        searchTeachers.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchTeachersFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchTeachersFocusLost(evt);
+            }
+        });
+        searchTeachers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchTeachersMouseClicked(evt);
+            }
+        });
+        searchTeachers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addAssignmentBtnActionPerformed(evt);
+                searchTeachersActionPerformed(evt);
+            }
+        });
+        searchTeachers.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchTeachersKeyReleased(evt);
             }
         });
 
-        refreshBtn.setBackground(new java.awt.Color(250, 250, 250));
-        refreshBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        refreshBtn.setForeground(new java.awt.Color(108, 99, 255));
-        refreshBtn.setMnemonic('[');
-        refreshBtn.setText("Refresh");
-        refreshBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 99, 255), 1, true));
-        refreshBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshBtnActionPerformed(evt);
-            }
-        });
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/search.png"))); // NOI18N
 
-        jScrollPane3.setBorder(null);
-        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        questionsPanel.setBackground(new java.awt.Color(241, 240, 255));
-
-        jPanel26.setBackground(new java.awt.Color(241, 240, 255));
-
-        qsPanel2.setBackground(new java.awt.Color(241, 240, 255));
-
-        qsMod2.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        qsMod2.setForeground(new java.awt.Color(102, 102, 102));
-        qsMod2.setText("Internet Software Architecture");
-
-        qsDate2.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        qsDate2.setForeground(new java.awt.Color(159, 160, 170));
-        qsDate2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        qsDate2.setText("2024-01-26 22:18:02");
-
-        qsNo2.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
-        qsNo2.setText("Question Number 1");
-
-        qsLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        qsLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        qsLabel2.setText("What is the process of Encapsulation in Java? ");
-
-        qsLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        qsLabel5.setForeground(new java.awt.Color(108, 95, 255));
-        qsLabel5.setText("Assigned");
-
-        javax.swing.GroupLayout qsPanel2Layout = new javax.swing.GroupLayout(qsPanel2);
-        qsPanel2.setLayout(qsPanel2Layout);
-        qsPanel2Layout.setHorizontalGroup(
-            qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(qsPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(qsPanel2Layout.createSequentialGroup()
-                        .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(qsNo2)
-                            .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, qsPanel2Layout.createSequentialGroup()
-                                    .addComponent(qsMod2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(qsLabel5))
-                                .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(qsPanel2Layout.createSequentialGroup()
-                        .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(qsDate2)
-                            .addComponent(qsLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        qsPanel2Layout.setVerticalGroup(
-            qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(qsPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(qsNo2)
-                .addGap(6, 6, 6)
-                .addComponent(qsDate2)
-                .addGap(18, 18, 18)
-                .addComponent(qsLabel2)
-                .addGap(18, 18, 18)
-                .addGroup(qsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(qsMod2)
-                    .addComponent(qsLabel5))
-                .addGap(27, 27, 27)
-                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        qsPanel1.setBackground(new java.awt.Color(241, 240, 255));
-
-        qsMod1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        qsMod1.setForeground(new java.awt.Color(102, 102, 102));
-        qsMod1.setText("Internet Software Architecture");
-
-        qsDate1.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        qsDate1.setForeground(new java.awt.Color(159, 160, 170));
-        qsDate1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        qsDate1.setText("2024-01-26 22:18:02");
-
-        qsNo1.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
-        qsNo1.setText("Question Number 1");
-
-        qsLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        qsLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        qsLabel1.setText("What is the process of Encapsulation in Java? ");
-
-        qsLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        qsLabel4.setForeground(new java.awt.Color(108, 95, 255));
-        qsLabel4.setText("Assigned");
-
-        javax.swing.GroupLayout qsPanel1Layout = new javax.swing.GroupLayout(qsPanel1);
-        qsPanel1.setLayout(qsPanel1Layout);
-        qsPanel1Layout.setHorizontalGroup(
-            qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(qsPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(qsPanel1Layout.createSequentialGroup()
-                        .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(qsNo1)
-                            .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, qsPanel1Layout.createSequentialGroup()
-                                    .addComponent(qsMod1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(qsLabel4))
-                                .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, Short.MAX_VALUE))
-                    .addGroup(qsPanel1Layout.createSequentialGroup()
-                        .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(qsDate1)
-                            .addComponent(qsLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        qsPanel1Layout.setVerticalGroup(
-            qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(qsPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(qsNo1)
-                .addGap(6, 6, 6)
-                .addComponent(qsDate1)
-                .addGap(18, 18, 18)
-                .addComponent(qsLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(qsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(qsMod1)
-                    .addComponent(qsLabel4))
-                .addGap(27, 27, 27)
-                .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
-
-        qsPanel3.setBackground(new java.awt.Color(241, 240, 255));
-
-        qsMod3.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        qsMod3.setForeground(new java.awt.Color(102, 102, 102));
-        qsMod3.setText("Internet Software Architecture");
-
-        qsDate3.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        qsDate3.setForeground(new java.awt.Color(159, 160, 170));
-        qsDate3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        qsDate3.setText("2024-01-26 22:18:02");
-
-        qsNo3.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
-        qsNo3.setText("Question Number 1");
-
-        qsLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        qsLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        qsLabel3.setText("What is the process of Encapsulation in Java? ");
-
-        qsLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        qsLabel6.setForeground(new java.awt.Color(108, 95, 255));
-        qsLabel6.setText("Assigned");
-
-        javax.swing.GroupLayout qsPanel3Layout = new javax.swing.GroupLayout(qsPanel3);
-        qsPanel3.setLayout(qsPanel3Layout);
-        qsPanel3Layout.setHorizontalGroup(
-            qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(qsPanel3Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(qsPanel3Layout.createSequentialGroup()
-                        .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(qsNo3)
-                            .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, qsPanel3Layout.createSequentialGroup()
-                                    .addComponent(qsMod3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(qsLabel6))
-                                .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(qsPanel3Layout.createSequentialGroup()
-                        .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(qsDate3)
-                            .addComponent(qsLabel3))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        qsPanel3Layout.setVerticalGroup(
-            qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(qsPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(qsNo3)
-                .addGap(6, 6, 6)
-                .addComponent(qsDate3)
-                .addGap(18, 18, 18)
-                .addComponent(qsLabel3)
-                .addGap(18, 18, 18)
-                .addGroup(qsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(qsMod3)
-                    .addComponent(qsLabel6))
-                .addGap(27, 27, 27)
-                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
-        jPanel26.setLayout(jPanel26Layout);
-        jPanel26Layout.setHorizontalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel26Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(qsPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(qsPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(qsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
-        );
-        jPanel26Layout.setVerticalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel26Layout.createSequentialGroup()
-                .addContainerGap(187, Short.MAX_VALUE)
-                .addComponent(qsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
+        jPanel27.setLayout(jPanel27Layout);
+        jPanel27Layout.setHorizontalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel27Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(qsPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
-            .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel26Layout.createSequentialGroup()
-                    .addGap(10, 10, 10)
-                    .addComponent(qsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(394, Short.MAX_VALUE)))
+                .addComponent(searchTeachers, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+        jPanel27Layout.setVerticalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel27Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14)
+                    .addComponent(searchTeachers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
         );
 
-        javax.swing.GroupLayout questionsPanelLayout = new javax.swing.GroupLayout(questionsPanel);
-        questionsPanel.setLayout(questionsPanelLayout);
-        questionsPanelLayout.setHorizontalGroup(
-            questionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 839, Short.MAX_VALUE)
+        studentAddBtn1.setBackground(new java.awt.Color(250, 250, 250));
+        studentAddBtn1.setForeground(new java.awt.Color(108, 99, 255));
+        studentAddBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/plus1.png"))); // NOI18N
+        studentAddBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        studentAddBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        studentAddBtn1.setIconTextGap(0);
+        studentAddBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentAddBtn1MouseClicked(evt);
+            }
+        });
+        studentAddBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentAddBtn1ActionPerformed(evt);
+            }
+        });
+
+        teacherReloadBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/refresh.png"))); // NOI18N
+        teacherReloadBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        teacherReloadBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        teacherReloadBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                teacherReloadBtnMouseClicked(evt);
+            }
+        });
+        teacherReloadBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherReloadBtnActionPerformed(evt);
+            }
+        });
+
+        teacherDeleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/delete.png"))); // NOI18N
+        teacherDeleteBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        teacherDeleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        teacherDeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                teacherDeleteBtnMouseClicked(evt);
+            }
+        });
+        teacherDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherDeleteBtnActionPerformed(evt);
+            }
+        });
+
+        teacherEditBtn.setBackground(new java.awt.Color(250, 250, 250));
+        teacherEditBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/pencil.png"))); // NOI18N
+        teacherEditBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        teacherEditBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        teacherEditBtn.setIconTextGap(8);
+        teacherEditBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                teacherEditBtnMouseClicked(evt);
+            }
+        });
+        teacherEditBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherEditBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tableScrollPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(teacherReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(teacherDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(teacherEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(studentAddBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
-        questionsPanelLayout.setVerticalGroup(
-            questionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(studentAddBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(teacherEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(teacherDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(teacherReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(tableScrollPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
 
-        jScrollPane3.setViewportView(questionsPanel);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(addAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32))
+        javax.swing.GroupLayout teachersTablePanelLayout = new javax.swing.GroupLayout(teachersTablePanel);
+        teachersTablePanel.setLayout(teachersTablePanelLayout);
+        teachersTablePanelLayout.setHorizontalGroup(
+            teachersTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+        teachersTablePanelLayout.setVerticalGroup(
+            teachersTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, teachersTablePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout panelFourthLayout = new javax.swing.GroupLayout(panelFourth);
-        panelFourth.setLayout(panelFourthLayout);
-        panelFourthLayout.setHorizontalGroup(
-            panelFourthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 903, Short.MAX_VALUE)
-            .addGroup(panelFourthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelFourthLayout.setVerticalGroup(
-            panelFourthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 693, Short.MAX_VALUE)
-            .addGroup(panelFourthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFourthLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        mainBody.addTab("tab4", panelFourth);
+        mainBody.addTab("tab4", teachersTablePanel);
 
         jPanel7.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -2221,21 +2103,6 @@ public class AdminPanel extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jPanel4MouseClicked
 
-    private void addAssignmentBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAssignmentBtnMouseClicked
-        // TODO add your handling code here:
-        assignment = new Assignment();
-        assignment.setVisible(true);
-    }//GEN-LAST:event_addAssignmentBtnMouseClicked
-
-    private void addAssignmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAssignmentBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addAssignmentBtnActionPerformed
-
-    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_refreshBtnActionPerformed
-
     private void profileUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileUsernameFocusGained
 
         HelperMethods.handleFocusGainedLost(profileUsername, username, new Color(158, 160, 170), evt);
@@ -2519,6 +2386,107 @@ public class AdminPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_studentEditBtnActionPerformed
 
+    private void teachersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teachersTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teachersTableMouseClicked
+
+    private void searchTeachersFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTeachersFocusGained
+        if (searchTeachers.getText().equals("Search teacher...")) {
+            searchTeachers.setText("");
+            searchTeachers.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_searchTeachersFocusGained
+
+    private void searchTeachersFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTeachersFocusLost
+        if (searchTeachers.getText().isEmpty()) {
+            searchTeachers.setText("Search teacher...");
+            searchTeachers.setForeground(new Color(158, 160, 170));
+        }
+    }//GEN-LAST:event_searchTeachersFocusLost
+
+    private void searchTeachersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTeachersMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchTeachersMouseClicked
+
+    private void searchTeachersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTeachersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchTeachersActionPerformed
+
+    private void searchTeachersKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTeachersKeyReleased
+        TableRowSorter<DefaultTableModel> obj1 = new TableRowSorter<>(this.model4);
+        teachersTable.setRowSorter(obj1);
+        RowFilter filterRow = RowFilter.regexFilter(searchTeachers.getText());
+        obj1.setRowFilter(filterRow);
+    }//GEN-LAST:event_searchTeachersKeyReleased
+
+    private void studentAddBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentAddBtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_studentAddBtn1MouseClicked
+
+    private void studentAddBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentAddBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_studentAddBtn1ActionPerformed
+
+    private void teacherReloadBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherReloadBtnMouseClicked
+        // TODO add your handling code here:
+        model4.setRowCount(0);
+        AdminAccount.teachersTable(model4);
+    }//GEN-LAST:event_teacherReloadBtnMouseClicked
+
+    private void teacherReloadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherReloadBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherReloadBtnActionPerformed
+
+    private void teacherDeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherDeleteBtnMouseClicked
+        int selectedRow = teachersTable.getSelectedRow();
+
+        if (selectedRow != -1) {
+            if (HelperMethods.showConfirmationDialog("Do you really want to delete this teacher's account? All data corresponding to this teacher will be lost. ")) {
+                // Getting the selected row
+                String id = (String) teachersTable.getValueAt(selectedRow, 0);
+                AdminAccount.deleteTeacher(Integer.parseInt(id));
+                return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No Rows Selected", "Delete Teacher", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_teacherDeleteBtnMouseClicked
+
+    private void teacherDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherDeleteBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherDeleteBtnActionPerformed
+    EditTeacher et;
+    private void teacherEditBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherEditBtnMouseClicked
+
+        int selectedRow = teachersTable.getSelectedRow();
+
+        if (selectedRow != -1) {
+
+            // Getting the selected row's details
+            String id = (String) teachersTable.getValueAt(selectedRow, 0);
+            String teacherName = (String) teachersTable.getValueAt(selectedRow, 1);
+            String course = (String) teachersTable.getValueAt(selectedRow, 2);
+            String modulesCount = (String) teachersTable.getValueAt(selectedRow, 3);
+            String email = (String) teachersTable.getValueAt(selectedRow, 4);
+
+            String studentDetails[] = {id, teacherName, course, modulesCount, email};
+
+            et = new EditTeacher(studentDetails);
+            et.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No Rows Selected", "Edit Course", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_teacherEditBtnMouseClicked
+
+    private void teacherEditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherEditBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherEditBtnActionPerformed
+
+    private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel10MouseClicked
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -2530,7 +2498,6 @@ public class AdminPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable activityTable;
-    private javax.swing.JButton addAssignmentBtn;
     private javax.swing.JButton addCourse;
     private javax.swing.JButton courseReloadBtn;
     private javax.swing.JLabel coursesCount;
@@ -2544,6 +2511,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -2565,6 +2533,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -2579,19 +2548,14 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JTabbedPane mainBody;
     private javax.swing.JPanel mainPanel;
@@ -2599,7 +2563,6 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JLabel modulesCount;
     private javax.swing.JPanel panelFifth;
     private javax.swing.JPanel panelFirst;
-    private javax.swing.JPanel panelFourth;
     private javax.swing.JPanel panelSecond;
     private javax.swing.JPanel panelThird;
     private javax.swing.JPasswordField profileConfirmPassword;
@@ -2607,31 +2570,13 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JPasswordField profilePassword;
     private javax.swing.JTextField profilePhone;
     private javax.swing.JTextField profileUsername;
-    public javax.swing.JLabel qsDate1;
-    public javax.swing.JLabel qsDate2;
-    public javax.swing.JLabel qsDate3;
-    public javax.swing.JLabel qsLabel1;
-    public javax.swing.JLabel qsLabel2;
-    public javax.swing.JLabel qsLabel3;
-    public javax.swing.JLabel qsLabel4;
-    public javax.swing.JLabel qsLabel5;
-    public javax.swing.JLabel qsLabel6;
-    public javax.swing.JLabel qsMod1;
-    public javax.swing.JLabel qsMod2;
-    public javax.swing.JLabel qsMod3;
-    public javax.swing.JLabel qsNo1;
-    public javax.swing.JLabel qsNo2;
-    public javax.swing.JLabel qsNo3;
-    public javax.swing.JPanel qsPanel1;
-    public javax.swing.JPanel qsPanel2;
-    public javax.swing.JPanel qsPanel3;
-    private javax.swing.JPanel questionsPanel;
-    private javax.swing.JButton refreshBtn;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchCourses;
     private javax.swing.JTextField searchStudents;
+    private javax.swing.JTextField searchTeachers;
     private javax.swing.JLabel stdPanelName;
     private javax.swing.JButton studentAddBtn;
+    private javax.swing.JButton studentAddBtn1;
     private javax.swing.JLabel studentCount;
     private javax.swing.JButton studentDeleteBtn;
     private javax.swing.JButton studentEditBtn;
@@ -2651,7 +2596,13 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JScrollPane tableScrollPanel;
     private javax.swing.JScrollPane tableScrollPanel1;
     private javax.swing.JScrollPane tableScrollPanel2;
+    private javax.swing.JScrollPane tableScrollPanel3;
     private javax.swing.JLabel teacherCount;
+    private javax.swing.JButton teacherDeleteBtn;
+    private javax.swing.JButton teacherEditBtn;
+    private javax.swing.JButton teacherReloadBtn;
+    private javax.swing.JTable teachersTable;
+    private javax.swing.JPanel teachersTablePanel;
     private javax.swing.JLabel usertypeShow;
     // End of variables declaration//GEN-END:variables
 }

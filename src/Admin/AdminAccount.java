@@ -4,6 +4,8 @@
  */
 package Admin;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import cms.Backend.Account;
 import cms.Backend.CreateConnection;
 import cms.Backend.StudentAccount;
@@ -187,6 +189,34 @@ public class AdminAccount extends CreateConnection {
         }
     }
 
+    public static void teachersTable(DefaultTableModel model) {
+        try {
+            String query = """
+                                SELECT Teacher.id, Teacher.f_name, Teacher.l_name, Teacher.email,  Teacher.course FROM Teacher;                                                                
+                                """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String teacherID = String.valueOf(resultSet.getInt("id"));
+                String name = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
+                String email = resultSet.getString("email");
+                String cName = resultSet.getString("course");
+                String modulesInvolved = "4";
+                String row[] = {teacherID, name, cName, modulesInvolved, email};
+                model.addRow(row);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
     public static void deleteCourse(int id) {
         try {
             String query = "DELETE FROM Course WHERE Course.course_id = " + id + " ;";
@@ -219,6 +249,27 @@ public class AdminAccount extends CreateConnection {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex, "Delete Student", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void deleteTeacher(int id) {
+        try {
+            String query = "DELETE FROM Teacher WHERE Teacher.id = " + id + " ;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected == 1) {
+                JOptionPane.showMessageDialog(null, "Teacher's account successfully deleted", "Delete Teacher", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+
+            JOptionPane.showMessageDialog(null, "Unable to delete teacher account: The teacher is currently assigned to one or more modules. Please find a replacement teacher for these modules before deleting the account.", "Delete Teacher", JOptionPane.ERROR_MESSAGE);
+
+        } catch (SQLException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -273,6 +324,33 @@ public class AdminAccount extends CreateConnection {
         } catch (SQLException ex) {
 
             JOptionPane.showMessageDialog(null, ex, "Edit Student", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public static int editTeacher(String fName, String lName, int id) {
+
+        try {
+
+            String query = "UPDATE `Teacher` SET `f_name` = ?, `l_name` = ? WHERE `Teacher`.`id` = ?;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            preparedStatement.setString(1, fName);
+            preparedStatement.setString(2, lName);
+            preparedStatement.setInt(3, id);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected == 1) {
+                JOptionPane.showMessageDialog(null, "Details successfully updated", "Edit Teacher", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            return 1;
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, ex, "Edit Teacher", JOptionPane.INFORMATION_MESSAGE);
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;

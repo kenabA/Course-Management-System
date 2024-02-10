@@ -442,7 +442,7 @@ public class Account extends CreateConnection {
     public static String[] extractFLName(int id, String role) {
         try {
 
-            String query = " SELECT f_name, l_name FROM `Student` where Student.id = " + id + " ;";
+            String query = " SELECT f_name, l_name FROM " + role + " where " + role + ".id = " + id + " ;";
 
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
 

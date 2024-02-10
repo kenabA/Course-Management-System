@@ -53,12 +53,14 @@ public class EditStudent extends javax.swing.JFrame {
         studentCourseField = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         studentEmailField = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit Student Details");
         setResizable(false);
 
-        jPanel3.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         quesNo2.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         quesNo2.setForeground(new java.awt.Color(51, 51, 51));
@@ -124,6 +126,8 @@ public class EditStudent extends javax.swing.JFrame {
         studentEmailField.setForeground(new java.awt.Color(102, 102, 102));
         studentEmailField.setText("kebab.bahadur@gmail.com");
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/student.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -137,11 +141,6 @@ public class EditStudent extends javax.swing.JFrame {
                         .addGap(48, 48, 48)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(quesNo2)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(studentIdLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -160,16 +159,30 @@ public class EditStudent extends javax.swing.JFrame {
                                             .addComponent(studentCourseField))
                                         .addGap(97, 97, 97))
                                     .addComponent(studentFNameField)
-                                    .addComponent(studentLNameField))))))
+                                    .addComponent(studentLNameField)))
+                            .addComponent(jSeparator4)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel1)
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(quesNo2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addComponent(quesNo2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(quesNo2)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel12))
+                    .addComponent(jLabel1))
+                .addGap(24, 24, 24)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(studentIdLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,7 +214,7 @@ public class EditStudent extends javax.swing.JFrame {
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(studentEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(updateDetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
@@ -211,15 +224,11 @@ public class EditStudent extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -243,10 +252,6 @@ public class EditStudent extends javax.swing.JFrame {
                     return;
                 }
 
-                inputCourseID.setText("");
-                inputCourseTitle.setText("");
-                inputCourseCode.setText("");
-
             }
         }
     }//GEN-LAST:event_updateDetailsBtnMouseClicked
@@ -257,47 +262,14 @@ public class EditStudent extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addCourseBtn;
-    private javax.swing.JButton addCourseBtn1;
-    private javax.swing.JTextField existingCourseCode;
-    private javax.swing.JTextField existingCourseId;
-    private javax.swing.JTextField existingCourseTitle;
-    private javax.swing.JTextField inputCourseCode;
-    private javax.swing.JTextField inputCourseCode1;
-    private javax.swing.JTextField inputCourseID;
-    private javax.swing.JTextField inputCourseID1;
-    private javax.swing.JTextField inputCourseTitle;
-    private javax.swing.JTextField inputCourseTitle1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JLabel quesNo;
-    private javax.swing.JLabel quesNo1;
     private javax.swing.JLabel quesNo2;
-    private javax.swing.JLabel quesNo3;
     private javax.swing.JLabel studentCourseField;
     private javax.swing.JLabel studentEmailField;
     private javax.swing.JTextField studentFNameField;
@@ -308,7 +280,6 @@ public class EditStudent extends javax.swing.JFrame {
     private javax.swing.JTextField studentLNameField;
     private javax.swing.JLabel studentSemesterField;
     private javax.swing.JLabel studentSemesterLabel;
-    private javax.swing.JButton updateCourseBtn;
     private javax.swing.JButton updateDetailsBtn;
     // End of variables declaration//GEN-END:variables
 }
