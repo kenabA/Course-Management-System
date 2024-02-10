@@ -161,6 +161,33 @@ public class AdminAccount extends CreateConnection {
         return 0;
     }
 
+    public static int addModule(int moduleId, String moduleName, int semester, int courseId, int teacherId) {
+        try {
+
+            String query = "INSERT INTO Module (module_id, module_name, semester, course_id,teacher_id) VALUES (?,?,?, ?, ? );";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, moduleId);
+            preparedStatement.setString(2, moduleName);
+            preparedStatement.setInt(3, semester);
+
+            preparedStatement.setInt(4, courseId);
+
+            preparedStatement.setInt(5, teacherId);
+
+            int rows = preparedStatement.executeUpdate();
+
+            if (rows != 0) {
+                JOptionPane.showMessageDialog(null, "Success", "DONE", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            return rows;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e, "Add module", JOptionPane.INFORMATION_MESSAGE);
+        }
+        return 0;
+    }
+
     public static void studentsTable(DefaultTableModel model) {
         try {
             String query = """

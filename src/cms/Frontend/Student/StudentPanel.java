@@ -16,11 +16,14 @@ import java.sql.ResultSet;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.print.PrinterException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -251,7 +254,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
         jPanel25 = new javax.swing.JPanel();
         searchGrades = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        printBtn = new javax.swing.JLabel();
         panelFourth = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -1233,10 +1236,10 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addGap(6, 6, 6))
         );
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/printer.png"))); // NOI18N
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        printBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/printer.png"))); // NOI18N
+        printBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
+                printBtnMouseClicked(evt);
             }
         });
 
@@ -1253,7 +1256,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
+                        .addComponent(printBtn)
                         .addGap(46, 46, 46))))
         );
         jPanel18Layout.setVerticalGroup(
@@ -1262,7 +1265,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
                 .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(printBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(tableScrollPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
@@ -2402,10 +2405,11 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
         a.setVisible(true);
     }//GEN-LAST:event_submitBtn3MouseClicked
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        // TODO add your handling code here:
+    private void printBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printBtnMouseClicked
+
         JOptionPane.showMessageDialog(null, "Feature under construction.", "Print Result Slip", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jLabel6MouseClicked
+
+    }//GEN-LAST:event_printBtnMouseClicked
     public void setButtonState(boolean enabled) {
 
         submitBtn1.setText("Submitted");
@@ -2478,7 +2482,6 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -2531,6 +2534,7 @@ public class StudentPanel extends javax.swing.JFrame implements StudentTeacher {
     private javax.swing.JPanel panelFourth;
     private javax.swing.JPanel panelSecond;
     private javax.swing.JPanel panelThird;
+    private javax.swing.JLabel printBtn;
     private javax.swing.JPasswordField profileConfirmPassword;
     private javax.swing.JTextField profileEmail;
     private javax.swing.JPasswordField profilePassword;

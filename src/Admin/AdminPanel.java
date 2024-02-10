@@ -276,7 +276,7 @@ public class AdminPanel extends javax.swing.JFrame {
         jPanel28 = new javax.swing.JPanel();
         searchModules = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        teacherAddBtn1 = new javax.swing.JButton();
+        moduleAddBtn = new javax.swing.JButton();
         moduleReloadBtn = new javax.swing.JButton();
         moduleDeleteBtn = new javax.swing.JButton();
         moduleEditBtn = new javax.swing.JButton();
@@ -2036,20 +2036,20 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
-        teacherAddBtn1.setBackground(new java.awt.Color(250, 250, 250));
-        teacherAddBtn1.setForeground(new java.awt.Color(108, 99, 255));
-        teacherAddBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/plus1.png"))); // NOI18N
-        teacherAddBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
-        teacherAddBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        teacherAddBtn1.setIconTextGap(0);
-        teacherAddBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+        moduleAddBtn.setBackground(new java.awt.Color(250, 250, 250));
+        moduleAddBtn.setForeground(new java.awt.Color(108, 99, 255));
+        moduleAddBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/plus1.png"))); // NOI18N
+        moduleAddBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        moduleAddBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        moduleAddBtn.setIconTextGap(0);
+        moduleAddBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teacherAddBtn1MouseClicked(evt);
+                moduleAddBtnMouseClicked(evt);
             }
         });
-        teacherAddBtn1.addActionListener(new java.awt.event.ActionListener() {
+        moduleAddBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teacherAddBtn1ActionPerformed(evt);
+                moduleAddBtnActionPerformed(evt);
             }
         });
 
@@ -2117,7 +2117,7 @@ public class AdminPanel extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(moduleEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(teacherAddBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(moduleAddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
@@ -2125,7 +2125,7 @@ public class AdminPanel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(teacherAddBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(moduleAddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(moduleEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(moduleDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(moduleReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2819,14 +2819,16 @@ public class AdminPanel extends javax.swing.JFrame {
         RowFilter filterRow = RowFilter.regexFilter(searchModules.getText());
         obj1.setRowFilter(filterRow);
     }//GEN-LAST:event_searchModulesKeyReleased
+    AddModule am = new AddModule();
+    private void moduleAddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moduleAddBtnMouseClicked
 
-    private void teacherAddBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherAddBtn1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_teacherAddBtn1MouseClicked
+        am.setVisible(true);
 
-    private void teacherAddBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherAddBtn1ActionPerformed
+    }//GEN-LAST:event_moduleAddBtnMouseClicked
+
+    private void moduleAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moduleAddBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_teacherAddBtn1ActionPerformed
+    }//GEN-LAST:event_moduleAddBtnActionPerformed
 
     private void moduleReloadBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moduleReloadBtnMouseClicked
         // TODO add your handling code here:
@@ -2962,6 +2964,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JTabbedPane mainBody;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menu;
+    private javax.swing.JButton moduleAddBtn;
     private javax.swing.JButton moduleDeleteBtn;
     private javax.swing.JButton moduleEditBtn;
     private javax.swing.JButton moduleReloadBtn;
@@ -3008,7 +3011,6 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JScrollPane tableScrollPanel3;
     private javax.swing.JScrollPane tableScrollPanel4;
     private javax.swing.JButton teacherAddBtn;
-    private javax.swing.JButton teacherAddBtn1;
     private javax.swing.JLabel teacherCount;
     private javax.swing.JButton teacherDeleteBtn;
     private javax.swing.JButton teacherEditBtn;

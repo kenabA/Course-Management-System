@@ -48,7 +48,7 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="updateDetailsBtn" min="-2" pref="177" max="-2" attributes="0"/>
+                          <Component id="addModuleBtn" min="-2" pref="177" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
@@ -58,16 +58,16 @@
                                       <Component id="studentIdLabel2" alignment="1" max="32767" attributes="0"/>
                                       <Component id="studentIdLabel1" alignment="1" max="32767" attributes="0"/>
                                       <Component id="jLabel15" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="studentIdLabel" alignment="1" pref="115" max="32767" attributes="0"/>
+                                      <Component id="studentIdLabel" alignment="1" max="32767" attributes="0"/>
                                       <Component id="jLabel21" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="moduleNameField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="courseNameField" max="32767" attributes="0"/>
-                                      <Component id="teacherField" max="32767" attributes="0"/>
+                                      <Component id="teacherField" alignment="0" max="32767" attributes="0"/>
                                       <Component id="semesterField" alignment="0" pref="270" max="32767" attributes="0"/>
                                       <Component id="moduleIDField" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="courseNameField" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jSeparator4" alignment="0" max="32767" attributes="0"/>
@@ -131,7 +131,7 @@
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="updateDetailsBtn" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="addModuleBtn" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -157,7 +157,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Edit Module Details"/>
+            <Property name="text" type="java.lang.String" value="Add Module Details"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="studentIdLabel">
@@ -171,7 +171,7 @@
             <Property name="text" type="java.lang.String" value="Module Name :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="updateDetailsBtn">
+        <Component class="javax.swing.JButton" name="addModuleBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="63" red="6c" type="rgb"/>
@@ -179,7 +179,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Update Details"/>
+            <Property name="text" type="java.lang.String" value="Add Module"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -188,8 +188,8 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="updateDetailsBtnMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateDetailsBtnActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addModuleBtnMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addModuleBtnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
@@ -234,14 +234,6 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="courseNameField">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="66" red="66" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="BIT"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel21">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -268,11 +260,8 @@
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Kenab Kushal KC"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="1">
+                <StringItem index="0" value="Please select a course"/>
               </StringArray>
             </Property>
           </Properties>
@@ -300,6 +289,25 @@
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="courseNameField">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="Select a course"/>
+                <StringItem index="1" value=" "/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="courseNameFieldActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

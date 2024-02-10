@@ -2,48 +2,33 @@ package Admin;
 
 import cms.Backend.Account;
 import static cms.Backend.HelperMethods.showConfirmationDialog;
-import java.util.ArrayList;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
-public class EditModule extends javax.swing.JFrame {
+public class AddModule extends javax.swing.JFrame {
 
-    String moduleId, moduleName, moduleSemester, moduleCourse, courseTeacher, courseTeacherId;
+    public AddModule() {
 
-    public EditModule(String moduleDetails[]) {
         initComponents();
-        this.moduleId = moduleDetails[0];
-        this.moduleName = moduleDetails[1];
-        this.moduleCourse = moduleDetails[2];
-        this.moduleSemester = moduleDetails[3];
-        this.courseTeacher = moduleDetails[4];
-        this.courseTeacherId = moduleDetails[5];
-
-        setDetails();
-    }
-
-    private void setDetails() {
-        moduleIDField.setText(moduleId);
-        moduleNameField.setText(moduleName);
-        semesterField.setValue(Integer.parseInt(moduleSemester));
-        courseNameField.setText(moduleCourse);
-        setDropDownField();
+        setCourse();
 
     }
 
+    private static Map<Integer, String> coursesList;
     private static Map<Integer, String> teachers;
 
-    public void setDropDownField() {
+    private void setCourse() {
 
-        teachers = Account.getTeacherNames(moduleCourse);
+        coursesList = Account.getAllCourses();
 
-        if (teachers != null) {
-            teacherField.removeAllItems();
+        if (coursesList != null) {
+            courseNameField.removeAllItems();
+            for (String value : coursesList.values()) {
 
-            for (String teacher : teachers.values()) {
-                teacherField.addItem(teacher);
-
+                courseNameField.addItem(value);
             }
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -54,19 +39,19 @@ public class EditModule extends javax.swing.JFrame {
         quesNo2 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         studentIdLabel = new javax.swing.JLabel();
-        updateDetailsBtn = new javax.swing.JButton();
+        addModuleBtn = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         studentIdLabel1 = new javax.swing.JLabel();
         studentIdLabel2 = new javax.swing.JLabel();
         moduleNameField = new javax.swing.JTextField();
-        courseNameField = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         teacherField = new javax.swing.JComboBox<>();
         semesterField = new javax.swing.JSlider();
         moduleIDField = new javax.swing.JTextField();
+        courseNameField = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -79,25 +64,25 @@ public class EditModule extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel12.setText("Edit Module Details");
+        jLabel12.setText("Add Module Details");
 
         studentIdLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         studentIdLabel.setForeground(new java.awt.Color(102, 102, 102));
         studentIdLabel.setText("Module Name :");
 
-        updateDetailsBtn.setBackground(new java.awt.Color(108, 99, 255));
-        updateDetailsBtn.setForeground(new java.awt.Color(255, 255, 255));
-        updateDetailsBtn.setText("Update Details");
-        updateDetailsBtn.setBorder(null);
-        updateDetailsBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        updateDetailsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        addModuleBtn.setBackground(new java.awt.Color(108, 99, 255));
+        addModuleBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addModuleBtn.setText("Add Module");
+        addModuleBtn.setBorder(null);
+        addModuleBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addModuleBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updateDetailsBtnMouseClicked(evt);
+                addModuleBtnMouseClicked(evt);
             }
         });
-        updateDetailsBtn.addActionListener(new java.awt.event.ActionListener() {
+        addModuleBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateDetailsBtnActionPerformed(evt);
+                addModuleBtnActionPerformed(evt);
             }
         });
 
@@ -115,9 +100,6 @@ public class EditModule extends javax.swing.JFrame {
 
         moduleNameField.setForeground(new java.awt.Color(102, 102, 102));
 
-        courseNameField.setForeground(new java.awt.Color(102, 102, 102));
-        courseNameField.setText("BIT");
-
         jLabel21.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(102, 102, 102));
         jLabel21.setText("Teacher :");
@@ -125,7 +107,7 @@ public class EditModule extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/courseBig.png"))); // NOI18N
 
         teacherField.setForeground(new java.awt.Color(102, 102, 102));
-        teacherField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kenab Kushal KC", "Item 2", "Item 3", "Item 4" }));
+        teacherField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please select a course" }));
 
         semesterField.setForeground(new java.awt.Color(108, 99, 255));
         semesterField.setMajorTickSpacing(1);
@@ -138,6 +120,14 @@ public class EditModule extends javax.swing.JFrame {
 
         moduleIDField.setForeground(new java.awt.Color(102, 102, 102));
 
+        courseNameField.setForeground(new java.awt.Color(102, 102, 102));
+        courseNameField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a course", " " }));
+        courseNameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseNameFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -146,7 +136,7 @@ public class EditModule extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(updateDetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(addModuleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,15 +145,15 @@ public class EditModule extends javax.swing.JFrame {
                                     .addComponent(studentIdLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(studentIdLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(studentIdLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                    .addComponent(studentIdLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(48, 48, 48)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(moduleNameField)
-                                    .addComponent(courseNameField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(teacherField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(semesterField, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                                    .addComponent(moduleIDField)))
+                                    .addComponent(moduleIDField)
+                                    .addComponent(courseNameField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jSeparator4)
                             .addComponent(jSeparator3)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
@@ -192,13 +182,10 @@ public class EditModule extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(studentIdLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(moduleIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(moduleNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(studentIdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(moduleNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentIdLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(studentIdLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,7 +201,7 @@ public class EditModule extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(updateDetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addModuleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
 
@@ -232,34 +219,84 @@ public class EditModule extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+ private int findTeacherID(String name) {
 
+        int foundKey = 0;
+        for (Map.Entry<Integer, String> entry : teachers.entrySet()) {
+            if (entry.getValue().equals(name)) {
+                foundKey = entry.getKey();
+                return foundKey;
+            }
+        }
+        return foundKey;
+    }
 
-    private void updateDetailsBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateDetailsBtnMouseClicked
+    private int findCourseID(String name) {
 
-        if (showConfirmationDialog("Do you want to make changes to the existing data? ")) {
+        int foundKey = 0;
+        for (Map.Entry<Integer, String> entry : coursesList.entrySet()) {
+            if (entry.getValue().equals(name)) {
+                foundKey = entry.getKey();
+                return foundKey;
+            }
+        }
+        return foundKey;
+    }
+    private void addModuleBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addModuleBtnMouseClicked
 
-            String id = moduleIDField.getText();
-            String moduleName = moduleNameField.getText();
-            int sem = semesterField.getValue();
+        if (showConfirmationDialog("Do you want to add a new course? ")) {
+
             String teacherName = (String) teacherField.getSelectedItem();
 
-            String credentials[] = {moduleName, id};
+            if (teacherName == null) {
+
+                JOptionPane.showMessageDialog(null, "No teachers for the respective course. Please add a teacher first.", "Add Module", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            String moduleId = moduleIDField.getText();
+
+            String moduleName = moduleNameField.getText();
+            int sem = semesterField.getValue();
+            String courseName = (String) courseNameField.getSelectedItem();
+            int courseId = findCourseID(courseName);
+
+            String selectedTeacherName = (String) teacherField.getSelectedItem();
+            int teacherId = findTeacherID(selectedTeacherName);
+
+            String credentials[] = {moduleId, moduleName};
 
             if (AdminValidation.validateDetails(credentials)) {
 
-                int uploaded = AdminAccount.editModule(Integer.parseInt(id), moduleName, sem, teacherName, Integer.parseInt(moduleId), Integer.parseInt(courseTeacherId));
+                int uploaded = AdminAccount.addModule(Integer.parseInt(moduleId), moduleName, sem, courseId, teacherId);
+            }
 
+        }
+    }//GEN-LAST:event_addModuleBtnMouseClicked
+
+    private void addModuleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addModuleBtnActionPerformed
+
+    }//GEN-LAST:event_addModuleBtnActionPerformed
+
+    private void courseNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseNameFieldActionPerformed
+
+        String selectedOption = (String) courseNameField.getSelectedItem();
+
+        teachers = Account.getTeacherNames(selectedOption);
+
+        if (teachers != null) {
+            teacherField.removeAllItems();
+            for (String teachers : teachers.values()) {
+                teacherField.addItem(teachers);
             }
         }
-    }//GEN-LAST:event_updateDetailsBtnMouseClicked
 
-    private void updateDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDetailsBtnActionPerformed
-
-    }//GEN-LAST:event_updateDetailsBtnActionPerformed
+    }//GEN-LAST:event_courseNameFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel courseNameField;
+    private javax.swing.JButton addModuleBtn;
+    private javax.swing.JComboBox<String> courseNameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
@@ -275,6 +312,5 @@ public class EditModule extends javax.swing.JFrame {
     private javax.swing.JLabel studentIdLabel1;
     private javax.swing.JLabel studentIdLabel2;
     private javax.swing.JComboBox<String> teacherField;
-    private javax.swing.JButton updateDetailsBtn;
     // End of variables declaration//GEN-END:variables
 }

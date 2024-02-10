@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -373,12 +375,12 @@ public class Account extends CreateConnection {
         return null;
     }
 
-    public static ArrayList<String> getTeacherNames(String course) {
+    public static Map<Integer, String> getTeacherNames(String course) {
 
-        ArrayList<String> teachers = new ArrayList<>();
+        Map<Integer, String> teachers = new HashMap<>();
 
         try {
-            String query = " SELECT Teacher.f_name , Teacher.l_name FROM `Teacher` WHERE course = ? ;";
+            String query = " SELECT Teacher.f_name , Teacher.l_name, Teacher.id FROM `Teacher` WHERE course = ? ;";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
             preparedStatement.setString(1, course);
 
@@ -386,7 +388,8 @@ public class Account extends CreateConnection {
 
             while (resultSet.next()) {
                 String name = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
-                teachers.add(name);
+                int id = resultSet.getInt("id");
+                teachers.put(id, name);
             }
 
             return teachers;
@@ -452,6 +455,32 @@ public class Account extends CreateConnection {
             while (resultSet.next()) {
 
                 courses.add(resultSet.getString("course_name"));
+
+            }
+            return courses;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static Map<Integer, String> getAllCourses() {
+        try {
+
+            Map<Integer, String> courses = new HashMap<>();
+
+            String query = " SELECT Course.course_name, Course.course_id FROM `Course` ;";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String courseName = resultSet.getString("course_name");
+                int courseId = resultSet.getInt("course_id");
+
+                courses.put(courseId, courseName);
 
             }
             return courses;
