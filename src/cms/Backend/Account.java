@@ -421,7 +421,7 @@ public class Account extends CreateConnection {
         try {
             ArrayList<String> courses = new ArrayList<>();
 
-            String query = " SELECT Course.course_name FROM `Course`;";
+            String query = " SELECT Course.course_name, COUNT(Module.module_id) AS module_count FROM `Course` JOIN Module ON Course.course_id = Module.course_id GROUP BY Course.course_id, Course.course_name HAVING module_count >= 4;";
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
 
             ResultSet resultSet = preparedStatement.executeQuery();
