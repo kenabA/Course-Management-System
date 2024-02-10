@@ -504,6 +504,7 @@ public class AddStudent extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Error in Registration File : " + e);
         }
+        
     }//GEN-LAST:event_addAccountBtnActionPerformed
 
     private void registerEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_registerEmailFocusGained
