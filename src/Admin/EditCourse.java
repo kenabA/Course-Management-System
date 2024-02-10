@@ -53,7 +53,7 @@ public class EditCourse extends javax.swing.JFrame {
         quesNo3.setForeground(new java.awt.Color(51, 51, 51));
         quesNo3.setText("Course");
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/course.png"))); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/courseBig.png"))); // NOI18N
 
         jLabel17.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(102, 102, 102));

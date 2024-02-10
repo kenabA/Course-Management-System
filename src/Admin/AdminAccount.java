@@ -8,6 +8,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 import cms.Backend.Account;
 import cms.Backend.CreateConnection;
+import cms.Backend.HelperMethods;
 import cms.Backend.StudentAccount;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -261,6 +262,38 @@ public class AdminAccount extends CreateConnection {
         }
     }
 
+    public static void allModulesTable(DefaultTableModel model) {
+        try {
+            String query = """
+                           
+                SELECT Module.module_id, Module.module_name, Course.course_name, Module.semester, Teacher.f_name, Teacher.l_name, Teacher.id
+                FROM Module JOIN Teacher ON Teacher.id = Module.teacher_id JOIN Course ON Course.course_id = Module.course_id;
+                             
+                           """;
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String moduleId = String.valueOf(resultSet.getInt("module_id"));
+                String name = resultSet.getString("module_name");
+                String cName = resultSet.getString("course_name");
+                String semester = String.valueOf(resultSet.getInt("semester"));
+                String tName = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
+                String teacherId = String.valueOf(resultSet.getInt("id"));
+
+                String row[] = {moduleId, name, cName, semester, tName, teacherId};
+                model.addRow(row);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static void deleteCourse(int id) {
         try {
             String query = "DELETE FROM Course WHERE Course.course_id = " + id + " ;";
@@ -293,6 +326,25 @@ public class AdminAccount extends CreateConnection {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex, "Delete Student", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void deleteModule(int id) {
+
+        try {
+            String query = "DELETE FROM Module WHERE Module.module_id = " + id + " ;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected == 1) {
+                JOptionPane.showMessageDialog(null, "Module successfully deleted", "Delete Module", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex, "Delete Module", JOptionPane.INFORMATION_MESSAGE);
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -341,6 +393,34 @@ public class AdminAccount extends CreateConnection {
         } catch (SQLException ex) {
 
             JOptionPane.showMessageDialog(null, ex, "Delete Course", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public static int editModule(int modId, String modName, int sem, String teacher, int moduleId, int tid) {
+
+        try {
+
+            String query = "UPDATE `Module` SET `module_id` = ?, module_name = ? , semester = ? , teacher_id = ? WHERE Module.module_id = ?;";
+
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setInt(1, modId);
+            preparedStatement.setString(2, modName);
+            preparedStatement.setInt(3, sem);
+            preparedStatement.setInt(4, tid);
+
+            preparedStatement.setInt(5, moduleId);
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected == 1) {
+                JOptionPane.showMessageDialog(null, "Module successfully updated", "Edit Module", JOptionPane.INFORMATION_MESSAGE);
+                return 1;
+            }
+
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, ex, "Edit Module", JOptionPane.INFORMATION_MESSAGE);
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;

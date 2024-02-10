@@ -373,6 +373,29 @@ public class Account extends CreateConnection {
         return null;
     }
 
+    public static ArrayList<String> getTeacherNames(String course) {
+
+        ArrayList<String> teachers = new ArrayList<>();
+
+        try {
+            String query = " SELECT Teacher.f_name , Teacher.l_name FROM `Teacher` WHERE course = ? ;";
+            PreparedStatement preparedStatement = c.connection.prepareStatement(query);
+            preparedStatement.setString(1, course);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("f_name") + " " + resultSet.getString("l_name");
+                teachers.add(name);
+            }
+
+            return teachers;
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public static ArrayList<String> getModuleNames() {
 
         ArrayList<String> modules = new ArrayList<>();

@@ -115,9 +115,9 @@ public class AdminPanel extends javax.swing.JFrame {
         alignTableContents(teachersTable);
         setTableAppearance(teachersTable);
 
-        // Updating the amdin panel
+        // Updating the modules panel
         this.model5 = (DefaultTableModel) modulesTable.getModel();
-        AdminAccount.teachersTable(model5);
+        AdminAccount.allModulesTable(model5);
         alignTableContents(modulesTable);
         setTableAppearance(modulesTable);
 
@@ -277,9 +277,9 @@ public class AdminPanel extends javax.swing.JFrame {
         searchModules = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         teacherAddBtn1 = new javax.swing.JButton();
-        teacherReloadBtn1 = new javax.swing.JButton();
-        teacherDeleteBtn1 = new javax.swing.JButton();
-        teacherEditBtn1 = new javax.swing.JButton();
+        moduleReloadBtn = new javax.swing.JButton();
+        moduleDeleteBtn = new javax.swing.JButton();
+        moduleEditBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(108, 99, 255));
@@ -1324,6 +1324,14 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
         tableScrollPanel3.setViewportView(teachersTable);
+        if (teachersTable.getColumnModel().getColumnCount() > 0) {
+            teachersTable.getColumnModel().getColumn(0).setResizable(false);
+            teachersTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+            teachersTable.getColumnModel().getColumn(2).setResizable(false);
+            teachersTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+            teachersTable.getColumnModel().getColumn(3).setResizable(false);
+            teachersTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+        }
 
         jPanel27.setBackground(new java.awt.Color(255, 255, 255));
         jPanel27.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
@@ -1934,14 +1942,14 @@ public class AdminPanel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Module ID", "Module Name", "Course", "Semester", "Teacher"
+                "Module ID", "Module Name", "Course", "Semester", "Teacher", "Teacher ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1962,6 +1970,16 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
         tableScrollPanel4.setViewportView(modulesTable);
+        if (modulesTable.getColumnModel().getColumnCount() > 0) {
+            modulesTable.getColumnModel().getColumn(0).setResizable(false);
+            modulesTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+            modulesTable.getColumnModel().getColumn(2).setResizable(false);
+            modulesTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+            modulesTable.getColumnModel().getColumn(3).setResizable(false);
+            modulesTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+            modulesTable.getColumnModel().getColumn(5).setResizable(false);
+            modulesTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+        }
 
         jPanel28.setBackground(new java.awt.Color(255, 255, 255));
         jPanel28.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(241, 240, 255), null));
@@ -2035,47 +2053,50 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
-        teacherReloadBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/refresh.png"))); // NOI18N
-        teacherReloadBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
-        teacherReloadBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        teacherReloadBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+        moduleReloadBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/refresh.png"))); // NOI18N
+        moduleReloadBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        moduleReloadBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        moduleReloadBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teacherReloadBtn1MouseClicked(evt);
+                moduleReloadBtnMouseClicked(evt);
             }
         });
-        teacherReloadBtn1.addActionListener(new java.awt.event.ActionListener() {
+        moduleReloadBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teacherReloadBtn1ActionPerformed(evt);
+                moduleReloadBtnActionPerformed(evt);
             }
         });
 
-        teacherDeleteBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/delete.png"))); // NOI18N
-        teacherDeleteBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
-        teacherDeleteBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        teacherDeleteBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+        moduleDeleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/delete.png"))); // NOI18N
+        moduleDeleteBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        moduleDeleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        moduleDeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teacherDeleteBtn1MouseClicked(evt);
+                moduleDeleteBtnMouseClicked(evt);
             }
         });
-        teacherDeleteBtn1.addActionListener(new java.awt.event.ActionListener() {
+        moduleDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teacherDeleteBtn1ActionPerformed(evt);
+                moduleDeleteBtnActionPerformed(evt);
             }
         });
 
-        teacherEditBtn1.setBackground(new java.awt.Color(250, 250, 250));
-        teacherEditBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/pencil.png"))); // NOI18N
-        teacherEditBtn1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
-        teacherEditBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        teacherEditBtn1.setIconTextGap(8);
-        teacherEditBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+        moduleEditBtn.setBackground(new java.awt.Color(250, 250, 250));
+        moduleEditBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/pencil.png"))); // NOI18N
+        moduleEditBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        moduleEditBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        moduleEditBtn.setIconTextGap(8);
+        moduleEditBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teacherEditBtn1MouseClicked(evt);
+                moduleEditBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                moduleEditBtnMouseEntered(evt);
             }
         });
-        teacherEditBtn1.addActionListener(new java.awt.event.ActionListener() {
+        moduleEditBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teacherEditBtn1ActionPerformed(evt);
+                moduleEditBtnActionPerformed(evt);
             }
         });
 
@@ -2090,11 +2111,11 @@ public class AdminPanel extends javax.swing.JFrame {
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(teacherReloadBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(moduleReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(teacherDeleteBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(moduleDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(teacherEditBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(moduleEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(teacherAddBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
@@ -2105,9 +2126,9 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(teacherAddBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(teacherEditBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(teacherDeleteBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(teacherReloadBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(moduleEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(moduleDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(moduleReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(tableScrollPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2807,33 +2828,71 @@ public class AdminPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_teacherAddBtn1ActionPerformed
 
-    private void teacherReloadBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherReloadBtn1MouseClicked
+    private void moduleReloadBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moduleReloadBtnMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_teacherReloadBtn1MouseClicked
+        model5.setRowCount(0);
+        AdminAccount.allModulesTable(model5);;
 
-    private void teacherReloadBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherReloadBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_teacherReloadBtn1ActionPerformed
+    }//GEN-LAST:event_moduleReloadBtnMouseClicked
 
-    private void teacherDeleteBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherDeleteBtn1MouseClicked
+    private void moduleReloadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moduleReloadBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_teacherDeleteBtn1MouseClicked
+    }//GEN-LAST:event_moduleReloadBtnActionPerformed
 
-    private void teacherDeleteBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherDeleteBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_teacherDeleteBtn1ActionPerformed
+    private void moduleDeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moduleDeleteBtnMouseClicked
+        int selectedRow = modulesTable.getSelectedRow();
 
-    private void teacherEditBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherEditBtn1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_teacherEditBtn1MouseClicked
+        if (selectedRow != -1) {
+            if (HelperMethods.showConfirmationDialog("Do you really want to delete this module? All data corresponding to this module will be lost. ")) {
 
-    private void teacherEditBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherEditBtn1ActionPerformed
+                String id = (String) modulesTable.getValueAt(selectedRow, 0);
+                AdminAccount.deleteModule(Integer.parseInt(id));
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No Rows Selected", "Delete Module", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_moduleDeleteBtnMouseClicked
+
+    private void moduleDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moduleDeleteBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_teacherEditBtn1ActionPerformed
+    }//GEN-LAST:event_moduleDeleteBtnActionPerformed
+    EditModule em;
+    private void moduleEditBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moduleEditBtnMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = modulesTable.getSelectedRow();
+
+        if (selectedRow != -1) {
+
+            // Getting the selected row's details
+            String id = (String) modulesTable.getValueAt(selectedRow, 0);
+            String moduleName = (String) modulesTable.getValueAt(selectedRow, 1);
+            String course = (String) modulesTable.getValueAt(selectedRow, 2);
+            String moduleSemester = (String) modulesTable.getValueAt(selectedRow, 3);
+            String teacher = (String) modulesTable.getValueAt(selectedRow, 4);
+            String teacherId = (String) modulesTable.getValueAt(selectedRow, 5);
+
+            String studentDetails[] = {id, moduleName, course, moduleSemester, teacher, teacherId};
+
+            em = new EditModule(studentDetails);
+            em.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No Rows Selected", "Edit Module", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_moduleEditBtnMouseClicked
+
+    private void moduleEditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moduleEditBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_moduleEditBtnActionPerformed
 
     private void jPanel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel18MouseClicked
+
+    private void moduleEditBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moduleEditBtnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_moduleEditBtnMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2903,6 +2962,9 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JTabbedPane mainBody;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menu;
+    private javax.swing.JButton moduleDeleteBtn;
+    private javax.swing.JButton moduleEditBtn;
+    private javax.swing.JButton moduleReloadBtn;
     private javax.swing.JLabel modulesCount;
     private javax.swing.JTable modulesTable;
     private javax.swing.JPanel panelFifth;
@@ -2949,11 +3011,8 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton teacherAddBtn1;
     private javax.swing.JLabel teacherCount;
     private javax.swing.JButton teacherDeleteBtn;
-    private javax.swing.JButton teacherDeleteBtn1;
     private javax.swing.JButton teacherEditBtn;
-    private javax.swing.JButton teacherEditBtn1;
     private javax.swing.JButton teacherReloadBtn;
-    private javax.swing.JButton teacherReloadBtn1;
     private javax.swing.JTable teachersTable;
     private javax.swing.JPanel teachersTablePanel;
     private javax.swing.JLabel usertypeShow;
