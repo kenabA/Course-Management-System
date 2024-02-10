@@ -93,7 +93,7 @@ public class AdminAccount extends CreateConnection {
     public static void getActivityTableData(DefaultTableModel model) {
         try {
 
-            String query = " SELECT act_id, activity, time FROM `Activity` ORDER BY time DESC; ";
+            String query = " SELECT act_id, activity, time FROM `Activity` ORDER BY time DESC LIMIT 100; ";
 
             PreparedStatement preparedStatement = c.connection.prepareStatement(query);
 

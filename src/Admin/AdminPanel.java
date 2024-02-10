@@ -26,7 +26,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -58,10 +57,6 @@ public class AdminPanel extends javax.swing.JFrame {
     private int moduleCount;
     private int teachersCount;
     private int courseCount;
-    private String semester;
-
-    private String announcement[][];
-    private String questionDetails[][];
 
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -75,22 +70,6 @@ public class AdminPanel extends javax.swing.JFrame {
 
     public AdminPanel() {
         initComponents();
-    }
-
-    private void setValueChanged() {
-
-        deleteCourseBtn.setVisible(false);
-        coursesTable.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
-            if (!e.getValueIsAdjusting()) {
-                if (coursesTable.getSelectedRow() != -1) {
-
-                    deleteCourseBtn.setVisible(true);
-                } else {
-
-                    deleteCourseBtn.setVisible(false);
-                }
-            }
-        });
     }
 
     public void updateDetails() {
@@ -1955,7 +1934,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Teacher ID", "Teacher Name", "Course", "Modules Involved", "Email"
+                "Module ID", "Module Name", "Course", "Semester", "Teacher"
             }
         ) {
             Class[] types = new Class [] {

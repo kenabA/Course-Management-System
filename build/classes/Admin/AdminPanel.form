@@ -2660,11 +2660,11 @@
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="5" rowCount="0">
-                                <Column editable="false" title="Teacher ID" type="java.lang.Integer"/>
-                                <Column editable="false" title="Teacher Name" type="java.lang.String"/>
+                                <Column editable="false" title="Module ID" type="java.lang.Integer"/>
+                                <Column editable="false" title="Module Name" type="java.lang.String"/>
                                 <Column editable="false" title="Course" type="java.lang.String"/>
-                                <Column editable="false" title="Modules Involved" type="java.lang.Integer"/>
-                                <Column editable="false" title="Email" type="java.lang.String"/>
+                                <Column editable="false" title="Semester" type="java.lang.Integer"/>
+                                <Column editable="false" title="Teacher" type="java.lang.String"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
