@@ -28,7 +28,7 @@ public class StudentReport extends javax.swing.JFrame {
             this.studentCourse = courseDetails[3];
             this.studentEmail = courseDetails[4];
 
-            result = Account.getSpecificDetails(Integer.parseInt(studentId), "Student");
+            result = Account.getSpecificDetails(Integer.parseInt(studentId), ordinalToNumeric(studentSemester), "Student");
 
             int grades = 0;
             int performance = 0;
@@ -87,6 +87,13 @@ public class StudentReport extends javax.swing.JFrame {
 
     }
 
+    private int ordinalToNumeric(String sem) {
+        String semStr = sem;
+        String numericString = semStr.replaceAll("[^0-9]", "");
+        int semester = Integer.parseInt(numericString);
+        return semester;
+    }
+
     private void setDetails() {
         studentIDField.setText(studentId);
         stdFullName.setText(studentName);
@@ -94,15 +101,19 @@ public class StudentReport extends javax.swing.JFrame {
         stdRole.setText("Student");
         stdNum.setText(studentNum);
         verifyOverallPer(studentPercentage, studentPerformance);
-
-        String semStr = studentSemester;
-        String numericString = semStr.replaceAll("[^0-9]", "");
-        int semester = Integer.parseInt(numericString);
-
+        int semester = ordinalToNumeric(studentSemester);
         stdSem.setText(HelperMethods.convertToOrdinal(semester));
         verifyLevelYear(semester);
 
         verifyStatus(studentPercentage);
+
+        if (semester == 1) {
+            stdOverallPercentage.setText("Yet to pass the first semester");
+            stdOverallPerformance.setValue(0);
+            stdStatus.setText("Yet to pass the first semester");
+            stdDesc.setText("Yet to pass the first semester");
+
+        }
 
     }
 

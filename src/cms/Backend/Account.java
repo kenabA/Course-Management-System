@@ -114,9 +114,9 @@ public class Account extends CreateConnection {
     }
 
     // ------------- READING FILES : ALL DATA -------------
-    public static ResultSet getSpecificDetails(int id, String usertype) {
+    public static ResultSet getSpecificDetails(int id, int sem, String usertype) {
         try {
-            String query = "SELECT Grade.grade, Grade.overall, Student.ph_num FROM " + usertype + " INNER JOIN Grade ON  Student.id = Grade.student_id WHERE Student.id = " + id + " ;";
+            String query = "SELECT Grade.grade, Grade.overall, Student.ph_num FROM Student INNER JOIN Grade ON  Student.id = Grade.student_id INNER JOIN Module ON Module.module_id = Grade.module_id  WHERE Student.id = 16 and  Module.semester = " + sem + "-1;";
 
             ResultSet resultSet = c.statement.executeQuery(query);
             return resultSet;
