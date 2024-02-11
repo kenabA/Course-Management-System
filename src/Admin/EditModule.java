@@ -2,7 +2,6 @@ package Admin;
 
 import cms.Backend.Account;
 import static cms.Backend.HelperMethods.showConfirmationDialog;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class EditModule extends javax.swing.JFrame {
@@ -233,7 +232,17 @@ public class EditModule extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private int findTeacherID(String name) {
 
+        int foundKey = 0;
+        for (Map.Entry<Integer, String> entry : teachers.entrySet()) {
+            if (entry.getValue().equals(name)) {
+                foundKey = entry.getKey();
+                return foundKey;
+            }
+        }
+        return foundKey;
+    }
     private void updateDetailsBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateDetailsBtnMouseClicked
 
         if (showConfirmationDialog("Do you want to make changes to the existing data? ")) {
@@ -242,12 +251,14 @@ public class EditModule extends javax.swing.JFrame {
             String moduleName = moduleNameField.getText();
             int sem = semesterField.getValue();
             String teacherName = (String) teacherField.getSelectedItem();
-
+            System.out.println(teacherName);
             String credentials[] = {moduleName, id};
+            int teacherId = findTeacherID(teacherName);
+            System.out.println(teacherId);
 
             if (AdminValidation.validateDetails(credentials)) {
 
-                int uploaded = AdminAccount.editModule(Integer.parseInt(id), moduleName, sem, teacherName, Integer.parseInt(moduleId), Integer.parseInt(courseTeacherId));
+                int uploaded = AdminAccount.editModule(Integer.parseInt(id), moduleName, sem, Integer.parseInt(moduleId), teacherId);
 
             }
         }

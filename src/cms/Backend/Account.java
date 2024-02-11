@@ -113,6 +113,20 @@ public class Account extends CreateConnection {
         return null;
     }
 
+    // ------------- READING FILES : ALL DATA -------------
+    public static ResultSet getSpecificDetails(int id, String usertype) {
+        try {
+            String query = "SELECT Grade.grade, Grade.overall, Student.ph_num FROM " + usertype + " INNER JOIN Grade ON  Student.id = Grade.student_id WHERE Student.id = " + id + " ;";
+
+            ResultSet resultSet = c.statement.executeQuery(query);
+            return resultSet;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     // ------------- LOGGING ACCOUNT : OPENING NEW PANEL -------------
     public boolean loginAccount(Object usertype, String username, String password) {
 

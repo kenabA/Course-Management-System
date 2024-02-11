@@ -425,7 +425,7 @@ public class AdminAccount extends CreateConnection {
         return 0;
     }
 
-    public static int editModule(int modId, String modName, int sem, String teacher, int moduleId, int tid) {
+    public static int editModule(int modId, String modName, int sem, int moduleId, int tid) {
 
         try {
 
@@ -436,6 +436,8 @@ public class AdminAccount extends CreateConnection {
             preparedStatement.setString(2, modName);
             preparedStatement.setInt(3, sem);
             preparedStatement.setInt(4, tid);
+
+            System.out.println(tid);
 
             preparedStatement.setInt(5, moduleId);
             int rowsAffected = preparedStatement.executeUpdate();

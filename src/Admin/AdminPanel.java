@@ -226,6 +226,7 @@ public class AdminPanel extends javax.swing.JFrame {
         studentReloadBtn = new javax.swing.JButton();
         studentDeleteBtn = new javax.swing.JButton();
         studentEditBtn = new javax.swing.JButton();
+        studentReportBtn = new javax.swing.JButton();
         teachersTablePanel = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         tableScrollPanel3 = new javax.swing.JScrollPane();
@@ -1229,6 +1230,20 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
+        studentReportBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/report.png"))); // NOI18N
+        studentReportBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        studentReportBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        studentReportBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentReportBtnMouseClicked(evt);
+            }
+        });
+        studentReportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentReportBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1240,6 +1255,8 @@ public class AdminPanel extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(studentReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
                         .addComponent(studentReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(studentDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1258,7 +1275,8 @@ public class AdminPanel extends javax.swing.JFrame {
                     .addComponent(studentEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(studentDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(studentReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(tableScrollPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
@@ -2896,6 +2914,33 @@ public class AdminPanel extends javax.swing.JFrame {
     private void moduleEditBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moduleEditBtnMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_moduleEditBtnMouseEntered
+    StudentReport sr;
+
+    private void studentReportBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentReportBtnMouseClicked
+
+        int selectedRow = studentsTable.getSelectedRow();
+
+        if (selectedRow != -1) {
+
+            String id = (String) studentsTable.getValueAt(selectedRow, 0);
+            String moduleName = (String) studentsTable.getValueAt(selectedRow, 1);
+            String moduleSemester = (String) studentsTable.getValueAt(selectedRow, 2);
+            String course = (String) studentsTable.getValueAt(selectedRow, 3);
+            String email = (String) studentsTable.getValueAt(selectedRow, 4);
+
+            String studentDetails[] = {id, moduleName, moduleSemester, course, email};
+
+            sr = new StudentReport(studentDetails);
+            sr.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No Rows Selected", "Generate Report", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_studentReportBtnMouseClicked
+
+    private void studentReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentReportBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_studentReportBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2992,6 +3037,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton studentDeleteBtn;
     private javax.swing.JButton studentEditBtn;
     private javax.swing.JButton studentReloadBtn;
+    private javax.swing.JButton studentReportBtn;
     private javax.swing.JTable studentsTable;
     private javax.swing.JPanel tab1;
     private javax.swing.JPanel tab2;
