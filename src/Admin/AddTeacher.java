@@ -26,7 +26,7 @@ public class AddTeacher extends javax.swing.JFrame {
         if (coursesList != null) {
             courseType.removeAllItems();
             for (String value : coursesList.values()) {
-                System.out.println(value);
+
                 courseType.addItem(value);
             }
         }

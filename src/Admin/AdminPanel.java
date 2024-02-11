@@ -32,7 +32,7 @@ import javax.swing.table.TableRowSorter;
 public class AdminPanel extends javax.swing.JFrame {
 
     EditProfile ep;
-    AddCourse ac = new AddCourse();
+
     private Admin ad;
     private Answer a;
     private final Contents contents = new Contents();
@@ -2534,7 +2534,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
     private void addCourseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCourseMouseClicked
         // TODO add your handling code here:
-
+        AddCourse ac = new AddCourse();
         ac.setVisible(true);
     }//GEN-LAST:event_addCourseMouseClicked
 
@@ -2687,9 +2687,10 @@ public class AdminPanel extends javax.swing.JFrame {
         RowFilter filterRow = RowFilter.regexFilter(searchTeachers.getText());
         obj1.setRowFilter(filterRow);
     }//GEN-LAST:event_searchTeachersKeyReleased
-    AddTeacher at = new AddTeacher();
+
     private void teacherAddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherAddBtnMouseClicked
         // TODO add your handling code here:
+        AddTeacher at = new AddTeacher();
         at.setVisible(true);
     }//GEN-LAST:event_teacherAddBtnMouseClicked
 
@@ -2819,9 +2820,9 @@ public class AdminPanel extends javax.swing.JFrame {
         RowFilter filterRow = RowFilter.regexFilter(searchModules.getText());
         obj1.setRowFilter(filterRow);
     }//GEN-LAST:event_searchModulesKeyReleased
-    AddModule am = new AddModule();
-    private void moduleAddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moduleAddBtnMouseClicked
 
+    private void moduleAddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moduleAddBtnMouseClicked
+        AddModule am = new AddModule();
         am.setVisible(true);
 
     }//GEN-LAST:event_moduleAddBtnMouseClicked
