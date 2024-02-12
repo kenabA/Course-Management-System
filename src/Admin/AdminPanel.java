@@ -4,19 +4,15 @@
  */
 package Admin;
 
-import static Admin.AdminAccount.ec;
-import Teacher.Assignment;
-import Teacher.GradeStudent;
-import cms.Backend.Account;
-import cms.Backend.HelperMethods;
-import static cms.Backend.HelperMethods.alignTableContents;
-import static cms.Backend.HelperMethods.setTableAppearance;
-import cms.Backend.Validation;
-import cms.Frontend.Contents;
-import cms.Frontend.EditProfile;
-import cms.Frontend.Login;
-import cms.Frontend.Person;
-import cms.Frontend.Student.Answer;
+import Backend.AdminAccount;
+
+import Backend.Account;
+import Backend.HelperMethods;
+import static Backend.HelperMethods.alignTableContents;
+import static Backend.HelperMethods.setTableAppearance;
+import Backend.Validation;
+import Frontend.Login;
+import Frontend.Person;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.net.URL;
@@ -31,14 +27,7 @@ import javax.swing.table.TableRowSorter;
 
 public class AdminPanel extends javax.swing.JFrame {
 
-    EditProfile ep;
-
-    private Admin ad;
-    private Answer a;
-    private final Contents contents = new Contents();
-    private Assignment assignment;
-    GradeStudent gs;
-    Person p;
+    private Person p;
 
     private static String username;
     private static int id;
@@ -215,6 +204,8 @@ public class AdminPanel extends javax.swing.JFrame {
         editCourseButton = new javax.swing.JButton();
         addCourse = new javax.swing.JButton();
         courseReloadBtn = new javax.swing.JButton();
+        tempDelCourseBtn = new javax.swing.JButton();
+        viewInactiveBtn = new javax.swing.JLabel();
         panelThird = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         tableScrollPanel2 = new javax.swing.JScrollPane();
@@ -1018,24 +1009,51 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
+        tempDelCourseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/tempDel.png"))); // NOI18N
+        tempDelCourseBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 98, 255), 1, true));
+        tempDelCourseBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tempDelCourseBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tempDelCourseBtnMouseClicked(evt);
+            }
+        });
+        tempDelCourseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tempDelCourseBtnActionPerformed(evt);
+            }
+        });
+
+        viewInactiveBtn.setForeground(new java.awt.Color(108, 99, 255));
+        viewInactiveBtn.setText("View Inactive Courses");
+        viewInactiveBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        viewInactiveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewInactiveBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(courseReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(deleteCourseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(editCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(addCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(viewInactiveBtn)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(tableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(courseReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)
+                            .addComponent(tempDelCourseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)
+                            .addComponent(deleteCourseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(editCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)
+                            .addComponent(addCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -1047,10 +1065,13 @@ public class AdminPanel extends javax.swing.JFrame {
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(courseReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(courseReloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tempDelCourseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(tableScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(viewInactiveBtn)
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout panelSecondLayout = new javax.swing.GroupLayout(panelSecond);
@@ -2524,7 +2545,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private void editCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCourseButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editCourseButtonActionPerformed
-
+    EditCourse ec;
     private void editCourseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editCourseButtonMouseClicked
         int selectedRow = coursesTable.getSelectedRow();
 
@@ -2942,6 +2963,31 @@ public class AdminPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_studentReportBtnActionPerformed
 
+    private void tempDelCourseBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tempDelCourseBtnMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = coursesTable.getSelectedRow();
+
+        if (selectedRow != -1) {
+            if (HelperMethods.showConfirmationDialog("Do you really want to delete this course temporarily? You can always release this back ")) {
+
+                String id = (String) coursesTable.getValueAt(selectedRow, 0);
+                AdminAccount.tempDeleteCourse(Integer.parseInt(id));
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No Rows Selected", "Delete Course Temporarily", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_tempDelCourseBtnMouseClicked
+
+    private void tempDelCourseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempDelCourseBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tempDelCourseBtnActionPerformed
+
+    private void viewInactiveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewInactiveBtnMouseClicked
+        ViewInactiveCourse vic = new ViewInactiveCourse();
+        vic.setVisible(true);
+    }//GEN-LAST:event_viewInactiveBtnMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable activityTable;
@@ -3064,6 +3110,8 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton teacherReloadBtn;
     private javax.swing.JTable teachersTable;
     private javax.swing.JPanel teachersTablePanel;
+    private javax.swing.JButton tempDelCourseBtn;
     private javax.swing.JLabel usertypeShow;
+    private javax.swing.JLabel viewInactiveBtn;
     // End of variables declaration//GEN-END:variables
 }

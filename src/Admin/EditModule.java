@@ -1,7 +1,9 @@
 package Admin;
 
-import cms.Backend.Account;
-import static cms.Backend.HelperMethods.showConfirmationDialog;
+import Backend.AdminValidation;
+import Backend.AdminAccount;
+import Backend.Account;
+import static Backend.HelperMethods.showConfirmationDialog;
 import java.util.Map;
 
 public class EditModule extends javax.swing.JFrame {
@@ -251,10 +253,11 @@ public class EditModule extends javax.swing.JFrame {
             String moduleName = moduleNameField.getText();
             int sem = semesterField.getValue();
             String teacherName = (String) teacherField.getSelectedItem();
-            System.out.println(teacherName);
+            
+            
             String credentials[] = {moduleName, id};
             int teacherId = findTeacherID(teacherName);
-            System.out.println(teacherId);
+            
 
             if (AdminValidation.validateDetails(credentials)) {
 

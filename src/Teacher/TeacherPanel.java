@@ -1,21 +1,19 @@
 package Teacher;
 
-import cms.Backend.Account;
-import cms.Backend.HelperMethods;
-import static cms.Backend.HelperMethods.alignTableContents;
-import static cms.Backend.HelperMethods.setTableAppearance;
-import static cms.Backend.HelperMethods.showConfirmationDialog;
-import cms.Backend.StudentAccount;
-import cms.Backend.TeacherAccount;
-import cms.Backend.Validation;
-import static cms.Backend.Validation.namingConvention;
-import cms.Frontend.Contents;
-import cms.Frontend.Login;
-import cms.Frontend.Person;
-import cms.Frontend.Student.Answer;
-import cms.Frontend.Student.Notification;
-import cms.Frontend.Student.StudentPanel;
-import cms.Frontend.StudentTeacher;
+import Backend.Account;
+import Backend.HelperMethods;
+import static Backend.HelperMethods.alignTableContents;
+import static Backend.HelperMethods.setTableAppearance;
+import static Backend.HelperMethods.showConfirmationDialog;
+import Backend.StudentAccount;
+import Backend.TeacherAccount;
+import Backend.Validation;
+import Frontend.SetContents;
+import Frontend.Login;
+import Frontend.Person;
+import Student.Answer;
+import Student.Notification;
+import Frontend.StudentTeacher;
 
 import java.awt.Color;
 import java.awt.Desktop;
@@ -37,10 +35,10 @@ import javax.swing.table.TableRowSorter;
 public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
 
     private Answer a;
-    private final Contents contents = new Contents();
+    private final SetContents contents = new SetContents();
     private Assignment assignment;
-    GradeStudent gs;
-    Person p;
+    private GradeStudent gs;
+    private Person p;
 
     private static String username;
     private static int id;
@@ -1295,8 +1293,8 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
         refreshBtn.setBackground(new java.awt.Color(250, 250, 250));
         refreshBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         refreshBtn.setForeground(new java.awt.Color(108, 99, 255));
+        refreshBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cms/Icons/refresh.png"))); // NOI18N
         refreshBtn.setMnemonic('[');
-        refreshBtn.setText("Refresh");
         refreshBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(108, 99, 255), 1, true));
         refreshBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         refreshBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -1549,11 +1547,12 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(590, 590, 590)
+                        .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addAssignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32))
         );
@@ -2304,8 +2303,7 @@ public class TeacherPanel extends javax.swing.JFrame implements StudentTeacher {
                     // UPDATING THE DATA INTO THE DATABASE
                     Account.updateProfile(details, id);
 
-                    
-                      // this.data gets initialized to the changed data
+                    // this.data gets initialized to the changed data
                     TeacherPanel.username = tempUsername;
                     TeacherPanel.email = tempEmail;
                     TeacherPanel.password = tempPassword;

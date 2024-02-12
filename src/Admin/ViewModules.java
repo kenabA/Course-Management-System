@@ -4,8 +4,9 @@
  */
 package Admin;
 
-import static cms.Backend.HelperMethods.alignTableContents;
-import static cms.Backend.HelperMethods.setTableAppearance;
+import Backend.AdminAccount;
+import static Backend.HelperMethods.alignTableContents;
+import static Backend.HelperMethods.setTableAppearance;
 import javax.swing.table.DefaultTableModel;
 
 public class ViewModules extends javax.swing.JFrame {

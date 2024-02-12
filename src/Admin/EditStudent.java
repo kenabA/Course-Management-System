@@ -4,8 +4,10 @@
  */
 package Admin;
 
-import cms.Backend.Account;
-import static cms.Backend.HelperMethods.showConfirmationDialog;
+import Backend.AdminValidation;
+import Backend.AdminAccount;
+import Backend.Account;
+import static Backend.HelperMethods.showConfirmationDialog;
 
 public class EditStudent extends javax.swing.JFrame {
 

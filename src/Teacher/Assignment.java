@@ -4,11 +4,10 @@
  */
 package Teacher;
 
-import cms.Backend.Account;
-import static cms.Backend.HelperMethods.showConfirmationDialog;
-import cms.Backend.StudentAccount;
-import cms.Backend.TeacherAccount;
-import cms.Backend.Validation;
+import Backend.Account;
+import static Backend.HelperMethods.showConfirmationDialog;
+import Backend.TeacherAccount;
+import Backend.Validation;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 

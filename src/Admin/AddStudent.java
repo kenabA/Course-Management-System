@@ -4,8 +4,8 @@
  */
 package Admin;
 
-import cms.Backend.Account;
-import cms.Backend.Validation;
+import Backend.Account;
+import Backend.Validation;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;

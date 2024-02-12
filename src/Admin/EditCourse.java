@@ -4,7 +4,9 @@
  */
 package Admin;
 
-import static cms.Backend.HelperMethods.showConfirmationDialog;
+import Backend.AdminValidation;
+import Backend.AdminAccount;
+import static Backend.HelperMethods.showConfirmationDialog;
 import javax.swing.JOptionPane;
 
 public class EditCourse extends javax.swing.JFrame {

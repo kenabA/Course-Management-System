@@ -4,11 +4,11 @@
  */
 package Teacher;
 
-import cms.Backend.Account;
-import cms.Backend.HelperMethods;
-import static cms.Backend.HelperMethods.showConfirmationDialog;
-import cms.Backend.TeacherAccount;
-import cms.Backend.Validation;
+import Backend.Account;
+import Backend.HelperMethods;
+import static Backend.HelperMethods.showConfirmationDialog;
+import Backend.TeacherAccount;
+import Backend.Validation;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -16,11 +16,11 @@ import javax.swing.JOptionPane;
 
 public class GradeStudent extends javax.swing.JFrame {
 
-    private int id;
-    private String name;
-    private String course;
+    private final int id;
+    private final String name;
+    private final String course;
     private static int semester;
-    private String email;
+    private final String email;
     private static ArrayList<String> modules;
 
     public GradeStudent(int id, String name, String semester, String course, String email) {
@@ -29,7 +29,7 @@ public class GradeStudent extends javax.swing.JFrame {
         this.id = id;
         this.name = name;
         this.course = course;
-        this.semester = Integer.parseInt(semester.substring(0, semester.length() - 2));
+        GradeStudent.semester = Integer.parseInt(semester.substring(0, semester.length() - 2));
         this.email = email;
 
         setFields();

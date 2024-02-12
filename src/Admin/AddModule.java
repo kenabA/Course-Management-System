@@ -1,7 +1,9 @@
 package Admin;
 
-import cms.Backend.Account;
-import static cms.Backend.HelperMethods.showConfirmationDialog;
+import Backend.AdminValidation;
+import Backend.AdminAccount;
+import Backend.Account;
+import static Backend.HelperMethods.showConfirmationDialog;
 import java.util.Map;
 import javax.swing.JOptionPane;
 

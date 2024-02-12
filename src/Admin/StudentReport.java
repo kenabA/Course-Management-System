@@ -5,8 +5,8 @@
 package Admin;
 
 import java.sql.ResultSet;
-import cms.Backend.Account;
-import cms.Backend.HelperMethods;
+import Backend.Account;
+import Backend.HelperMethods;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
