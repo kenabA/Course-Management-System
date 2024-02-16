@@ -44,6 +44,8 @@ public class StudentReport extends javax.swing.JFrame {
 
             }
 
+            System.out.println(count);
+
             if (count != 0) {
                 this.studentPercentage = grades / count;
                 this.studentPerformance = performance / count;
