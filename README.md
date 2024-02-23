@@ -99,7 +99,7 @@ A short preview on the project.
 
 ***Courses Section - Admin***
 
-<img width="537" alt="Screenshot 2024-02-23 at 07 40 48" src="https://github.com/kenabA/Course-Management-System/assets/119124177/e2a22e7f-30df-49b4-934d-91a8db445274">
+<img width="537" alt="Screenshot 2024-02-23 at 07 40 48" src="https://github.com/kenabA/Course-Management-System/assets/119124177/60e811d9-df5f-4405-a6fa-4fbd33ba85a3">
 </br>
 </br>
 
