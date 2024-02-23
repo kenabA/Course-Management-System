@@ -13,6 +13,7 @@ The Course Management System is an online platform designed to streamline the ma
 
 * Submit assignments: Upload assignments directly through the platform.
 
+
 ***2. Teacher Features***
 
 * Post announcements: Share important updates and information with students.
