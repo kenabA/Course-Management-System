@@ -58,7 +58,7 @@ A short preview on the project.
 
 ***Dashboard Section - Student***
 
-<img width="537" alt="Screenshot 2024-02-22 at 13 30 18" src="https://github.com/kenabA/Course-Management-System/assets/119124177/fcf038f8-b0fa-463f-b521-87fad8c44802">
+<img width="537" alt="Screenshot 2024-02-22 at 13 30 18" src="https://github.com/kenabA/Course-Management-System/assets/119124177/60825237-1ad1-484d-ac86-fe7cff3e8a45">
 </br>
 </br>
 
