@@ -62,7 +62,7 @@ A short preview on the project.
 
 ***Grades Section - Student***
 
-<img width="537" alt="Screenshot 2024-02-22 at 13 20 52" src="https://github.com/kenabA/Course-Management-System/assets/119124177/474d9275-de7c-46d6-bf85-844e1293c398">
+<img width="537" alt="Screenshot 2024-02-22 at 13 20 52" src="https://github.com/kenabA/Course-Management-System/assets/119124177/feecd2f1-547f-4a4f-8f3a-db370fb181e6">
 </br>
 
 ***Assignments Section - Student***
