@@ -105,7 +105,7 @@ A short preview on the project.
 
 ***Report Generation - Admin***
 
-<img height="520" alt="Screenshot 2024-02-23 at 07 50 53" src="https://github.com/kenabA/Course-Management-System/assets/119124177/c2ac19ed-2db9-445c-bf43-343093935b8d">
+<img height="520" alt="Screenshot 2024-02-23 at 07 50 53" src="https://github.com/kenabA/Course-Management-System/assets/119124177/cd200917-eb12-4f7c-8a6a-c80643377135">
 </br>
 </br>
 
