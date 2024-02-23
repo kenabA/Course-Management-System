@@ -58,51 +58,46 @@ A short preview on the project.
 ***Dashboard Section - Student***
 
 <img width="537" alt="Screenshot 2024-02-22 at 13 30 18" src="https://github.com/kenabA/Course-Management-System/assets/119124177/60825237-1ad1-484d-ac86-fe7cff3e8a45">
+</br>
 
 ***Grades Section - Student***
 
 <img width="537" alt="Screenshot 2024-02-22 at 13 20 52" src="https://github.com/kenabA/Course-Management-System/assets/119124177/474d9275-de7c-46d6-bf85-844e1293c398">
+</br>
 
 ***Assignments Section - Student***
 
 <img width="537" alt="Screenshot 2024-02-22 at 13 31 42" src="https://github.com/kenabA/Course-Management-System/assets/119124177/13e1f075-26f3-427b-a77e-ac10ddd4db9d">
-</br>
 </br>
 
 ***Dashboard Section - Teacher***
 
 <img width="537" alt="Screenshot 2024-02-22 at 13 30 18" src="https://github.com/kenabA/Course-Management-System/assets/119124177/fcf038f8-b0fa-463f-b521-87fad8c44802">
 </br>
-</br>
 
 ***Students Section - Teacher***
 
 <img width="537" alt="Screenshot 2024-02-22 at 13 15 04" src="https://github.com/kenabA/Course-Management-System/assets/119124177/fc69e030-15ba-4bd9-b109-36db59b15bab">
-</br>
 </br>
 
 ***Assignments Section - Teacher***
 
 <img width="635" alt="Screenshot 2024-02-22 at 15 41 55" src="https://github.com/kenabA/Course-Management-System/assets/119124177/6b49d992-753c-449b-b4dc-881e357283ee">
 </br>
-</br>
 
 ***Dashboard Section - Admin***
 
 <img width="537" alt="Screenshot 2024-02-22 at 15 49 21" src="https://github.com/kenabA/Course-Management-System/assets/119124177/0a3753fc-097f-456c-addd-66c578e2089e">
-</br>
 </br>
 
 ***Courses Section - Admin***
 
 <img width="537" alt="Screenshot 2024-02-23 at 07 40 48" src="https://github.com/kenabA/Course-Management-System/assets/119124177/60e811d9-df5f-4405-a6fa-4fbd33ba85a3">
 </br>
-</br>
 
 ***Report Generation - Admin***
 
 <img height="520" alt="Screenshot 2024-02-23 at 07 50 53" src="https://github.com/kenabA/Course-Management-System/assets/119124177/cd200917-eb12-4f7c-8a6a-c80643377135">
-</br>
 </br>
 
 # Conclusion
