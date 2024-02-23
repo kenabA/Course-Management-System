@@ -67,12 +67,12 @@ A short preview on the project.
 
 ***Assignments Section - Student***
 
-<img width="537" alt="Screenshot 2024-02-22 at 13 31 42" src="https://github.com/kenabA/Course-Management-System/assets/119124177/13e1f075-26f3-427b-a77e-ac10ddd4db9d">
+<img width="537" alt="Screenshot 2024-02-22 at 13 31 42" src="https://github.com/kenabA/Course-Management-System/assets/119124177/eba24c7b-e959-4b4c-90b8-d06a533c9a67">
 </br>
 
 ***Dashboard Section - Teacher***
 
-<img width="537" alt="Screenshot 2024-02-22 at 13 30 18" src="https://github.com/kenabA/Course-Management-System/assets/119124177/fcf038f8-b0fa-463f-b521-87fad8c44802">
+<img width="537" alt="Screenshot 2024-02-22 at 13 30 18" src="https://github.com/kenabA/Course-Management-System/assets/119124177/c4c83419-b24f-4e07-98e7-dbe9c1a922da">
 </br>
 
 ***Students Section - Teacher***
