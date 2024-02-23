@@ -50,7 +50,6 @@ The Course Management System is an online platform designed to streamline the ma
 A short preview on the project.
 
 ***Login Panel***
-
 <img width="500" alt="Screenshot 2024-02-22 at 11 04 01" src="https://github.com/kenabA/Course-Management-System/assets/119124177/4fab2c7d-6b65-4061-ab12-a135bc21f10c">
 </br>
 </br>
