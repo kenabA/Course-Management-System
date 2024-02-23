@@ -16,9 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
-public class StudentAccount extends CreateConnection {
+public class StudentAccount extends CreateConnection implements StudentTeacherUtils {
 
-//    public static JTable table;
     private static String lastLoggedInTime;
 
     // ------------- STUDENT COUNT : USING COURSE -------------

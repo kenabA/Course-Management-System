@@ -12,26 +12,28 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Admin/ViewModules.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/AdminValidation.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Teacher/TeacherPanel.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Frontend/StudentTeacher.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/Validation.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Student/Notification.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/Con.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Frontend/Login.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Admin/AdminPanel.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Admin/ViewInactiveCourse.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Frontend/Person.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/StudentTeacherUtils.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/HelperMethods.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/Account.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/DatabaseManager.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Admin/AddModule.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Teacher/Assignment.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Admin/StudentReport.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/StudentAccount.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Student/Answer.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Frontend/GradeCellRenderer.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Student/Answer.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Student/StudentPanel.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Admin/EditCourse.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Admin/EditModule.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Admin/AddTeacher.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Frontend/SetContents.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/AdminAccount.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/TeacherAccount.java</file>
+            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Frontend/SetContents.java</file>
             <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Backend/CreateConnection.java</file>
-            <file>file:/Users/kenabkc/Desktop/NetBeansProjects/CMS/src/Frontend/Cms.java</file>
         </group>
     </open-files>
 </project-private>
